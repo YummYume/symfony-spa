@@ -303,6 +303,9 @@
     "symfony/ux-lazy-image": {
         "version": "v2.7.1"
     },
+    "symfony/ux-turbo": {
+        "version": "v2.7.1"
+    },
     "symfony/validator": {
         "version": "6.2",
         "recipe": {

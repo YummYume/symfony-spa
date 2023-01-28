@@ -41,19 +41,20 @@ services:
       retries: 30
 
   encore:
-    image: node:lts-alpine3.17
+    build:
+      context: .
+      dockerfile: docker/dev/encore/Dockerfile
+    restart: unless-stopped
     volumes:
-      - "./:/app"
+      - ./:/app
+      - ./docker/dev/encore/logs/supervisor:/var/log/supervisor
+      - ./docker/dev/encore/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
     ports:
       - 9090:9090
-    working_dir: /app
+    depends_on:
+      php:
+        condition: service_started
     container_name: encore
-    command:
-      [
-        "/bin/sh",
-        "-c",
-        "yarn install && yarn dev-server --hot --port 9090 --host 0.0.0.0"
-      ]
 
   db:
     image: mariadb:10.10.2

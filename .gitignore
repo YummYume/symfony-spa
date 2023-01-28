@@ -23,9 +23,10 @@
 !/docker/.gitkeep
 docker-compose.override.yml
 
-### Nginx ###
-/docker/dev/nginx/logs/*
-!/docker/dev/nginx/logs/.gitkeep
+### Docker logs ###
+/docker/dev/**/logs/*
+!/docker/dev/**/logs/.gitkeep
+### Docker logs ###
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
