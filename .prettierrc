@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "files": "*.(json|eslintrc|prettierrc)",
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ],
+  "pluginSearchDirs": ["."],
+  "printWidth": 150,
+  "quoteProps": "consistent",
+  "singleQuote": true,
+  "tabWidth": 4,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "twigSingleQuote": false,
+  "twigPrintWidth": 200,
+  "twigAlwaysBreakObjects": false,
+  "twigFollowOfficialCodingStandards": true,
+  "twigOutputEndblockName": false,
+  "plugins": ["prettier-plugin-twig-melody", "prettier-plugin-tailwindcss"]
+}

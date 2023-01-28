@@ -1,0 +1,136 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["airbnb-base", "eslint:recommended"],
+  "ignorePatterns": ["**/node_modules/*"],
+  "overrides": [
+    {
+      "extends": [
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
+      "files": ["*.ts", "*.tsx", "*.vue", "*.svelte"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      },
+      "rules": {
+        "@typescript-eslint/indent": ["error", 2],
+        "@typescript-eslint/no-explicit-any": ["warn"],
+        "@typescript-eslint/no-extra-semi": ["error"],
+        "@typescript-eslint/no-unnecessary-condition": ["error"],
+        "@typescript-eslint/no-unnecessary-type-arguments": ["error"],
+        "@typescript-eslint/no-unnecessary-type-assertion": ["error"],
+        "@typescript-eslint/no-unnecessary-type-constraint": ["error"],
+        "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/space-infix-ops": ["error"],
+        "@typescript-eslint/unbound-method": ["off"],
+        "indent": "off"
+      }
+    }
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "rules": {
+    "arrow-body-style": ["off"],
+    "class-methods-use-this": ["off"],
+    "global-require": ["off"],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "svelte": "never",
+        "ts": "never",
+        "tsx": "never",
+        "vue": "never"
+      }
+    ],
+    "import/first": ["error"],
+    "import/newline-after-import": [
+      "error",
+      {
+        "count": 1
+      }
+    ],
+    "import/no-absolute-path": ["error"],
+    "import/no-duplicates": [
+      "error",
+      {
+        "considerQueryString": true
+      }
+    ],
+    "import/no-relative-packages": ["error"],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["\\.scss$", "\\.html\\?raw$"]
+      }
+    ],
+    "import/no-useless-path-segments": [
+      "error",
+      {
+        "noUselessIndex": true
+      }
+    ],
+    "import/no-webpack-loader-syntax": ["off"],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "caseInsensitive": false,
+          "order": "asc"
+        },
+        "groups": ["external", "builtin", "internal", "sibling", "parent", "index", "object", "type"],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "group": "internal",
+            "pattern": "$(src|component|server|store)/*"
+          },
+          {
+            "group": "type",
+            "pattern": "$type/*"
+          }
+        ]
+      }
+    ],
+    "import/prefer-default-export": ["off"],
+    "indent": ["error", 2],
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "no-underscore-dangle": ["error"],
+    "no-var": ["error"],
+    "quotes": ["error", "single"],
+    "spaced-comment": ["error"]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx", ".js"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "tsconfig.json"
+      }
+    }
+  }
+}

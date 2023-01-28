@@ -1,0 +1,26 @@
+# Folders
+vendor/
+node_modules/
+docker/
+public/
+scripts/
+var/
+.DS_Store/
+.vscode/
+
+# Ignore every file you're not supposed to format
+*.js
+*.ts
+*.cjs
+*.php
+*.lock
+!.eslintrc
+.env
+.env.*
+docker-compose.yml
+docker-compose.override.yml
+
+# Ignore files for PNPM, NPM and YARN
+pnpm-lock.yaml
+package-lock.json
+yarn.lock

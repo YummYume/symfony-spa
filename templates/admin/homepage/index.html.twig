@@ -1,0 +1,13 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block body %}
+    <h1>
+        SUPER SECURE PAGE
+    </h1>
+
+    <a class="btn" href="{{ path("security_logout") }}">Logout</a>
+{% endblock %}

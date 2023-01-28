@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": false,
+    "checkJs": false,
+    "outDir": "/public/build/",
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "strictFunctionTypes": false,
+    "removeComments": false,
+    "paths": {
+      "$assets/*": ["assets/*"],
+      "$types/*": ["assets/types/*"],
+      "$utils/*": ["assets/utils/*"],
+      "$app/*": ["assets/js/app/*"],
+      "$admin/*": ["assets/js/admin/*"],
+      "$styles/*": ["assets/styles/*"]
+    }
+  },
+  "include": ["./assets/**/*", "./node_modules/tinymce/**/*", "./vendor/mw/**/*"],
+  "exclude": ["./public/build/**/*", "./public/bundles/**/*", "./webpack.config.js"]
+}

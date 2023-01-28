@@ -1,0 +1,10 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+
+when@dev:
+    twig:
+        auto_reload: true
+
+when@test:
+    twig:
+        strict_variables: true

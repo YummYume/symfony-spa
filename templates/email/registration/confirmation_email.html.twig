@@ -1,0 +1,14 @@
+{% extends "email/layout.html.twig" %}
+
+{% block title %}
+    Hi! Please confirm your email!
+{% endblock %}
+
+{% block main %}
+    Please confirm your email address by clicking the following link: <br /><br />
+    <a href="{{ signedUrl|sanitize_html }}">Confirm my Email</a>. This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, "VerifyEmailBundle") }}.
+{% endblock %}
+
+{% block bottom_text %}
+    Cheers!
+{% endblock %}

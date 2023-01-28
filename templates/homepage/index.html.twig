@@ -1,0 +1,20 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block body %}
+    <h1>
+        Homepage
+    </h1>
+    {% if app.user %}
+        <a class="btn" href="{{ path("admin_homepage") }}">Admin</a>
+        <span>OR</span>
+        <a class="btn" href="{{ path("security_logout") }}">Logout</a>
+    {% else %}
+        <a class="btn" href="{{ path("security_login") }}">Login</a>
+        <span>OR</span>
+        <a class="btn" href="{{ path("app_register") }}">Register</a>
+    {% endif %}
+{% endblock %}

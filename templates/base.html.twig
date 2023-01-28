@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale ?? app.request.defaultLocale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            {% block title %}
+                Welcome!
+            {% endblock %}
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% block icon %}
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>" />
+        {% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags("app") }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags("app") }}
+        {% endblock %}
+    </head>
+    <body>
+        {% for type in app.flashes %}
+            {% for message in type %}
+                <div {{ stimulus_controller("notification") }}
+                    data-notification-delay-value="5000"
+                    data-transition-enter-from="opacity-0 translate-x-6"
+                    data-transition-enter-to="opacity-100 translate-x-0"
+                    data-transition-leave-from="opacity-100 translate-x-0"
+                    data-transition-leave-to="opacity-0 translate-x-6"
+                    class="alert fixed hidden transform shadow-lg transition duration-1000">
+                    {# TODO display different icon and background depending on notification type #}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 flex-shrink-0 stroke-info">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p>
+                        {{ message }}
+                    </p>
+                    <div class="flex-none">
+                        <button data-action="notification#hide" class="btn-outline btn-circle btn" aria-label="{{ "common.close"|trans }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% block body %}
+
+        {% endblock %}
+    </body>
+</html>
