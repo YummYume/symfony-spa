@@ -6,6 +6,8 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 
 COPY . /app/
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY ./docker/ci/php/overrides.ini /usr/local/etc/php/conf.d/overrides.ini
+COPY ./docker/ci/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN apk add --no-cache --update \
     icu-dev supervisor && \

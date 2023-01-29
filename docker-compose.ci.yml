@@ -2,12 +2,12 @@ version: '3.3'
 
 services:
   nginx:
-    image: nginx:stable
+    build:
+      context: .
+      dockerfile: docker/ci/nginx/Dockerfile
     restart: unless-stopped
     ports:
       - 80:80
-    volumes:
-      - ./public:/app/public
     depends_on:
       php:
         condition: service_healthy
@@ -19,9 +19,6 @@ services:
       dockerfile: docker/ci/php/Dockerfile
     restart: unless-stopped
     stdin_open: true
-    volumes:
-      - ./docker/ci/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
-      - ./docker/ci/php/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
     container_name: php
     depends_on:
       db:
