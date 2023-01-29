@@ -16,6 +16,7 @@ There are 2 ways of contributing: reporting a bug or proposing a feature, and ma
     - [Prerequisites](#prerequisites)
     - [Launch the project locally](#launch-the-project-locally)
     - [What do I need to check before making a PR?](#what-do-i-need-to-check-before-making-a-pr)
+    - [Available services](#available-services)
     - [Make commands](#make-commands)
     - [Environment files](#environment-files)
     - [The database](#the-database)
@@ -51,14 +52,14 @@ Everything you need to know to use this project and contribute to it is written 
 
 ### Launch the project locally
 
+> **Warning**  
+> Docker is required
+
 - Fork or clone the project with `git@github.com:YummYume/symfony-spa.git` _OR_ `git@github.com:your-username/symfony-spa.git` if you forked the project.
 - Create your own branch from `develop` or any branch other than `master` (eg: `feature/my-feature`).
 - Launch the project using `make start` if you have Make installed, or `docker compose build && docker compose up -d` otherwise (you may need additional steps to have the project working, check what's inside the Makefile).
 - Go to `http://localhost` to access the app.
 - From there, you can add your own code and tests in the appropriate folders.
-
-> **Warning**  
-> Docker is required
 
 ### What do I need to check before making a PR?
 
@@ -71,6 +72,23 @@ Make sure of the following :
 - The linter does not fail (or at least not because of your PR).
 - You avoided the usage of an external dependency (only use one if you need to).
 
+### Available services
+
+List of all the available services (and how to access them).
+
+| Service           | Description                                                                                                                  | Access                                                          |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `nginx`           | Serves as a proxy for the Symfony app. Also serves static files inside the `public` folder.                                  | [localhost:80](http://localhost:80)                             |
+| `php`             | The service running PHP and serving the Symfony app.                                                                         |                                                                 |
+| `encore`          | Serves assets files directly by using the encore webpack dev server. Also allows hot reloading. Is only used in development. | [localhost:9090](http://localhost:9090)                         |
+| `db`              | Service for MariaDB, used by the app.                                                                                        |                                                                 |
+| `phpmyadmin`      | GUI to access and interact with the `db` service easily. Is only used in development.                                        | [localhost:8080](http://localhost:8080)                         |
+| `mailcatcher`     | Serves as a SMTP to catch emails sent during development. Is only used in development.                                       | [localhost:1080](http://localhost:1080)                         |
+| `rabbitmq`        | Service used to queue and execute asynchronously processes in the Symfony app, such as sending emails.                       | [localhost:15672](http://localhost:15672)                       |
+| `redis`           | The Redis database service, used mainly for caching purposes, and for Symfony sessions.                                      |                                                                 |
+| `redis-commander` | GUI to access and interact with the `redis` service easily. Is only used in development.                                     | [localhost:8081](http://localhost:8081)                         |
+| `mercure`         | The Mercure server, used for real-time communication.                                                                        | [localhost:3000](http://localhost:3000/.well-known/mercure/ui/) |
+
 ### Make commands
 
 List of the available make commands.
@@ -78,7 +96,6 @@ List of the available make commands.
 | Command            | Description                                                                                                                                 |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `start`            | Builds the containers and starts them. Also installs composer dependencies and resets your db.                                              |
-| `start-ci`         | Starts the containers to run for the CI. You should never need to run this command.                                                         |
 | `build`            | Builds the containers.                                                                                                                      |
 | `build-no-cache`   | Builds the containers without cache.                                                                                                        |
 | `up`               | Starts the stopped containers.                                                                                                              |
@@ -107,6 +124,7 @@ List of the available make commands.
 | `logs`             | Shows logs of all the running containers.                                                                                                   |
 | `logs-php`         | Shows logs for the `php` container.                                                                                                         |
 | `logs-encore`      | Shows logs for the `encore` container.                                                                                                      |
+| `cc`               | Clears the Symfony cache.                                                                                                                   |
 | `lint`             | Runs `php-cs-fixer`, `eslint` and `prettier`.                                                                                               |
 | `php-cs-fixer`     | Runs `php-cs-fixer` in the `php` container without fixing.                                                                                  |
 | `eslint`           | Runs `eslint` in the `encore` container without fixing.                                                                                     |
@@ -117,6 +135,7 @@ List of the available make commands.
 | `prettier-fix`     | Runs `prettier` in the `php` container.                                                                                                     |
 | `test`             | Runs tests in the `php` container.                                                                                                          |
 | `test-create`      | Creates a new test.                                                                                                                         |
+| `start-ci`         | Starts the containers to run for the CI. You should never need to run this command.                                                         |
 
 ### Environment files
 
@@ -136,7 +155,7 @@ Assuming you did not change the credentials in the root `.env` file :
 
 You can then access the current database named `app`. Another table called `app_test` can also appear after running tests.
 
-> **Note**
+> **Note**  
 > The database is kept on your host in a `data` folder at the root of the project.
 
 ### IDEs
@@ -153,10 +172,14 @@ Of course, it will require some VSCode extensions to work properly :
 
 - [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) for Dockerfile and docker-compose files support,
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for formatting generic and template files (twig, JSON, SCSS, etc...),
-- [PHP-CS-fixer](https://marketplace.visualstudio.com/items?itemName=junstyle.php-cs-fixer) for PHP files linting,
+- [PHP-CS-Fixer](https://marketplace.visualstudio.com/items?itemName=junstyle.php-cs-fixer) for PHP files linting,
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for Typescript and Svelte files linting.
 
 That should be all you need.
+
+> **Note**  
+> For the PHP-CS-Fixer extension, you will need to change the value for `php-cs-fixer.executablePath` and add the absolute path to the project on your disk.  
+> You can adjust the other settings however you want.
 
 ### Additional documentation
 

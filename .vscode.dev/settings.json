@@ -1,0 +1,61 @@
+{
+  "[php]": {
+    "editor.defaultFormatter": "junstyle.php-cs-fixer"
+  },
+  "[dockercompose]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "off",
+    "editor.wordWrapColumn": 300,
+    "files.trimTrailingWhitespace": false
+  },
+  "[sass]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 4
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "files.associations": {
+    "*.conf": "nginx",
+    "*.css": "css",
+    "*.html": "html",
+    "*.twig": "html"
+  },
+  "html.validate.scripts": false,
+  "html.validate.styles": false,
+  "php-cs-fixer.executablePath": "{ABSOLUTE_PATH_TO_PROJECT}/vendor/bin/php-cs-fixer",
+  "php-cs-fixer.allowRisky": true,
+  "php-cs-fixer.rules": "@PER",
+  "php.validate.run": "onType",
+  "php-cs-fixer.autoFixByBracket": false,
+  "eslint.packageManager": "yarn",
+  "eslint.probe": ["javascript", "typescript", "html", "markdown"],
+  "prettier.requireConfig": true
+}

@@ -69,8 +69,6 @@ services:
     container_name: redis
     volumes:
       - ./data/cache/redis:/data
-    ports:
-      - 6379:6379
 
   mercure:
     image: dunglas/mercure

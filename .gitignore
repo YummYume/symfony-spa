@@ -26,6 +26,7 @@ docker-compose.prod.yml
 ###< Docker prod ###
 
 ###> Docker logs ###
+*.log
 /docker/dev/**/logs/*
 !/docker/dev/**/logs/.gitkeep
 ###< Docker logs ###
