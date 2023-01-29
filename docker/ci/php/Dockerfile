@@ -12,10 +12,8 @@ COPY ./docker/ci/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN apk add --no-cache --update \
     icu-dev supervisor yarn && \
     chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions amqp intl pdo_mysql redis && \
+    install-php-extensions amqp intl pdo_mysql redis gd && \
     composer install && \
-    yarn install && \
-    bin/console assets:install && \
-    yarn dev
+    yarn install
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

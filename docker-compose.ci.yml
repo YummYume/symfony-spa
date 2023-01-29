@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: docker/ci/nginx/Dockerfile
     restart: unless-stopped
+    volumes:
+      - ./public:/app/public
     ports:
       - 80:80
     depends_on:
@@ -20,6 +22,8 @@ services:
     restart: unless-stopped
     stdin_open: true
     container_name: php
+    volumes:
+      - ./public:/app/public
     depends_on:
       db:
         condition: service_healthy

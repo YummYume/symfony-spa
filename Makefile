@@ -14,12 +14,6 @@ endif
 # Starting/stopping the project
 start: build-no-cache up-recreate composer db perm
 
-start-ci:
-	$(COMPOSECI) rm -f
-	$(COMPOSECI) build --no-cache --force-rm
-	$(COMPOSECI) up -d
-	make db-test
-
 build:
 	$(COMPOSE) build --force-rm
 
@@ -90,10 +84,10 @@ fixtures:
 	$(EXECPHP) php bin/console d:f:l -n
 
 db-test:
-	$(EXECPHP) php bin/console --env=test d:d:d --if-exists --force
-	$(EXECPHP) php bin/console --env=test d:d:c --if-not-exists
-	$(EXECPHP) php bin/console --env=test d:m:m -n --allow-no-migration --all-or-nothing
-	$(EXECPHP) php bin/console --env=test d:f:l -n
+	$(COMPOSECI) exec php php bin/console --env=test d:d:d --if-exists --force
+	$(COMPOSECI) exec php php bin/console --env=test d:d:c --if-not-exists
+	$(COMPOSECI) exec php php bin/console --env=test d:m:m -n --allow-no-migration --all-or-nothing
+	$(COMPOSECI) exec php php bin/console --env=test d:f:l -n
 
 # Services
 rabbitmq-consume:
@@ -118,6 +112,11 @@ logs-php:
 
 logs-encore:
 	$(COMPOSE) logs encore
+
+# Cache
+cc:
+	$(EXECPHP) bin/console c:cl --no-warmup
+	$(EXECPHP) bin/console c:warmup
 
 # Linting
 lint: php-cs-fixer eslint prettier
@@ -149,3 +148,12 @@ test:
 
 test-create:
 	$(EXECPHP) php bin/console make:test
+
+# CI
+start-ci:
+	$(COMPOSECI) rm -f
+	$(COMPOSECI) build --no-cache --force-rm
+	$(COMPOSECI) up -d
+	$(COMPOSECI) exec php php bin/console --env=test assets:install
+	$(COMPOSECI) exec php yarn dev
+	make db-test

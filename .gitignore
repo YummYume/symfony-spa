@@ -18,15 +18,17 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-### Docker prod ###
+###> Docker prod ###
 /docker/prod/*
 !/docker/.gitkeep
 docker-compose.override.yml
+docker-compose.prod.yml
+###< Docker prod ###
 
-### Docker logs ###
+###> Docker logs ###
 /docker/dev/**/logs/*
 !/docker/dev/**/logs/.gitkeep
-### Docker logs ###
+###< Docker logs ###
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
@@ -35,16 +37,18 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-### DB ###
+###> DB ###
 data/*
 !data/.gitkeep
+###< DB ###
 
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 
-### IDE ###
+###> IDE ###
 .vscode
+###< IDE ###
 
 ###> liip/imagine-bundle ###
 /public/media/cache/
