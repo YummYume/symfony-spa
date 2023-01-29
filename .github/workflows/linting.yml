@@ -1,0 +1,40 @@
+name: Code linting
+
+on: [pull_request]
+
+jobs:
+    php-cs-fixer:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Start the containers
+              run: make start-ci
+
+            - name: Run PHP-CS-Fixer
+              run: make php-cs-fixer
+
+    eslint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Start the containers
+              run: make start-ci
+
+            - name: Run ESLint
+              run: make eslint
+
+    prettier:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Start the containers
+              run: make start-ci
+
+            - name: Run Prettier
+              run: make prettier

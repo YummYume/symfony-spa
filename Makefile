@@ -1,4 +1,5 @@
 COMPOSE=docker compose
+COMPOSECI=$(COMPOSE) -f docker-compose.ci.yml
 EXECPHP=$(COMPOSE) exec php
 EXECENCORE=$(COMPOSE) exec encore
 EXECREDIS=$(COMPOSE) exec redis
@@ -12,6 +13,12 @@ endif
 
 # Starting/stopping the project
 start: build-no-cache up-recreate composer db perm
+
+start-ci:
+	$(COMPOSECI) rm -f
+	$(COMPOSECI) build --no-cache --force-rm
+	$(COMPOSECI) up -d
+	make db-test
 
 build:
 	$(COMPOSE) build --force-rm
@@ -82,6 +89,12 @@ migration-diff:
 fixtures:
 	$(EXECPHP) php bin/console d:f:l -n
 
+db-test:
+	$(EXECPHP) php bin/console --env=test d:d:d --if-exists --force
+	$(EXECPHP) php bin/console --env=test d:d:c --if-not-exists
+	$(EXECPHP) php bin/console --env=test d:m:m -n --allow-no-migration --all-or-nothing
+	$(EXECPHP) php bin/console --env=test d:f:l -n
+
 # Services
 rabbitmq-consume:
 	$(EXECPHP) php bin/console messenger:consume -vv
@@ -129,3 +142,10 @@ eslint-fix:
 
 prettier-fix:
 	$(EXECENCORE) yarn prettier --write
+
+# Testing
+test:
+	$(EXECPHP) php bin/phpunit
+
+test-create:
+	$(EXECPHP) php bin/console make:test

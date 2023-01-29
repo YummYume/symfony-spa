@@ -1,0 +1,101 @@
+version: '3.3'
+
+services:
+  nginx:
+    image: nginx:stable
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./public:/app/public
+    depends_on:
+      php:
+        condition: service_healthy
+    container_name: nginx
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/ci/php/Dockerfile
+    restart: unless-stopped
+    stdin_open: true
+    volumes:
+      - ./docker/ci/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
+      - ./docker/ci/php/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+    container_name: php
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+      redis:
+        condition: service_started
+    healthcheck:
+      test: [ "CMD", "php", "-v" ]
+      timeout: 30s
+      interval: 2s
+      retries: 30
+
+  encore:
+    build:
+      context: .
+      dockerfile: docker/ci/encore/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./docker/ci/encore/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+    ports:
+      - 9090:9090
+    depends_on:
+      php:
+        condition: service_started
+    container_name: encore
+
+  db:
+    image: mariadb:10.10.2
+    restart: unless-stopped
+    container_name: db
+    environment:
+      MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD:?err}"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 30s
+      interval: 2s
+      retries: 30
+
+  mailcatcher:
+    image: schickling/mailcatcher:latest
+    ports:
+      - "1080:1080"
+    container_name: mailcatcher
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    container_name: rabbitmq
+    ports:
+      - 15672:15672
+
+  redis:
+    image: redis:7.0-alpine
+    restart: unless-stopped
+    command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_AUTH:?err}"
+    container_name: redis
+    volumes:
+      - ./data/cache/redis:/data
+    ports:
+      - 6379:6379
+
+  mercure:
+    image: dunglas/mercure
+    restart: unless-stopped
+    environment:
+      # Uncomment the following line to disable HTTPS
+      SERVER_NAME: ':80'
+      MERCURE_PUBLISHER_JWT_KEY: "${MERCURE_JWT_SECRET:?err}"
+      MERCURE_SUBSCRIBER_JWT_KEY: '${MERCURE_JWT_SECRET:?err}'
+    # Uncomment the following line to enable the development mode
+    command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev
+    container_name: mercure
+    ports:
+      - "3000:80"
+      # - "443:443"

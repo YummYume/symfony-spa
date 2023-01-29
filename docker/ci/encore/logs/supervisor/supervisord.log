@@ -1,0 +1,4 @@
+2023-01-28 18:01:03,610 INFO Set uid to user 0 succeeded
+2023-01-28 18:01:03,612 INFO supervisord started with pid 1
+2023-01-28 18:01:04,615 INFO spawned: 'encore' with pid 8
+2023-01-28 18:01:05,767 INFO success: encore entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
