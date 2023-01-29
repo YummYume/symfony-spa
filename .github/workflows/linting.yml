@@ -13,7 +13,7 @@ jobs:
               run: make start-ci
 
             - name: Run PHP-CS-Fixer
-              run: make php-cs-fixer
+              run: docker compose -f docker-compose.ci.yml exec php sh -c "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix src -v --dry-run"
 
     eslint:
         runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
               run: make start-ci
 
             - name: Run ESLint
-              run: make eslint
+              run: docker compose -f docker-compose.ci.yml exec php yarn lint
 
     prettier:
         runs-on: ubuntu-latest
@@ -37,4 +37,4 @@ jobs:
               run: make start-ci
 
             - name: Run Prettier
-              run: make prettier
+              run:docker compose -f docker-compose.ci.yml exec php yarn prettier -c

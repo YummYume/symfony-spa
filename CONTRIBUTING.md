@@ -107,10 +107,10 @@ List of the available make commands.
 | `logs`             | Shows logs of all the running containers.                                                                                                   |
 | `logs-php`         | Shows logs for the `php` container.                                                                                                         |
 | `logs-encore`      | Shows logs for the `encore` container.                                                                                                      |
-| `lint`             | Runs `php-cs-fixer`, `eslint` and `prettier`. Used for CI.                                                                                  |
-| `php-cs-fixer`     | Runs `php-cs-fixer` in the `php` container without fixing. Used for CI.                                                                     |
-| `eslint`           | Runs `eslint` in the `encore` container without fixing. Used for CI.                                                                        |
-| `prettier`         | Runs `prettier` in the `php` container without fixing. Used for CI.                                                                         |
+| `lint`             | Runs `php-cs-fixer`, `eslint` and `prettier`.                                                                                               |
+| `php-cs-fixer`     | Runs `php-cs-fixer` in the `php` container without fixing.                                                                                  |
+| `eslint`           | Runs `eslint` in the `encore` container without fixing.                                                                                     |
+| `prettier`         | Runs `prettier` in the `php` container without fixing.                                                                                      |
 | `fix`              | Runs `php-cs-fixer-fix`, `eslint-fix` and `prettier-fix`.                                                                                   |
 | `php-cs-fixer-fix` | Runs `php-cs-fixer` in the `php` container.                                                                                                 |
 | `eslint-fix`       | Runs `eslint` in the `encore` container.                                                                                                    |
