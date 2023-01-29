@@ -7,7 +7,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN apk add --no-cache --update \
     icu-dev supervisor && \
     chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions amqp intl pdo_mysql redis
+    install-php-extensions amqp intl pdo_mysql redis gmagick
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

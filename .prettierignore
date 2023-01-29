@@ -18,6 +18,7 @@ var/
 .env
 .env.*
 docker-compose.yml
+docker-compose.*.yml
 docker-compose.override.yml
 
 # Ignore files for PNPM, NPM and YARN

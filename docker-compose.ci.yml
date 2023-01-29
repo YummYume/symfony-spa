@@ -2,14 +2,14 @@ version: '3.3'
 
 services:
   nginx:
-    image: nginx:stable
+    build:
+      context: .
+      dockerfile: docker/ci/nginx/Dockerfile
     restart: unless-stopped
-    ports:
-      - 80:80
     volumes:
       - ./public:/app/public
-      - ./docker/dev/nginx/logs:/var/log/nginx
-      - ./docker/dev/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
     depends_on:
       php:
         condition: service_healthy
@@ -18,15 +18,12 @@ services:
   php:
     build:
       context: .
-      dockerfile: docker/dev/php/Dockerfile
+      dockerfile: docker/ci/php/Dockerfile
     restart: unless-stopped
     stdin_open: true
-    volumes:
-      - ./:/app
-      - ./docker/dev/php/overrides.ini:/usr/local/etc/php/conf.d/overrides.ini
-      - ./docker/dev/php/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
-      - ./docker/dev/php/logs/supervisor:/var/log/supervisor
     container_name: php
+    volumes:
+      - ./public:/app/public
     depends_on:
       db:
         condition: service_healthy
@@ -40,29 +37,10 @@ services:
       interval: 2s
       retries: 30
 
-  encore:
-    build:
-      context: .
-      dockerfile: docker/dev/encore/Dockerfile
-    restart: unless-stopped
-    volumes:
-      - ./:/app
-      - ./docker/dev/encore/logs/supervisor:/var/log/supervisor
-      - ./docker/dev/encore/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
-    ports:
-      - 9090:9090
-    depends_on:
-      php:
-        condition: service_started
-    container_name: encore
-
   db:
     image: mariadb:10.10.2
     restart: unless-stopped
     container_name: db
-    # TODO look into it, seems to not work properly
-    # volumes:
-    #   - ./data/mysql:/var/lib/mysql/data
     environment:
       MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD:?err}"
     healthcheck:
@@ -70,18 +48,6 @@ services:
       timeout: 30s
       interval: 2s
       retries: 30
-
-  phpmyadmin:
-    image: phpmyadmin
-    restart: unless-stopped
-    container_name: phpmyadmin
-    ports:
-      - 8080:80
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      - PMA_ARBITRARY=1
 
   mailcatcher:
     image: schickling/mailcatcher:latest
@@ -104,19 +70,6 @@ services:
     volumes:
       - ./data/cache/redis:/data
 
-  redis-commander:
-    container_name: redis-commander
-    hostname: redis-commander
-    image: rediscommander/redis-commander:latest
-    restart: unless-stopped
-    environment:
-      REDIS_HOSTS: "local:redis:6379:0:${REDIS_AUTH:?err}"
-    depends_on:
-      redis:
-        condition: service_started
-    ports:
-      - "8081:8081"
-
   mercure:
     image: dunglas/mercure
     restart: unless-stopped
@@ -131,6 +84,3 @@ services:
     ports:
       - "3000:80"
       # - "443:443"
-    volumes:
-      - ./data/mercure/data:/data
-      - ./data/mercure/config:/config
