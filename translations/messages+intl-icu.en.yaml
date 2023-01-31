@@ -1,0 +1,6 @@
+# Entities
+# ResetPasswordRequest
+reset_password_request.email: Email
+reset_password_request.email.help: The email address associated with your account
+reset_password_request.new_password: New password
+reset_password_request.repeat_password: Repeat your password
