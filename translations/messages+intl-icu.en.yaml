@@ -1,0 +1,44 @@
+# Common
+common.login: Login
+common.logout: Logout
+common.sign_in: Sign in
+common.search: Search
+
+# Pages
+# About Us
+page.about_us.title: About Us
+
+# Contact
+page.contact.title: Contact
+
+# Cookie Policy
+page.cookie_policy.title: Cookie Policy
+
+# Privacy Policy
+page.privacy_policy.title: Privacy Policy
+
+# Terms of Use
+page.terms_of_use.title: Terms of Use
+
+# Registration
+page.registration.agree_terms: I agree to the terms of use
+
+# Login
+page.login.title: Login
+page.login.forgot_password: Forgot your password?
+page.login.remember_me: Remember me
+page.login.no_account: No account yet? Click here to register.
+
+# Entities
+# User
+user.email: Email
+user.password: Password
+
+# Profile
+profile.username: Username
+
+# ResetPasswordRequest
+reset_password_request.email: Email
+reset_password_request.email.help: The email address associated with your account
+reset_password_request.new_password: New password
+reset_password_request.repeat_password: Repeat your password

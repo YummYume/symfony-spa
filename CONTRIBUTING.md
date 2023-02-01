@@ -39,8 +39,8 @@ Everything you need to know to use this project and contribute to it is written 
 
 ### Branches
 
-- The [master](https://github.com/RankyList/ranky-list/tree/master) branch is **not** the default branch. It is used to represent what is currently in _production_.
-- The [develop](https://github.com/RankyList/ranky-list) branch is the default branch. This is the default target branch for pull requests and new branches.
+- The [master](https://github.com/YummYume/symfony-spa/tree/master) branch is **not** the default branch. It is used to represent what is currently in _production_.
+- The [develop](https://github.com/YummYume/symfony-spa) branch is the default branch. This is the default target branch for pull requests and new branches.
 - Other branches are created freely but should respect a certain name coherence, for example, if you are adding a new feature, your branch name should look like `feature/my-feature`.
 - **Always** make sure that your branch is up to date with its parent branch before submitting a pull request.
 
@@ -53,7 +53,7 @@ Everything you need to know to use this project and contribute to it is written 
 ### Launch the project locally
 
 > **Warning**  
-> Docker is required
+> Docker is required.
 
 - Fork or clone the project with `git@github.com:YummYume/symfony-spa.git` _OR_ `git@github.com:your-username/symfony-spa.git` if you forked the project.
 - Create your own branch from `develop` or any branch other than `master` (eg: `feature/my-feature`).

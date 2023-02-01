@@ -16,7 +16,7 @@ final class UserChecker implements UserCheckerInterface
         }
 
         if (!$user->isVerified()) {
-            throw new CustomUserMessageAccountStatusException('You must verify your account.');
+            throw new CustomUserMessageAccountStatusException('login.unverified');
         }
     }
 

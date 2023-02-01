@@ -4,10 +4,10 @@
     Admin
 {% endblock %}
 
-{% block body %}
+{% block main_body %}
     <h1>
         SUPER SECURE PAGE
     </h1>
 
-    <a class="btn" href="{{ path("security_logout") }}">Logout</a>
+    <a class="btn" href="{{ path("security_logout") }}">{{ "common.logout"|trans }}</a>
 {% endblock %}
