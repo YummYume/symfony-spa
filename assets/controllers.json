@@ -1,21 +1,21 @@
 {
-    "controllers": {
-        "@symfony/ux-lazy-image": {
-            "lazy-image": {
-                "enabled": true,
-                "fetch": "eager"
-            }
-        },
-        "@symfony/ux-turbo": {
-            "turbo-core": {
-                "enabled": true,
-                "fetch": "eager"
-            },
-            "mercure-turbo-stream": {
-                "enabled": false,
-                "fetch": "eager"
-            }
-        }
+  "controllers": {
+    "@symfony/ux-lazy-image": {
+      "lazy-image": {
+        "enabled": true,
+        "fetch": "eager"
+      }
     },
-    "entrypoints": []
+    "@symfony/ux-turbo": {
+      "turbo-core": {
+        "enabled": true,
+        "fetch": "eager"
+      },
+      "mercure-turbo-stream": {
+        "enabled": false,
+        "fetch": "eager"
+      }
+    }
+  },
+  "entrypoints": []
 }
