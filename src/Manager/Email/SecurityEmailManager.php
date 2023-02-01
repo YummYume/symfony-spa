@@ -26,7 +26,7 @@ final class SecurityEmailManager
         $email = (new TemplatedEmail())
             ->from($this->getDefaultNoreplyAddress())
             ->to($user->getEmail())
-            ->subject($this->translator->trans('registration.subject', ['username' => $user], 'email'))
+            ->subject($this->translator->trans('registration.subject', ['username' => 'test'], 'email'))
             ->htmlTemplate('email/registration/confirmation_email.html.twig')
         ;
 

@@ -26,8 +26,8 @@ security:
             form_login:
                 login_path: security_login
                 check_path: security_login
-                username_parameter: email
-                password_parameter: password
+                username_parameter: _email
+                password_parameter: _password
                 enable_csrf: true
             login_throttling:
                 max_attempts: 5

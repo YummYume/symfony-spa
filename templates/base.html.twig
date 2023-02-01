@@ -19,26 +19,131 @@
         {% endblock %}
     </head>
     <body class="flex min-h-screen flex-col">
-        {% for type in app.flashes %}
-            {% for message in type %}
-                {# TODO display different icon and background depending on notification type #}
-                <div {{ stimulus_controller("notification") }}
-                    data-transition-enter-from="opacity-0 translate-x-6"
-                    data-transition-enter-to="opacity-100 translate-x-0"
-                    data-transition-leave-from="opacity-100 translate-x-0"
-                    data-transition-leave-to="opacity-0 translate-x-6"
-                    class="alert alert-error hidden transform shadow-lg transition duration-1000">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{{ message }}</span>
+        {% block flashes %}
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div {{ stimulus_controller("notification") }}
+                        data-transition-enter-from="opacity-0 translate-x-6"
+                        data-transition-enter-to="opacity-100 translate-x-0"
+                        data-transition-leave-from="opacity-100 translate-x-0"
+                        data-transition-leave-to="opacity-0 translate-x-6"
+                        class="alert {{ "alert-" ~ type }} hidden transform shadow-lg transition duration-1000">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>{{ message }}</span>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-        {% block body %}
+        {% endblock %}
+        {% block header %}
+            <header>
+                <nav class="navbar bg-base-100">
+                    <div class="navbar-start">
+                        <div class="form-control">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search…" class="input-bordered input" aria-label="{{ "common.search"|trans }}" />
+                                <button class="btn-square btn" aria-label="{{ "common.search"|trans }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navbar-center">
+                        <a class="btn-ghost btn text-xl normal-case" href="{{ path("app_homepage") }}">MyApp</a>
+                    </div>
+                    <div class="navbar-end">
+                        {% if app.user %}
+                            <button class="btn-ghost btn-circle btn">
+                                <div class="indicator">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                                    </svg>
 
+                                    <span class="badge badge-primary badge-xs indicator-item"></span>
+                                </div>
+                            </button>
+                            <div class="dropdown-end dropdown">
+                                {% if app.user.profile.picture|default(false) %}
+                                    <button tabindex="0" class="btn-ghost btn-circle avatar btn">
+                                        <div class="w-10 rounded-full">
+                                            <img src="{{ asset("picture") }}" alt="{{ "user.profile.picture"|trans }}" />
+                                        </div>
+                                    </button>
+                                {% else %}
+                                    <button tabindex="0" class="btn-ghost btn-circle btn">
+                                        <div class="flex w-10 items-center justify-center rounded-full">
+                                            <span class="text-xl">{{ app.user.profile.username|u.truncate(1)|upper }}</span>
+                                        </div>
+                                    </button>
+                                {% endif %}
+                                <ul class="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow">
+                                    <li>
+                                        <a tabindex="0" class="justify-between">
+                                            Profile
+                                            <span class="badge">New</span>
+                                        </a>
+                                    </li>
+                                    <li><a tabindex="0">Settings</a></li>
+                                    <li><a tabindex="0" href="{{ path("security_logout") }}">Logout</a></li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <div class="dropdown-end dropdown">
+                                <button aria-label="{{ "common.user_options"|trans }}" class="btn-ghost btn-circle btn">
+                                    <div class="flex w-10 items-center justify-center rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                        </svg>
+                                    </div>
+                                </button>
+                                <ul class="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow">
+                                    <li><a tabindex="0" href="{{ path("security_login") }}">{{ "common.login"|trans }}</a></li>
+                                    <li><a tabindex="0" href="{{ path("app_register") }}">{{ "common.register"|trans }}</a></li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </nav>
+            </header>
+        {% endblock %}
+        {% block main %}
+            <main class="container mx-auto flex grow flex-col py-8">
+                {% block main_body %}
+
+                {% endblock %}
+            </main>
+        {% endblock %}
+        {% block footer %}
+            <footer class="footer bg-base-200 p-10 text-base-content">
+                <div>
+                    <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current">
+                        <path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path>
+                    </svg>
+                    <p>
+                        {{ "common.app_name"|trans }} - {{ "now"|date("Y") }}
+                    </p>
+                </div>
+                <div>
+                    <span class="footer-title">{{ "common.app_name"|trans }}</span>
+                    <a class="link-hover link" href="{{ path("app_about_us") }}">{{ "page.about_us.title"|trans }}</a>
+                    <a class="link-hover link" href="{{ path("app_contact") }}">{{ "page.contact.title"|trans }}</a>
+                </div>
+                <div>
+                    <span class="footer-title">{{ "common.legal"|trans }}</span>
+                    <a class="link-hover link" href="{{ path("app_terms_of_use") }}">{{ "page.terms_of_use.title"|trans }}</a>
+                    <a class="link-hover link" href="{{ path("app_privacy_policy") }}">{{ "page.privacy_policy.title"|trans }}</a>
+                    <a class="link-hover link" href="{{ path("app_cookie_policy") }}">{{ "page.cookie_policy.title"|trans }}</a>
+                </div>
+            </footer>
         {% endblock %}
     </body>
 </html>

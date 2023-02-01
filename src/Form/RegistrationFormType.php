@@ -25,11 +25,13 @@ final class RegistrationFormType extends AbstractType
                     'autocomplete' => 'new-password',
                 ],
             ])
+            ->add('profile', ProfileRegistrationType::class)
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'page.registration.agree_terms',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'registration.agree_terms',
+                        'message' => 'page.registration.agree_terms',
                     ]),
                 ],
             ])

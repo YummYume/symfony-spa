@@ -1,33 +1,44 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Log in!
+    {{ "page.login.title"|trans }}
 {% endblock %}
 
-{% block body %}
-    <form method="post">
+{% block main_body %}
+    <h1 class="text-center text-3xl">
+        {{ "page.login.title"|trans }}
+    </h1>
+
+    <form method="post" class="flex grow flex-col items-center justify-center">
         {% if error %}
-            <div class="alert alert-error shadow-lg">
+            <div class="alert alert-error my-4 max-w-xs shadow-lg">
                 {{ error.messageKey|trans(error.messageData, "security") }}
             </div>
         {% endif %}
 
-        <h1 class="h3 font-weight-normal mb-3">
-            Please sign in
-        </h1>
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input w-full max-w-xs" autocomplete="email" required autofocus />
-        <label for="inputPassword">Password</label>
-        <input type="password" name="password" id="inputPassword" class="input w-full max-w-xs" autocomplete="current-password" required />
+        <div class="form-control w-full max-w-xs">
+            <label for="inputEmail" class="label"><span class="label-text">{{ "user.email"|trans }}</span></label>
+            <input type="email" value="{{ last_username }}" name="_email" id="inputEmail" class="input-bordered input w-full max-w-xs" autocomplete="email" required autofocus />
+        </div>
 
-        <a href="{{ path("app_forgot_password_request") }}">Forgot your password?</a>
+        <div class="form-control w-full max-w-xs">
+            <label for="inputEmail" class="label"><span class="label-text">{{ "user.password"|trans }}</span></label>
+            <input type="password" name="_password" id="inputPassword" class="input-bordered input w-full max-w-xs" autocomplete="current-password" required />
+        </div>
+
+        <a class="link-secondary link" href="{{ path("app_forgot_password_request") }}">{{ "page.login.forgot_password"|trans }}</a>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />
 
-        <div class="checkbox mb-3">
-            <label><input type="checkbox" name="_remember_me" />Remember me</label>
+        <div class="form-control">
+            <label class="label cursor-pointer gap-2">
+                <span class="label-text">{{ "page.login.remember_me"|trans }}</span>
+                <input type="checkbox" name="_remember_me" class="checkbox" />
+            </label>
         </div>
 
-        <button class="btn-outline btn-primary btn" type="submit">Sign in</button>
+        <button class="btn-primary btn" type="submit">{{ "common.sign_in"|trans }}</button>
+
+        <a class="link-secondary link mt-5" href="{{ path("app_register") }}">{{ "page.login.no_account"|trans }}</a>
     </form>
 {% endblock %}

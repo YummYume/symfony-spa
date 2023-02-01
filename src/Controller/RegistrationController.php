@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
-use App\Manager\LogManager;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,41 +26,29 @@ final class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
-    public function register(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        LogManager $logManager
-    ): Response {
+    public function register(Request $request, EntityManagerInterface $entityManager): Response
+    {
         $user = new User();
-        $form = $this
-            ->createForm(RegistrationFormType::class, $user)
-            ->handleRequest($request)
-        ;
+        $form = $this->createForm(RegistrationFormType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            try {
-                if ($form->isValid()) {
-                    $entityManager->persist($user);
-                    $entityManager->flush();
+            if ($form->isValid()) {
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-                    // generate a signed url and email it to the user
-                    $this->securityEmailManager->sendRegisterEmailConfirmation($user);
+                // generate a signed url and email it to the user
+                $this->securityEmailManager->sendRegisterEmailConfirmation($user);
 
-                    $this->flashManager->flash(FlashManager::FLASH_SUCCESS, 'flash.register.email_sent');
+                $this->flashManager->flash(FlashManager::FLASH_SUCCESS, 'flash.register.email_sent');
 
-                    return $this->redirectToRoute('app_homepage');
-                }
-
-                $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.invalid_form');
-            } catch (\Exception $e) {
-                $logManager->logException($e);
-
-                $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.something_went_wrong');
+                return $this->redirectToRoute('app_homepage');
             }
+
+            $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.invalid_form');
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $form,
         ]);
     }
 

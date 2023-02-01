@@ -1,3 +1,8 @@
+# Page
+# Registration
+page.registration.agree_terms: You must agree to our terms of use in order to register.
+
+# Entities
 # User
 user.email.not_blank: Please enter an email address.
 user.email.max_length: Your email address must contain up to {limit} characters.
@@ -12,6 +17,3 @@ reset_password_request.email.invalid: Please enter a valid email address.
 reset_password_request.new_password.not_blank: Please enter a new password.
 reset_password_request.new_password.length: Your password should contain at least {limit} characters.
 reset_password_request.plain_password.no_match: Passwords do not match.
-
-# Registration
-registration.agree_terms: You must agree to our terms of use in order to register.
