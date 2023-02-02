@@ -19,7 +19,7 @@ final class HomepageController extends AbstractController
     #[Route('/test', name: 'app_flash-test', methods: ['GET'])]
     public function flashTest(FlashManager $flashManager): RedirectResponse
     {
-        $flashManager->flash(FlashManager::FLASH_SUCCESS, 'Test success', ['type' => FlashManager::FLASH_SUCCESS]);
+        $flashManager->flash(FlashManager::FLASH_SUCCESS, 'Test success');
         $flashManager->flash(FlashManager::FLASH_ERROR, 'Test error');
 
         return $this->redirectToRoute('app_homepage');

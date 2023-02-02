@@ -11,12 +11,12 @@
 {%- endblock widget_attributes -%}
 
 {%- block form_label -%}
-    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-gray-800')) }) -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block label label-text')) }) -%}
     {{- parent() -}}
 {%- endblock form_label -%}
 
 {%- block form_help -%}
-    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 text-gray-600')) }) -%}
+    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 label-text')) }) -%}
     {{- parent() -}}
 {%- endblock form_help -%}
 
@@ -51,29 +51,48 @@
     <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- form_errors(form) -}}
         <label class="label cursor-pointer">
-            {{- form_label(form) -}}
             {{- form_widget(form, widget_attr) -}}
+            {{- form_label(form) -}}
         </label>
         {{- form_help(form) -}}
     </div>
 {%- endblock checkbox_row -%}
 
-{%- block password_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+{%- block checkbox_widget -%}
+    {%- set widget_class = widget_class|default('checkbox checkbox-primary') -%}
     {{- parent() -}}
-{%- endblock password_widget -%}
+{%- endblock checkbox_widget -%}
+
+{%- block choice_widget -%}
+    {%- set widget_class = widget_class|default('select select-bordered w-full max-w-xs') -%}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {{- block('choice_widget_collapsed') -}}
+    {% endif %}
+{%- endblock choice_widget -%}
 
 {%- block email_widget -%}
     {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
     {{- parent() -}}
 {%- endblock email_widget -%}
 
-{%- block checkbox_widget -%}
-    {%- set widget_class = widget_class|default('checkbox') -%}
+{%- block password_widget -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
     {{- parent() -}}
-{%- endblock checkbox_widget -%}
+{%- endblock password_widget -%}
 
 {%- block radio_widget -%}
     {%- set widget_class = widget_class|default('mr-2') -%}
     {{- parent() -}}
 {%- endblock radio_widget -%}
+
+{%- block textarea_widget -%}
+    {%- set widget_class = widget_class|default('textarea textarea-bordered') -%}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{%- block text_widget -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+    {{ block('form_widget_simple') }}
+{%- endblock text_widget -%}

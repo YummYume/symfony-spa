@@ -35,7 +35,7 @@ final class FlashManager
     ): void {
         /** @var Session */
         $session = $this->requestStack->getSession();
-        $translationType = \in_array($type, [], true) ? $type : self::FLASH_INFO;
+        $translationType = \in_array($type, self::ALLOWED_FLASH_TYPES, true) ? $type : self::FLASH_INFO;
 
         $session->getFlashBag()->add($translationType, $this->translator->trans($message, $parameters, $translationDomain, $locale));
     }

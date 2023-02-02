@@ -6,7 +6,6 @@
     "@symfony/ux-lazy-image": "file:vendor/symfony/ux-lazy-image/assets",
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
     "@symfony/webpack-encore": "^4.0.0",
-    "@tailwindcss/typography": "^0.5.9",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.0.0",
     "autoprefixer": "^10.4.13",

@@ -49,6 +49,7 @@ data/*
 
 ###> IDE ###
 .vscode
+.history
 ###< IDE ###
 
 ###> liip/imagine-bundle ###
