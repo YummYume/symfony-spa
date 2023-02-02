@@ -12,7 +12,7 @@ else
 endif
 
 # Starting/stopping the project
-start: build-no-cache up-recreate composer db perm
+start: build-no-cache up-recreate composer yarn db perm
 
 build:
 	$(COMPOSE) build --force-rm
@@ -93,6 +93,10 @@ db-test:
 rabbitmq-consume:
 	$(EXECPHP) php bin/console messenger:consume -vv
 
+# Debug
+dump:
+	$(EXECPHP) php bin/console server:dump
+	
 # Containers
 list-containers:
 	docker compose ps -a

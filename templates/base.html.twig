@@ -57,6 +57,14 @@
                         <a class="btn-ghost btn text-xl normal-case" href="{{ path("app_homepage") }}">MyApp</a>
                     </div>
                     <div class="navbar-end">
+                        <div class="dropdown dropdown-end">
+                            <label tabindex="0" class="btn m-1">{{ app.request.locale|locale_name(app.request.locale) }}</label>
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                {% for locale in enabled_locales %}
+                                    <li><a href="{{ path('app_change_locale', { locale }) }}">{{ locale|locale_name(app.request.locale) }}</a></li>
+                                {% endfor %}
+                            </ul>
+                          </div>
                         {% if app.user %}
                             <button class="btn-ghost btn-circle btn">
                                 <div class="indicator">
