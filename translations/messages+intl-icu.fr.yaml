@@ -1,0 +1,43 @@
+# Common
+common.login: Connexion
+common.logout: Déconnexion
+common.search: Recherche
+
+# Pages
+# About Us
+page.about_us.title: À propos de nous
+
+# Contact
+page.contact.title: Contact
+
+# Cookie Policy
+page.cookie_policy.title: Politique relative aux cookies
+
+# Privacy Policy
+page.privacy_policy.title: Politique de confidentialité
+
+# Terms of Use
+page.terms_of_use.title: Conditions d'utilisation
+
+# Registration
+page.registration.agree_terms: J'accepte les conditions d'utilisations
+
+# Login
+page.login.title: Connexion
+page.login.forgot_password: Mot de passe oublié?
+page.login.remember_me: Se souvenir de moi
+page.login.no_account: Pas encore de compte ? Cliquez ici pour vous inscrire.
+
+# Entities
+# User
+user.email: Adresse e-mail
+user.password: Mot de passe
+
+# Profile
+profile.username: Nom d'utilisateur
+
+# ResetPasswordRequest
+reset_password_request.email: Adresse e-mail
+reset_password_request.email.help: L'adresse e-mail associée à votre compte
+reset_password_request.new_password: Nouveau mot de passe
+reset_password_request.repeat_password: Répétez votre mot de passe

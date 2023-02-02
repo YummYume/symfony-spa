@@ -1,0 +1,19 @@
+# Page
+# Registration
+page.registration.agree_terms: Vous devez accepter nos conditions d'utilisation pour vous inscrire.
+
+# Entities
+# User
+user.email.not_blank: Veuillez saisir une Adresse e-mail.
+user.email.max_length: Votre Adresse e-mail doit contenir jusqu'à {limit} caractères.
+user.email.invalid: Veuillez saisir une Adresse e-mail valide.
+user.email.unique: Adresse e-mail déjà utilisé.
+user.password.valid: Votre mot de passe doit contenir au moins 8 caractères, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial (#?!@$%^&*-).
+user.password.not_compromised: Ce mot de passe a été compromis lors d'une violation de données, il ne doit pas être utilisé. Veuillez entrer un autre mot de passe.
+
+# ResetPasswordRequest
+reset_password_request.email.not_blank: Veuillez saisir votre Adresse e-mail.
+reset_password_request.email.invalid: Veuillez saisir une Adresse e-mail valide.
+reset_password_request.new_password.not_blank: Veuillez saisir un nouveau mot de passe.
+reset_password_request.new_password.length: Votre mot de passe doit contenir au moins {limit} caractères.
+reset_password_request.plain_password.no_match: Les mots de passe ne correspondent pas.
