@@ -18,7 +18,7 @@ class ThemeController extends AbstractController
         $response = new RedirectResponse($referer);
 
         $cookie = Cookie::create('theme_mode')
-            ->withValue($mode === 'light' ? 'dark' : 'light')
+            ->withValue('light' === $mode ? 'dark' : 'light')
             ->withSecure(true)
             ->withHttpOnly(false)
         ;
