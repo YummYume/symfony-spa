@@ -2,11 +2,12 @@
 
 namespace App\Components;
 
+use App\Enum\ColorTypeEnum;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('alert')]
-class AlertComponent
+final class AlertComponent
 {
-    public string $type = 'error';
-    public string $message;
+    public string $type = ColorTypeEnum::ERROR->value;
+    public string $message = '';
 }

@@ -6,7 +6,7 @@ use App\Entity\User;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('avatar')]
-class AvatarComponent
+final class AvatarComponent
 {
-    public ?User $user;
+    public ?User $user = null;
 }

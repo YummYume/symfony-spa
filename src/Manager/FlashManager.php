@@ -2,22 +2,18 @@
 
 namespace App\Manager;
 
+use App\Enum\ColorTypeEnum;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class FlashManager
 {
-    public const FLASH_SUCCESS = 'success';
-    public const FLASH_INFO = 'info';
-    public const FLASH_ERROR = 'error';
-    public const FLASH_WARNING = 'warning';
-
     public const ALLOWED_FLASH_TYPES = [
-        self::FLASH_SUCCESS,
-        self::FLASH_INFO,
-        self::FLASH_ERROR,
-        self::FLASH_WARNING,
+        ColorTypeEnum::SUCCESS->value,
+        ColorTypeEnum::INFO->value,
+        ColorTypeEnum::ERROR->value,
+        ColorTypeEnum::WARNING->value,
     ];
 
     public function __construct(

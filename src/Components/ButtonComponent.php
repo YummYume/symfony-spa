@@ -2,10 +2,11 @@
 
 namespace App\Components;
 
+use App\Enum\ColorTypeEnum;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('button')]
-class ButtonComponent
+final class ButtonComponent
 {
     public bool $centered = true;
     public bool $circle = false;
@@ -14,5 +15,5 @@ class ButtonComponent
     public bool $submit = false;
     public string $class = '';
     public string $content = '';
-    public string $variant = 'primary';
+    public string $variant = ColorTypeEnum::PRIMARY->value;
 }

@@ -3,7 +3,7 @@
 {# <img src="{{ asset("test.jpg") }}" alt="test" /> #}
 <div class="btn-ghost btn-circle btn {{ picture ? "avatar" }}">
     <div class="flex w-10 items-center justify-center rounded-full">
-        {% if user|default(null) %}
+        {% if user %}
             {% if picture %}
                 <img src="{{ asset(picture) }}" alt="{{ "user.profile.picture"|trans({ username: user.profile.username }) }}" />
             {% else %}
