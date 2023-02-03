@@ -8,7 +8,7 @@
     <h1 class="text-center text-3xl">
         {{ "page.register.title"|trans }}
     </h1>
-    <div class="mx-auto flex max-w-xs grow flex-col items-center justify-center gap-4">
+    <div class="mx-auto flex max-w-xs grow flex-col justify-center gap-4">
         {% for flash_error in app.flashes("verify_email_error") %}
             <div class="alert alert-error max-w-xs" role="alert">
                 {{ flash_error }}
