@@ -48,3 +48,8 @@ services:
         arguments:
             - '@Redis'
             - prefix: session_
+
+    # EventListeners
+    App\EventSubscriber\LocaleSubscriber:
+        bind:
+            $defaultLocale: '%kernel.default_locale%'
