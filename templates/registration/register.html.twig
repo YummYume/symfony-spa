@@ -5,23 +5,24 @@
 {% endblock %}
 
 {% block main_body %}
-    {% for flash_error in app.flashes("verify_email_error") %}
-        <div class="alert-danger alert" role="alert">
-            {{ flash_error }}
-        </div>
-    {% endfor %}
-
-    <h1>
+    <h1 class="text-center text-3xl">
         {{ "page.register.title"|trans }}
     </h1>
+    <div class="mx-auto flex max-w-xs grow flex-col items-center justify-center gap-4">
+        {% for flash_error in app.flashes("verify_email_error") %}
+            <div class="alert alert-error max-w-xs" role="alert">
+                {{ flash_error }}
+            </div>
+        {% endfor %}
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.profile.username) }}
-    {{ form_row(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.profile.username) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.agreeTerms) }}
 
-    <button type="submit" class="btn">{{ "common.register"|trans }}</button>
+        <button type="submit" class="btn-primary btn w-full">{{ "common.register"|trans }}</button>
 
-    {{ form_end(registrationForm) }}
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}
