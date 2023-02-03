@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Enum\ColorTypeEnum;
 use App\Form\RegistrationFormType;
 use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
@@ -39,12 +40,12 @@ final class RegistrationController extends AbstractController
                 // generate a signed url and email it to the user
                 $this->securityEmailManager->sendRegisterEmailConfirmation($user);
 
-                $this->flashManager->flash(FlashManager::FLASH_SUCCESS, 'flash.register.email_sent');
+                $this->flashManager->flash(ColorTypeEnum::SUCCESS->value, 'flash.register.email_sent');
 
                 return $this->redirectToRoute('app_homepage');
             }
 
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.common.invalid_form');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -79,16 +80,16 @@ final class RegistrationController extends AbstractController
         } catch (ExpiredSignatureException $exception) {
             $this->securityEmailManager->sendRegisterEmailConfirmation($user);
 
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.register.link_expired');
+            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.register.link_expired');
 
             return $this->redirectToRoute('app_register');
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, $exception->getReason(), translationDomain: 'VerifyEmailBundle');
+            $this->flashManager->flash(ColorTypeEnum::ERROR->value, $exception->getReason(), translationDomain: 'VerifyEmailBundle');
 
             return $this->redirectToRoute('app_register');
         }
 
-        $this->flashManager->flash(FlashManager::FLASH_SUCCESS, 'flash.register.email_verified');
+        $this->flashManager->flash(ColorTypeEnum::SUCCESS->value, 'flash.register.email_verified');
 
         return $this->redirectToRoute('security_login');
     }
