@@ -4,13 +4,15 @@
     Reset your password
 {% endblock %}
 
-{% block main_body %}
-    <h1>
-        Reset your password
-    </h1>
+{% block main_title %}
+    Reset your password
+{% endblock %}
 
-    {{ form_start(resetForm) }}
-    {{ form_row(resetForm.plainPassword) }}
-    <button class="btn-primary btn">Reset password</button>
-    {{ form_end(resetForm) }}
+{% block main_body %}
+    <div class="flex flex-col items-center">
+        {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        {{ component("button", { content: "Reset password" }) }}
+        {{ form_end(resetForm) }}
+    </div>
 {% endblock %}

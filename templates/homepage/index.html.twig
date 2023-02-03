@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block main_body %}
-    <section class="flex items-center justify-center gap-8">
+    <section class="flex grow items-center justify-center gap-8">
         {% if app.user %}
-            <a class="btn" href="{{ path("admin_homepage") }}">Admin</a>
+            <a href="{{ path("admin_homepage") }}">{{ component("button", { content: "Admin" }) }}</a>
             <span>OR</span>
-            <a class="btn" href="{{ path("security_logout") }}">Logout</a>
+            <a href="{{ path("security_logout") }}">{{ component("button", { content: "Logout" }) }}</a>
         {% else %}
-            <a class="btn" href="{{ path("security_login") }}">Login</a>
+            <a href="{{ path("security_login") }}">{{ component("button", { content: "Login" }) }}</a>
             <span>OR</span>
-            <a class="btn" href="{{ path("app_register") }}">Register</a>
+            <a href="{{ path("app_register") }}">{{ component("button", { content: "Register" }) }}</a>
         {% endif %}
     </section>
 {% endblock %}
