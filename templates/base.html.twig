@@ -55,11 +55,6 @@
                 {% block nav %}
                     <nav class="navbar bg-base-100">
                         <div class="navbar-start">
-                            {# <label for="my-drawer" class="btn-primary drawer-button btn lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                        </label> #}
                             <div class="form-control hidden lg:block">
                                 <div class="input-group">
                                     <input type="text" placeholder="Search…" class="input-bordered input" aria-label="{{ "common.search"|trans }}" />
@@ -71,28 +66,19 @@
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
                         <div class="navbar-center">
                             <a class="btn-ghost btn text-xl normal-case" href="{{ path("app_homepage") }}">MyApp</a>
                         </div>
                         <div class="navbar-end">
-                            <div class="dropdown dropdown-end">
-=======
-                    </div>
-                    <div class="navbar-center">
-                        <a class="btn-ghost btn text-xl normal-case" href="{{ path("app_homepage") }}">MyApp</a>
-                    </div>
-                    <div class="navbar-end">
-                        <div class="dropdown-end dropdown">
->>>>>>> fix: lint twig
-                            <label tabindex="0" class="btn m-1">{{ app.request.locale|locale_name(app.request.locale) }}</label>
-                            <ul tabindex="0" class="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow">
-                                {% for locale in enabled_locales %}
-                                    <li><a href="{{ path("app_change_locale", { locale: locale }) }}">{{ locale|locale_name(app.request.locale) }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        {% if app.user %}
+                            <div class="dropdown-end dropdown">
+                                <label tabindex="0" class="btn m-1">{{ app.request.locale|locale_name(app.request.locale) }}</label>
+                                <ul tabindex="0" class="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow">
+                                    {% for locale in enabled_locales %}
+                                        <li><a href="{{ path("app_change_locale", { locale: locale }) }}">{{ locale|locale_name(app.request.locale) }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% if app.user %}
                                 <button class="btn-ghost btn-circle btn">
                                     <div class="indicator">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
@@ -194,7 +180,7 @@
                 <ul class="menu w-80 bg-base-100 p-4 text-base-content">
                     <div class="form-control">
                         <div class="input-group">
-                            <input type="text" placeholder="Search…" class="input-bordered input" aria-label="{{ "common.search"|trans }}" />
+                            <input type="text" placeholder="Search…" class="input-bordered input w-0 grow" aria-label="{{ "common.search"|trans }}" />
                             <button class="btn-primary btn-square btn" aria-label="{{ "common.search"|trans }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
