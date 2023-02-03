@@ -4,3 +4,13 @@ liip_imagine:
     driver: 'gmagick'
     twig:
         mode: lazy
+    webp:
+        generate: true
+        quality: 100
+        cache: ~
+    filter_sets:
+        cache: ~
+        avatar_small:
+            quality: 80
+            filters:
+                thumbnail: { size: [48, 48] }

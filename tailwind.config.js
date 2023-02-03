@@ -26,5 +26,11 @@ module.exports = {
       },
     ],
   },
+  safelist: [
+    'alert-error',
+    'alert-info',
+    'alert-success',
+    'alert-warning',
+  ],
   plugins: [require('daisyui')],
 };

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Enum\ColorTypeEnum;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Manager\Email\SecurityEmailManager;
@@ -65,7 +66,7 @@ class ResetPasswordController extends AbstractController
                 return $this->redirectToRoute('app_check_email');
             }
 
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.common.invalid_form');
         }
 
         return $this->render('reset_password/request.html.twig', [
@@ -118,7 +119,7 @@ class ResetPasswordController extends AbstractController
             /** @var User */
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, sprintf(
+            $this->flashManager->flash(ColorTypeEnum::ERROR->value, sprintf(
                 '%s - %s',
                 $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_VALIDATE, domain: 'ResetPasswordBundle'),
                 $translator->trans($e->getReason(), domain: 'ResetPasswordBundle')
@@ -144,7 +145,7 @@ class ResetPasswordController extends AbstractController
                 return $this->redirectToRoute('security_login');
             }
 
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.common.invalid_form');
         }
 
         return $this->render('reset_password/reset.html.twig', [

@@ -4,39 +4,40 @@
     {{ "page.login.title"|trans }}
 {% endblock %}
 
+{% block main_title %}
+    {{ "page.login.title"|trans }}
+{% endblock %}
+
 {% block main_body %}
-    <h1 class="text-center text-3xl">
-        {{ "page.login.title"|trans }}
-    </h1>
-    <form method="post" class="flex grow flex-col justify-center gap-8">
+    <form method="post" class="flex grow flex-col justify-center">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />
-        <div class="mx-auto flex flex-col items-center gap-8">
+        <div class="flex flex-col items-center">
             {% if error %}
                 <div class="alert alert-error mt-8 max-w-xs" role="alert">
                     {{ error.messageKey|trans(error.messageData, "security") }}
                 </div>
             {% endif %}
 
-            <div class="flex flex-col justify-center gap-8">
-                <div class="flex w-fit flex-col gap-2">
-                    <div class="form-control w-full max-w-xs">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-2">
+                    <div class="form-control">
                         <label for="inputEmail" class="label"><span class="label-text">{{ "user.email"|trans }}</span></label>
                         <input type="email" value="{{ last_username }}" name="_email" id="inputEmail" class="input-bordered input w-80 max-w-xs" autocomplete="email" required autofocus />
                     </div>
-                    <div class="form-control w-full max-w-xs">
-                        <label for="inputEmail" class="label"><span class="label-text">{{ "user.password"|trans }}</span></label>
+                    <div class="form-control">
+                        <label for="inputPassword" class="label"><span class="label-text">{{ "user.password"|trans }}</span></label>
                         <input type="password" name="_password" id="inputPassword" class="input-bordered input w-80 max-w-xs" autocomplete="current-password" required />
                     </div>
                     <a class="link-secondary link" href="{{ path("app_forgot_password_request") }}">{{ "page.login.forgot_password"|trans }}</a>
                 </div>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1">
                     <div class="form-control">
                         <label class="label w-fit cursor-pointer gap-2">
                             <input type="checkbox" name="_remember_me" class="checkbox-primary checkbox" />
                             <span class="label-text">{{ "page.login.remember_me"|trans }}</span>
                         </label>
                     </div>
-                    <button class="btn-primary btn w-full self-center" type="submit">{{ "common.login"|trans }}</button>
+                    {{ component("button", { content: "common.login"|trans, submit: true }) }}
                 </div>
             </div>
         </div>
