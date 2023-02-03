@@ -2,28 +2,29 @@
 
 namespace App\Entity\Traits;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 trait FilePropertiesTrait
 {
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $fileName = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $size = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $mimeType = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $originalName = null;
 
-    #[ORM\Column(type: 'json', nullable: true)]
-    private array $dimensions = [];
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $dimensions = null;
 
     public function getFileName(): ?string
     {
-        return $this->imageName;
+        return $this->fileName;
     }
 
     public function setFileName(?string $fileName): static
@@ -69,12 +70,12 @@ trait FilePropertiesTrait
         return $this;
     }
 
-    public function getDimensions(): array
+    public function getDimensions(): ?array
     {
         return $this->dimensions;
     }
 
-    public function setDimensions(array $dimensions): static
+    public function setDimensions(?array $dimensions): static
     {
         $this->dimensions = $dimensions;
 

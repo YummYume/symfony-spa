@@ -9,7 +9,6 @@ use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,15 +26,14 @@ final class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                $entityManager->persist($user);
-                $entityManager->flush();
+                $userRepository->save($user, true);
 
                 // generate a signed url and email it to the user
                 $this->securityEmailManager->sendRegisterEmailConfirmation($user);

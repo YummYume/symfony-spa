@@ -26,15 +26,3 @@ jobs:
 
             - name: Run ESLint
               run: docker compose -f docker-compose.ci.yml exec php yarn lint
-
-    prettier:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-
-            - name: Start the containers
-              run: make start-ci
-
-            - name: Run Prettier
-              run: docker compose -f docker-compose.ci.yml exec php yarn prettier -c

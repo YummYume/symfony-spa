@@ -11,4 +11,6 @@ RUN apk add --no-cache --update \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+RUN deluser www-data && adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

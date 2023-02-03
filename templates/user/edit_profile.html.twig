@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "page.edit_profile.title"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <h1 class="text-center text-3xl">
+        {{ "page.edit_profile.title"|trans }}
+    </h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form) }}
+    <button class="btn" type="submit">{{ 'common.submit'|trans }}</button>
+    {{ form_end(form) }}
+{% endblock %}

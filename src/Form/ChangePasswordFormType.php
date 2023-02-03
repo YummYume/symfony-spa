@@ -38,8 +38,6 @@ final class ChangePasswordFormType extends AbstractType
                     'label' => 'reset_password_request.repeat_password',
                 ],
                 'invalid_message' => 'reset_password_request.plain_password.no_match',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
             ])
         ;

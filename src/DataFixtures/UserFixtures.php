@@ -34,7 +34,8 @@ final class UserFixtures extends Fixture
 
         foreach (range(1, self::FIXTURE_RANGE) as $i) {
             $profile = (new Profile())
-                ->setUsername($faker->userName())
+                ->setUsername(str_replace('.', ' ', $faker->unique()->userName()))
+                ->setDescription($faker->paragraph(5))
             ;
             $user = (new User())
                 ->setEmail($faker->unique()->safeEmail())
