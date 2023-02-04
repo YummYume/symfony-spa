@@ -1,4 +1,5 @@
 controllers:
+    prefix: '/{_locale}'
     resource:
         path: ../src/Controller/
         namespace: App\Controller
