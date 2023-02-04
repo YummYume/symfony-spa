@@ -15,13 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Route('/me')]
 final class UserController extends AbstractController
 {
     public function __construct(private readonly FlashManager $flashManager, private readonly UserRepository $userRepository)
     {
     }
 
-    #[Route('/me', name: 'app_edit_profile', methods: ['GET', 'POST'])]
+    #[Route('', name: 'app_edit_profile', methods: ['GET', 'POST'])]
     public function editProfile(Request $request): Response
     {
         $user = $this->getUser();
@@ -44,7 +45,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/me/delete', name: 'app_delete_profile', methods: ['POST'])]
+    #[Route('/delete', name: 'app_delete_profile', methods: ['POST'])]
     public function deleteProfile(Request $request, TranslatorInterface $translator, TokenStorageInterface $tokenStorage): RedirectResponse
     {
         /** @var User */
