@@ -23,33 +23,39 @@ export default class extends Controller {
   }
 
   private setTheme(e: TurboBeforeVisitEvent): void {
-    e.preventDefault();
+    const urlSplit = e.detail.url.split('/');
+    const urlLength = urlSplit.length;
 
-    const urlLength = e.detail.url.split('/').length;
-    const cookieValue = this.getCookie('theme_mode');
+    if (urlSplit.includes('dark') || urlSplit.includes('light')) {
+      e.preventDefault();
 
-    let mode = e.detail.url.split('/')[urlLength - 1];
+      const cookieValue = this.getCookie('theme_mode');
 
-    if (!cookieValue) {
-      if (mode === 'dark' || mode === 'light') {
+      let mode = e.detail.url.split('/')[urlLength - 1];
+
+      if (!cookieValue) {
+        if (mode === 'dark' || mode === 'light') {
+          document.cookie = `theme_mode=${mode};SameSite=None; Secure; path=/`;
+        }
+      } else {
+        mode = cookieValue === 'light' ? 'dark' : 'light';
         document.cookie = `theme_mode=${mode};SameSite=None; Secure; path=/`;
       }
-    } else {
-      mode = cookieValue === 'light' ? 'dark' : 'light';
-      document.cookie = `theme_mode=${mode};SameSite=None; Secure; path=/`;
-    }
 
-    if (this.hasLightTarget && this.hasDarkTarget) {
-      if (mode === 'dark') {
-        if (this.lightTarget.classList.contains('swap-on')) this.lightTarget.classList.replace('swap-on', 'swap-off');
+      if (this.hasLightTarget && this.hasDarkTarget) {
+        if (mode === 'dark') {
+          if (this.lightTarget.classList.contains('swap-on')) this.lightTarget.classList.replace('swap-on', 'swap-off');
 
-        if (this.darkTarget.classList.contains('swap-off')) this.darkTarget.classList.replace('swap-off', 'swap-on');
-      }
+          if (this.darkTarget.classList.contains('swap-off')) this.darkTarget.classList.replace('swap-off', 'swap-on');
+        }
 
-      if (mode === 'light') {
-        if (this.lightTarget.classList.contains('swap-off')) this.lightTarget.classList.replace('swap-off', 'swap-on');
+        if (mode === 'light') {
+          if (this.lightTarget.classList.contains('swap-off')) {
+            this.lightTarget.classList.replace('swap-off', 'swap-on');
+          }
 
-        if (this.darkTarget.classList.contains('swap-on')) this.darkTarget.classList.replace('swap-on', 'swap-off');
+          if (this.darkTarget.classList.contains('swap-on')) this.darkTarget.classList.replace('swap-on', 'swap-off');
+        }
       }
     }
   }
