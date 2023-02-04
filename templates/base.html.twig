@@ -67,7 +67,7 @@
                                 {% block items %}
                                     {% for locale in enabled_locales %}
                                         <li>
-                                            <a href="{{ path("app_change_locale", { locale }) }}">
+                                            <a href="{{ path(app.current_route, app.current_route_parameters|merge({ _locale: locale })) }}">
                                                 {{ locale|locale_name(app.request.locale) }}
                                             </a>
                                         </li>
