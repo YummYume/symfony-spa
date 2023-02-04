@@ -50,10 +50,10 @@
     {%- endif -%}
     <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- form_errors(form) -}}
-        <label class="label cursor-pointer gap-2 w-fit">
+        <div class="label cursor-pointer gap-2 w-fit">
             {{- form_widget(form, widget_attr) -}}
             {{- form_label(form) -}}
-        </label>
+        </div>
         {{- form_help(form) -}}
     </div>
 {%- endblock checkbox_row -%}

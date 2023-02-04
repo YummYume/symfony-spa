@@ -9,5 +9,6 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class AlertComponent
 {
     public string $type = ColorTypeEnum::ERROR->value;
+
     public string $message = '';
 }

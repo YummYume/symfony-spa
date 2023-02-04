@@ -1,9 +1,10 @@
 <button class="
         btn-{{ variant }}
         btn
+        gap-2
         {{ circle ? "btn-circle" }}
         {{ ghost ? "btn-ghost" }}
-        {{ centered ? "mx-auto block" }}
+        {{ centered ? "mx-auto flex" }}
         {{
     square
         ? "btn-square"
@@ -11,5 +12,11 @@
         {{ class }}
     "
     type="{{ submit ? "submit" : "button" }}">
+    {% if icon and iconPosition == "left" %}
+        {% include "icon/#{icon}.html.twig" %}
+    {% endif %}
     {{ content }}
+    {% if icon and iconPosition == "right" %}
+        {% include "icon/#{icon}.html.twig" %}
+    {% endif %}
 </button>
