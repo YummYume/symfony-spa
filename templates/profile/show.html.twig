@@ -1,0 +1,14 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "page.show_profile.title"|trans({ username: profile.username }) }}
+{% endblock %}
+
+{% block main_body %}
+    <h1 class="text-center text-3xl">
+        {{ "page.show_profile.title"|trans({ username: profile.username }) }}
+    </h1>
+
+    {# You can easily render markdown here #}
+    {{ profile.description|default("") }}
+{% endblock %}

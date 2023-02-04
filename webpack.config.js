@@ -84,6 +84,7 @@ Encore
       $utils: path.resolve(__dirname, '/assets/utils'),
       $app: path.resolve(__dirname, '/assets/app'),
       $admin: path.resolve(__dirname, '/assets/admin'),
+      $shared: path.resolve(__dirname, '/assets/shared'),
       $styles: path.resolve(__dirname, '/assets/styles'),
     })
 

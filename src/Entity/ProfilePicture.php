@@ -5,12 +5,17 @@ namespace App\Entity;
 use App\Entity\Traits\BlameableTrait;
 use App\Entity\Traits\FilePropertiesTrait;
 use App\Entity\Traits\TimestampableTrait;
-use App\Repository\UploadFileRepository;
+use App\Repository\ProfilePictureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: UploadFileRepository::class)]
+#[ORM\Entity(repositoryClass: ProfilePictureRepository::class)]
+#[Vich\Uploadable]
 class ProfilePicture
 {
     use BlameableTrait;
@@ -18,9 +23,10 @@ class ProfilePicture
     use TimestampableTrait;
 
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+    private ?Uuid $id = null;
 
     #[Vich\UploadableField(
         mapping: 'profile_picture',
@@ -30,12 +36,18 @@ class ProfilePicture
         originalName: 'originalName',
         dimensions: 'dimensions'
     )]
+    #[Assert\File(
+        maxSize: '2M',
+        maxSizeMessage: 'profile_picture.file.max_size',
+        extensions: ['png', 'jpg', 'gif'],
+        extensionsMessage: 'profile_picture.file.extension',
+    )]
     private ?File $file = null;
 
     #[ORM\OneToOne(mappedBy: 'picture')]
     private ?Profile $profile = null;
 
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -56,6 +68,13 @@ class ProfilePicture
     public function getFile(): ?File
     {
         return $this->file;
+    }
+
+    public function setProfile(Profile $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
     }
 
     public function getProfile(): ?Profile

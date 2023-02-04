@@ -4,6 +4,7 @@
     "@babel/preset-env": "^7.16.0",
     "@hotwired/turbo": "^7.0.1",
     "@symfony/ux-lazy-image": "file:vendor/symfony/ux-lazy-image/assets",
+    "@symfony/ux-live-component": "file:vendor/symfony/ux-live-component/assets",
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
     "@symfony/webpack-encore": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
@@ -44,6 +45,7 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.0.0",
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@symfony/stimulus-bridge": "^3.2.1",
     "stimulus-notification": "^2.2.0",
     "stimulus-use": "^0.51.1"

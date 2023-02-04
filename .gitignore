@@ -53,5 +53,5 @@ data/*
 ###< IDE ###
 
 ###> liip/imagine-bundle ###
-/public/media/cache/
+/public/media
 ###< liip/imagine-bundle ###

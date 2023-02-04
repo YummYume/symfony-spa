@@ -1,10 +1,10 @@
-{% set picture = user.profile.picture.fileName|default(null) %}
+{% set hasPicture = user.profile.picture.fileName|default(null) %}
 
-<div class="avatar {{ user and picture is null ? "placeholder" }}">
+<div class="avatar {{ user and not hasPicture ? "placeholder" }}">
     {% if user %}
-        <div class="w-10 rounded-full {{ picture ? "bg-neutral-focus text-neutral-content" }}">
-            {% if picture %}
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+        <div class="w-10 rounded-full {{ hasPicture ? "bg-neutral-focus text-neutral-content" }}">
+            {% if hasPicture %}
+                <img src="{{ vich_uploader_asset(user.profile.picture, "file")|imagine_filter("avatar_small") }}" alt="{{ "user.profile.picture"|trans({ username: user.profile.username }) }}" />
             {% else %}
                 <span class="text-xl">{{ user.profile.username|u.truncate(1)|upper }}</span>
             {% endif %}

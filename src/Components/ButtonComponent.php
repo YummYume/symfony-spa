@@ -9,7 +9,6 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class ButtonComponent
 {
     public const LEFT = 'left';
-
     public const RIGHT = 'right';
 
     public bool $centered = true;
@@ -30,5 +29,5 @@ final class ButtonComponent
 
     public string $iconPosition = self::RIGHT;
 
-    public string $variant = ColorTypeEnum::PRIMARY->value;
+    public string $variant = ColorTypeEnum::Primary->value;
 }

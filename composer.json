@@ -44,6 +44,7 @@
     "symfony/twig-bundle": "6.2.*",
     "symfony/uid": "6.2.*",
     "symfony/ux-lazy-image": "^2.7",
+    "symfony/ux-live-component": "^2.7",
     "symfony/ux-turbo": "^2.7",
     "symfony/ux-twig-component": "^2.7",
     "symfony/validator": "6.2.*",

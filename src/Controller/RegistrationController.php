@@ -9,7 +9,6 @@ use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,25 +26,28 @@ final class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserRepository $userRepository): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                $entityManager->persist($user);
-                $entityManager->flush();
+                $userRepository->save($user, true);
 
                 // generate a signed url and email it to the user
                 $this->securityEmailManager->sendRegisterEmailConfirmation($user);
 
-                $this->flashManager->flash(ColorTypeEnum::SUCCESS->value, 'flash.register.email_sent');
+                $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.register.email_sent');
 
                 return $this->redirectToRoute('app_homepage');
             }
 
-            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -59,6 +61,10 @@ final class RegistrationController extends AbstractController
         UserRepository $userRepository,
         EmailVerifier $emailVerifier
     ): RedirectResponse {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $id = $request->get('id');
 
         if (null === $id) {
@@ -80,16 +86,16 @@ final class RegistrationController extends AbstractController
         } catch (ExpiredSignatureException $exception) {
             $this->securityEmailManager->sendRegisterEmailConfirmation($user);
 
-            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.register.link_expired');
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.register.link_expired');
 
             return $this->redirectToRoute('app_register');
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->flashManager->flash(ColorTypeEnum::ERROR->value, $exception->getReason(), translationDomain: 'VerifyEmailBundle');
+            $this->flashManager->flash(ColorTypeEnum::Error->value, $exception->getReason(), translationDomain: 'VerifyEmailBundle');
 
             return $this->redirectToRoute('app_register');
         }
 
-        $this->flashManager->flash(ColorTypeEnum::SUCCESS->value, 'flash.register.email_verified');
+        $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.register.email_verified');
 
         return $this->redirectToRoute('security_login');
     }

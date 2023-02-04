@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="flex flex-col items-center">
+    <div class="flex grow flex-col items-center justify-center">
         {% for flash_error in app.flashes("reset_password_error") %}
             <div class="alert-danger alert" role="alert">
                 {{ flash_error }}
@@ -24,7 +24,7 @@
 
         <div class="flex flex-col items-center gap-2">
             <small>Enter your email address and we will send you a link to reset your password.</small>
-            {{ component("button", { content: "Send password reset email" }) }}
+            {{ component("button", { content: "Send password reset email", submit: true }) }}
         </div>
 
         {{ form_end(requestForm) }}

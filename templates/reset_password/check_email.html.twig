@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="text-center">
+    <div class="flex grow flex-col items-center justify-center gap-4">
         <p>
             If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {{
                 resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, "ResetPasswordBundle")
@@ -14,5 +14,7 @@
         <p>
             If you don't receive an email please check your spam folder or <a href="{{ path("app_forgot_password_request") }}">try again</a>.
         </p>
+
+        <a class="btn-primary btn" href="{{ path("security_login") }}">{{ "common.login"|trans }}</a>
     </div>
 {% endblock %}

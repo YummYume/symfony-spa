@@ -10,10 +10,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class FlashManager
 {
     public const ALLOWED_FLASH_TYPES = [
-        ColorTypeEnum::SUCCESS->value,
-        ColorTypeEnum::INFO->value,
-        ColorTypeEnum::ERROR->value,
-        ColorTypeEnum::WARNING->value,
+        ColorTypeEnum::Success->value,
+        ColorTypeEnum::Info->value,
+        ColorTypeEnum::Error->value,
+        ColorTypeEnum::Warning->value,
     ];
 
     public function __construct(
@@ -31,7 +31,7 @@ final class FlashManager
     ): void {
         /** @var Session */
         $session = $this->requestStack->getSession();
-        $translationType = \in_array($type, self::ALLOWED_FLASH_TYPES, true) ? $type : self::FLASH_INFO;
+        $translationType = \in_array($type, self::ALLOWED_FLASH_TYPES, true) ? $type : ColorTypeEnum::Info->value;
 
         $session->getFlashBag()->add($translationType, $this->translator->trans($message, $parameters, $translationDomain, $locale));
     }

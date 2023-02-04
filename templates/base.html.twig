@@ -74,8 +74,8 @@
                                     {% endblock %}
 
                                     {% block items %}
-                                        <li><a tabindex="0" class="justify-between">Profile</a></li>
-                                        <li><a tabindex="0">Settings</a></li>
+                                        <li><a tabindex="0" href="{{ path("app_profile_show", { slug: app.user.profile.slug }) }}">Profile</a></li>
+                                        <li><a tabindex="0" href="{{ path("app_edit_profile") }}">Settings</a></li>
                                         <li><a tabindex="0" href="{{ path("security_logout") }}">Logout</a></li>
                                     {% endblock %}
                                 {% endcomponent %}
