@@ -35,12 +35,7 @@ class Profile
 
     #[ORM\Column(type: Types::STRING, length: 50)]
     #[Assert\NotBlank(message: 'profile.username.not_blank')]
-    #[Assert\Length(
-        min: 2,
-        max: 50,
-        minMessage: 'profile.username.min_length',
-        maxMessage: 'profile.username.max_length'
-    )]
+    #[Assert\Regex(pattern: '/^[A-zÀ-ú\d ]{2,50}$/', message: 'profile.username.invalid')]
     private ?string $username = null;
 
     #[ORM\Column(type: Types::STRING, length: 100, unique: true)]

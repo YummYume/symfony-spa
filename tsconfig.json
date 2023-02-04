@@ -16,8 +16,9 @@
       "$assets/*": ["assets/*"],
       "$types/*": ["assets/types/*"],
       "$utils/*": ["assets/utils/*"],
-      "$app/*": ["assets/js/app/*"],
-      "$admin/*": ["assets/js/admin/*"],
+      "$app/*": ["assets/app/*"],
+      "$admin/*": ["assets/admin/*"],
+      "$shared/*": ["assets/shared/*"],
       "$styles/*": ["assets/styles/*"]
     }
   },

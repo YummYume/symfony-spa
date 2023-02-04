@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="flex flex-col items-center">
+    <div class="flex grow flex-col items-center justify-center">
         {{ form_start(resetForm) }}
         {{ form_row(resetForm.plainPassword) }}
-        {{ component("button", { content: "Reset password" }) }}
+        {{ component("button", { content: "Reset password", submit: true }) }}
         {{ form_end(resetForm) }}
     </div>
 {% endblock %}

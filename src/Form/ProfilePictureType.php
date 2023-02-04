@@ -17,6 +17,7 @@ final class ProfilePictureType extends AbstractType
                 'label' => 'profile_picture.file',
                 'required' => false,
                 'allow_delete' => true,
+                'imagine_pattern' => 'avatar',
             ])
         ;
     }

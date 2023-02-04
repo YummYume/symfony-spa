@@ -39,6 +39,10 @@ class ResetPasswordController extends AbstractController
         SecurityEmailManager $securityEmailManager,
         UserRepository $userRepository
     ): Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $form = $this->createForm(ResetPasswordRequestFormType::class)->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -66,7 +70,7 @@ class ResetPasswordController extends AbstractController
                 return $this->redirectToRoute('app_check_email');
             }
 
-            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
         }
 
         return $this->render('reset_password/request.html.twig', [
@@ -80,6 +84,10 @@ class ResetPasswordController extends AbstractController
     #[Route('/check-email', name: 'app_check_email')]
     public function checkEmail(): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         // Generate a fake token if the user does not exist or someone hit this page directly.
         // This prevents exposing whether or not a user was found with the given email address or not
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
@@ -101,6 +109,10 @@ class ResetPasswordController extends AbstractController
         EntityManagerInterface $em,
         string $token = null
     ): Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
             // loaded in a browser and potentially leaking the token to 3rd party JavaScript.
@@ -119,7 +131,7 @@ class ResetPasswordController extends AbstractController
             /** @var User */
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->flashManager->flash(ColorTypeEnum::ERROR->value, sprintf(
+            $this->flashManager->flash(ColorTypeEnum::Error->value, sprintf(
                 '%s - %s',
                 $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_VALIDATE, domain: 'ResetPasswordBundle'),
                 $translator->trans($e->getReason(), domain: 'ResetPasswordBundle')
@@ -145,7 +157,7 @@ class ResetPasswordController extends AbstractController
                 return $this->redirectToRoute('security_login');
             }
 
-            $this->flashManager->flash(ColorTypeEnum::ERROR->value, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
         }
 
         return $this->render('reset_password/reset.html.twig', [

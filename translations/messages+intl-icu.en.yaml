@@ -1,10 +1,18 @@
-# Common
+## Common
 common.login: Login
 common.logout: Logout
 common.sign_in: Sign in
 common.search: Search
 
-# Pages
+## Flashes
+# Common
+flash.common.invalid_csrf: Invalid CSRF token. Please try again.
+
+# Delete profile
+flash.delete_profile.invalid_prompt: Invalid input. Please try again.
+flash.delete_profile.success: Account deleted.
+
+## Pages
 # About Us
 page.about_us.title: About Us
 
@@ -29,7 +37,15 @@ page.login.forgot_password: Forgot your password?
 page.login.remember_me: Remember me
 page.login.no_account: No account yet? Click here to register.
 
-# Entities
+# Edit Profile
+page.edit_profile.delete_account: Delete your account
+page.edit_profile.delete_account_content: Are you sure you want to delete your account? Everything related to it will also be deleted.
+page.edit_profile.delete_account_warning: This cannot be undone.
+page.edit_profile.delete_account_back: I changed my mind
+page.edit_profile.delete_account_confirm: Delete my account
+page.edit_profile.deletion_prompt: I understand the consequences and wishes to delete my account
+
+## Entities
 # User
 user.email: Email
 user.password: Password
@@ -42,3 +58,7 @@ reset_password_request.email: Email
 reset_password_request.email.help: The email address associated with your account
 reset_password_request.new_password: New password
 reset_password_request.repeat_password: Repeat your password
+
+## Components
+# Deletion prompt modal
+component.deletion_prompt_modal.label: To continue, type in "{ prompt }."

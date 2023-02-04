@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProfilePictureRepository::class)]
@@ -34,6 +35,12 @@ class ProfilePicture
         mimeType: 'mimeType',
         originalName: 'originalName',
         dimensions: 'dimensions'
+    )]
+    #[Assert\File(
+        maxSize: '2M',
+        maxSizeMessage: 'profile_picture.file.max_size',
+        extensions: ['png', 'jpg', 'gif'],
+        extensionsMessage: 'profile_picture.file.extension',
     )]
     private ?File $file = null;
 
