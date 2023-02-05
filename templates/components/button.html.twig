@@ -12,11 +12,17 @@
         {{ class }}
     "
     type="{{ submit ? "submit" : "button" }}">
-    {% if icon and iconPosition == "left" %}
-        {% include "icon/#{icon}.html.twig" %}
-    {% endif %}
-    {{ content }}
-    {% if icon and iconPosition == "right" %}
-        {% include "icon/#{icon}.html.twig" %}
+    {% if icon or content %}
+        {% if icon and iconPosition == "left" %}
+            {% include "icon/#{icon}.html.twig" %}
+        {% endif %}
+        {{ content }}
+        {% if icon and iconPosition == "right" %}
+            {% include "icon/#{icon}.html.twig" %}
+        {% endif %}
+    {% else %}
+        {% block content %}
+
+        {% endblock %}
     {% endif %}
 </button>
