@@ -6,7 +6,7 @@ use App\Enum\ColorTypeEnum;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('button')]
-class ButtonComponent
+final class ButtonComponent
 {
     public const LEFT = 'left';
     public const RIGHT = 'right';
