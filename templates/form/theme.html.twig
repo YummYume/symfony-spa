@@ -1,5 +1,7 @@
 {% use 'form_div_layout.html.twig' %}
 
+{# General #}
+
 {%- block form_row -%}
     {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('mb-6')) }) -%}
     {{- parent() -}}
@@ -30,17 +32,7 @@
     {%- endif -%}
 {%- endblock form_errors -%}
 
-{%- block choice_widget_expanded -%}
-    {%- set attr = attr|merge({ class: attr.class|default('mt-2') }) -%}
-    <div {{ block('widget_container_attributes') }}>
-        {%- for child in form %}
-            <div class="flex items-center">
-                {{- form_widget(child) -}}
-                {{- form_label(child, null, { translation_domain: choice_translation_domain }) -}}
-            </div>
-        {% endfor -%}
-    </div>
-{%- endblock choice_widget_expanded -%}
+{# Checkbox #}
 
 {%- block checkbox_row -%}
     {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('form-control')) }) -%}
@@ -63,6 +55,8 @@
     {{- parent() -}}
 {%- endblock checkbox_widget -%}
 
+{# Choice #}
+
 {%- block choice_widget -%}
     {%- set widget_class = widget_class|default('select select-bordered w-full max-w-xs') -%}
     {% if expanded %}
@@ -71,6 +65,34 @@
         {{- block('choice_widget_collapsed') -}}
     {% endif %}
 {%- endblock choice_widget -%}
+
+{%- block choice_widget_expanded -%}
+    {%- set attr = attr|merge({ class: attr.class|default('mt-2') }) -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <div class="flex items-center">
+                {{- form_widget(child) -}}
+                {{- form_label(child, null, { translation_domain: choice_translation_domain }) -}}
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+{# File #}
+
+{% block file_widget %}
+    {%- set widget_class = widget_class|default('file-input file-input-bordered file-input-primary w-full max-w-xs') -%}
+    {{- block('form_widget') -}}
+{% endblock %}
+
+{# Radio #}
+
+{%- block radio_widget -%}
+    {%- set widget_class = widget_class|default('mr-2') -%}
+    {{- parent() -}}
+{%- endblock radio_widget -%}
+
+{# Text #}
 
 {%- block email_widget -%}
     {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
@@ -82,17 +104,12 @@
     {{- parent() -}}
 {%- endblock password_widget -%}
 
-{%- block radio_widget -%}
-    {%- set widget_class = widget_class|default('mr-2') -%}
-    {{- parent() -}}
-{%- endblock radio_widget -%}
-
-{%- block textarea_widget -%}
-    {%- set widget_class = widget_class|default('textarea textarea-bordered') -%}
-    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-{%- endblock textarea_widget -%}
-
 {%- block text_widget -%}
     {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
-    {{ block('form_widget_simple') }}
+    {{ block('form_widget') }}
 {%- endblock text_widget -%}
+
+{%- block textarea_widget -%}
+    {%- set widget_class = widget_class|default('textarea textarea-bordered w-full') -%}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}

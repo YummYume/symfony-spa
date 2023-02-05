@@ -4,32 +4,36 @@
     {{ "page.edit_profile.title"|trans }}
 {% endblock %}
 
+{% block main_title %}
+    {{ "page.edit_profile.title"|trans }}
+{% endblock %}
+
 {% block main_body %}
-    <h1 class="text-center text-3xl">
-        {{ "page.edit_profile.title"|trans }}
-    </h1>
+    <div class="mx-auto flex flex-col gap-8">
+        <div>
+            {{ form_start(form) }}
+            {{ form_row(form) }}
+            {{ component("button", { content: "common.submit"|trans, submit: true }) }}
+            {{ form_end(form) }}
+        </div>
 
-    {{ form_start(form) }}
-    {{ form_row(form) }}
-    <button class="btn" type="submit">{{ "common.submit"|trans }}</button>
-    {{ form_end(form) }}
-
-    {% if not app.user.isAdmin %}
-        {{
-            component(
-                "deletion_prompt_modal",
-                {
-                    id: "delete-account-modal",
-                    title: "page.edit_profile.delete_account"|trans,
-                    content: "page.edit_profile.delete_account_content"|trans,
-                    warningMessage: "page.edit_profile.delete_account_warning"|trans,
-                    closeLabel: "page.edit_profile.delete_account_back"|trans,
-                    deleteLabel: "page.edit_profile.delete_account_confirm"|trans,
-                    prompt: "page.edit_profile.deletion_prompt"|trans,
-                    action: path("app_delete_profile"),
-                    token: csrf_token("delete-" ~ app.user.profile.slug ~ "-user")
-                }
-            )
-        }}
-    {% endif %}
+        {% if not app.user.isAdmin %}
+            {{
+                component(
+                    "deletion_prompt_modal",
+                    {
+                        id: "delete-account-modal",
+                        title: "page.edit_profile.delete_account"|trans,
+                        content: "page.edit_profile.delete_account_content"|trans,
+                        warningMessage: "page.edit_profile.delete_account_warning"|trans,
+                        closeLabel: "page.edit_profile.delete_account_back"|trans,
+                        deleteLabel: "page.edit_profile.delete_account_confirm"|trans,
+                        prompt: "page.edit_profile.deletion_prompt"|trans,
+                        action: path("app_delete_profile"),
+                        token: csrf_token("delete-" ~ app.user.profile.slug ~ "-user")
+                    }
+                )
+            }}
+        {% endif %}
+    </div>
 {% endblock %}

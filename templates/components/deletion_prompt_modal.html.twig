@@ -1,4 +1,4 @@
-<label for="{{ id }}" class="btn-outline btn-error btn">{{ deleteLabel }}</label>
+<label for="{{ id }}" class="btn-error btn-outline btn mx-auto flex">{{ deleteLabel }}</label>
 
 <input type="checkbox" id="{{ id }}" class="modal-toggle" />
 <label class="modal modal-bottom cursor-pointer sm:modal-middle" for="{{ id }}">
@@ -14,7 +14,7 @@
                     <p class="py-4">
                         <span>{{ content }}</span>
                         {% if warningMessage %}
-                            <strong class="text-red-700">{{ warningMessage }}</strong>
+                            <strong class="text-error">{{ warningMessage }}</strong>
                         {% endif %}
                     </p>
                 {% endblock %}
@@ -28,7 +28,7 @@
             {% if token %}
                 <input type="hidden" name="_token" value="{{ token }}" />
             {% endif %}
-            <div class="modal-action">
+            <div class="modal-action flex justify-center gap-4">
                 <label for="{{ id }}" class="btn-success btn">{{ closeLabel }}</label>
                 <button id="input-prompt-button" type="submit" class="btn-error btn">{{ deleteLabel }}</button>
             </div>
