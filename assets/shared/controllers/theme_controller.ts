@@ -6,13 +6,21 @@ import type { TurboBeforeVisitEvent } from '@hotwired/turbo';
 export default class extends Controller {
   static targets = ['light', 'dark'];
 
-  declare readonly hasDarkTarget: boolean;
+  static classes = ['darkMode'];
 
   declare readonly darkTarget: HTMLElement;
 
-  declare readonly hasLightTarget: boolean;
+  declare readonly hasDarkTarget: boolean;
 
   declare readonly lightTarget: HTMLElement;
+
+  declare readonly hasLightTarget: boolean;
+
+  declare readonly darkModeClass: string;
+
+  declare readonly darkModeClasses: string[];
+
+  declare readonly hasDarkModeClass: boolean;
 
   connect() {
     this.element.addEventListener('turbo:before-visit', this.setTheme.bind(this));
@@ -42,6 +50,14 @@ export default class extends Controller {
         document.cookie = `theme_mode=${mode};SameSite=None; Secure; path=/`;
       }
 
+      if (this.hasDarkModeClass) {
+        if (mode === 'dark') {
+          this.element.classList.add(this.darkModeClasses.join(' '));
+        } else {
+          this.element.classList.remove(this.darkModeClasses.join(' '));
+        }
+      }
+
       if (this.hasLightTarget && this.hasDarkTarget) {
         if (mode === 'dark') {
           if (this.lightTarget.classList.contains('swap-on')) this.lightTarget.classList.replace('swap-on', 'swap-off');
@@ -67,9 +83,11 @@ export default class extends Controller {
 
     cookies.forEach((cookie: string) => {
       let ck: string = cookie;
+
       while (ck.charAt(0) === ' ') {
         ck = ck.substring(1, ck.length);
       }
+
       if (ck.indexOf(nameEQ) === 0) {
         result = ck.substring(nameEQ.length, ck.length);
       }
