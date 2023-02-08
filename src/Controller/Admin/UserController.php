@@ -39,6 +39,11 @@ final class UserController extends AbstractController
                         // custom value
                     ],
                 ],
+                'enable' => [
+                    'type' => 'switch',
+                    'label' => 'actif',
+                    'extras' => null,
+                ],
                 'actions' => [
                     'success' => [
                         'route' => 'app_homepage',
