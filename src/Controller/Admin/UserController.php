@@ -22,41 +22,41 @@ final class UserController extends AbstractController
         );
 
         $config = [
-            "cols" => [
-                "id" => [
-                    "type" => "text",
-                    "label" => "id",
-                    "queryKey" => "u.id",
-                    "extras" => [
+            'cols' => [
+                'id' => [
+                    'type' => 'text',
+                    'label' => 'id',
+                    'queryKey' => 'u.id',
+                    'extras' => [
                         // custom value
                     ],
                 ],
-                "email" => [
-                    "type" => "text",
-                    "label" => "e-mail",
-                    "queryKey" => "u.email",
-                    "extras" => [
+                'email' => [
+                    'type' => 'text',
+                    'label' => 'e-mail',
+                    'queryKey' => 'u.email',
+                    'extras' => [
                         // custom value
                     ],
                 ],
-                "actions" => [
-                    "success" => [
-                        "route" => "app_homepage",
-                        "icon" => "eye",
+                'actions' => [
+                    'success' => [
+                        'route' => 'app_homepage',
+                        'icon' => 'eye',
                     ],
-                    "accent" => [
-                        "route" => "app_homepage",
-                        "icon" => "pencil",
+                    'accent' => [
+                        'route' => 'app_homepage',
+                        'icon' => 'pencil',
                     ],
-                    "error" => [
-                        "route" => "app_homepage",
-                        "icon" => "trash",
-                    ]
+                    'error' => [
+                        'route' => 'app_homepage',
+                        'icon' => 'trash',
+                    ],
                 ],
             ],
-            "pagination" => $pagination,
+            'pagination' => $pagination,
         ];
-        
-        return $this->render('admin/user/index.html.twig', ["config" => $config]);
+
+        return $this->render('admin/user/index.html.twig', ['config' => $config]);
     }
 }

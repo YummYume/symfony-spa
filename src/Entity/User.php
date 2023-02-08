@@ -22,9 +22,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['email'], message: 'user.email.unique', errorPath: 'email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable, \ArrayAccess
 {
+    use ArrayAccessTrait;
     use BlameableTrait;
     use TimestampableTrait;
-    use ArrayAccessTrait;
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
