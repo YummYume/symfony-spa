@@ -1,0 +1,7 @@
+<td class="flex items-center justify-center">
+  {% for key, action in config.actions %}
+    <a class="btn btn-{{ key }} ml-1" href="{{ path(action.route, { id: config.value }) }}">
+      {% include 'icon/' ~ action.icon ~ '.html.twig' %}
+    </a>
+  {% endfor %}
+</td>

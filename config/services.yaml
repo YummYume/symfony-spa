@@ -47,6 +47,13 @@ services:
             - '@Redis'
             - prefix: session_
 
+    # MenuBuilder
+    app.menu_builder:
+        class: App\Builder\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createBackoffice, alias: backoffice }
+
     # Twig
     App\Twig\AssetDeliveryExtension:
         bind:

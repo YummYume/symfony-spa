@@ -1,0 +1,37 @@
+<div class="overflow-x-auto w-full">
+  <table class="table table-zebra w-full">
+    <thead>
+      <tr>
+        {% for key, col in config.cols %}
+          <th>
+            {% if key != 'actions' %}
+              {{ knp_pagination_sortable(config.pagination, col.label, col.queryKey, {}, {}, 'knp_custom/paginator_sortable.html.twig') }}
+            {% else %}
+              {{ key|upper }}
+            {% endif %}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for value in config.pagination %}
+      <tr {% if loop.index is odd %}class="color"{% endif %}>
+        {% for key, col in config.cols %}
+          {% if col.queryKey is defined %}
+            {{ component(col.type, { config: { extras: col.extras, value: value[key] } }) }}
+          {% else %}
+            {% if key == 'actions' %}
+              {{ component(key, { config: { actions: col, value: value.id } }) }}
+            {% else %}
+              {{ component(col.type, { config: { extras: col.extras } }) }}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div class="flex justify-center p-2">
+    {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
+  </div>
+</div>

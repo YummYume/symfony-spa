@@ -1,3 +1,4 @@
+PWD=$(shell pwd)
 COMPOSE=docker compose
 COMPOSECI=$(COMPOSE) -f docker-compose.ci.yml
 EXECPHP=$(COMPOSE) exec php
@@ -5,6 +6,13 @@ EXECENCORE=$(COMPOSE) exec encore
 EXECREDIS=$(COMPOSE) exec redis
 EXECNGINX=$(COMPOSE) exec nginx
 EXECDB=$(COMPOSE) exec db
+DAHL=docker run --rm -it -v $(PWD):/app -w /app spacelocust/dahl:latest
+
+# Functions
+capitalize = $(shell echo $(1) | sed 's/\([a-z]\)\([a-zA-Z0-9]*\)/\u\1\2/g')
+lowercase = $(shell echo $(1) | tr '[:upper:]' '[:lower:]')
+path_reformator = $(subst /,\\,$(1))
+
 ifeq ($(OS), Windows_NT)
 	ENVIRONMENT=Windows
 else
@@ -165,3 +173,26 @@ start-ci:
 	$(COMPOSECI) exec php php bin/console --env=test assets:install
 	$(COMPOSECI) exec php yarn dev
 	make db-test
+
+# Dahl
+dahl:
+	$(DAHL) $(c)
+
+dahl-icon:
+	$(DAHL) run i-twig -n $(call lowercase, $(n))
+
+dahl-translation:
+	$(DAHL) run trans -n $(call lowercase, $(n)) -s +intl-icu.fr
+	$(DAHL) run trans -n $(call lowercase, $(n)) -s +intl-icu.en
+
+# n for name and l for location (sub directory)
+dahl-component:
+	$(DAHL) run c-class \
+		--to="./src/Components$(if $(l),/$(call capitalize, $(l)),)" \
+		-n="$(call capitalize, $(n))" \
+		--props '{"namespace":"$(if $(l),App\\Components\\$(call path_reformator,$(call capitalize,$(l))),App\\Components)","twigLocation":"components/$(if $(l),$(l)/$(n).html.twig,$(n).html.twig)","twigName":"$(n)"}' \
+
+	$(DAHL) run c-twig \
+		--to="./templates/components/$(if $(l),$(l),"")" \
+		-n="$(call lowercase, $(n))" \
+		--props '{"twigLocation":"$(l)","twigName":"$(n)"}'

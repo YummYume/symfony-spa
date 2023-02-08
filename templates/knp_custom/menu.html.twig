@@ -1,0 +1,7 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block label %}
+    {%- if item.extra('icon')%}{% include 'icon/' ~ item.extra('icon') ~ '.html.twig' %}{% endif -%}
+    {%- set label = item.label|trans({}, "menu+intl-icu") -%}
+    {%- if options.allow_safe_labels and item.extra('safe_label', false) %}{{ label|raw }}{% else %}<p class="hidden md:block">{{ label }}</p>{% endif -%}
+{% endblock %}
