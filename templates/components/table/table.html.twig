@@ -1,5 +1,5 @@
 {% set colspan = 1 %}
-<div class="overflow-x-auto w-full">
+<div class="overflow-x-auto w-full" {{ stimulus_controller("table") }}>
   <table class="table table-zebra w-full">
     <thead>
       <tr>
@@ -24,12 +24,12 @@
         <tr {% if loop.index is odd %}class="color"{% endif %}>
           {% for key, col in config.cols %}
             {% if col.queryKey is defined %}
-              {{ component(col.type, { config: { extras: col.extras, value: value[key] } }) }}
+              {{ component(col.type, { config: { item: value, col, value: value[key] } }) }}
             {% else %}
               {% if key == 'actions' %}
                 {{ component(key, { config: { actions: col, value: value.id } }) }}
               {% else %}
-                {{ component(col.type, { config: { extras: col.extras } }) }}
+                {{ component(col.type, { config: { col } }) }}
               {% endif %}
             {% endif %}
           {% endfor %}
@@ -43,4 +43,19 @@
   <div class="flex justify-center p-2">
     {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
   </div>
+
+  {% if config.cols.actions is defined %}
+    <input type="checkbox" id="action-modal" class="modal-toggle" />
+    <div class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <label for="action-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+        <h3 data-table-target="message" class="font-bold text-lg"></h3>
+        <div class="modal-action">
+          <a data-table-target="route" href="" class="btn btn-primary">{{ "table.modal.yes"|trans({}, "table+intl-icu") }}</a>
+          <label for="action-modal" class="btn btn-error">{{ "table.modal.no"|trans({}, "table+intl-icu") }}</label>
+        </div>
+      </div>
+    </div>
+  {% endif %}
 </div>
+

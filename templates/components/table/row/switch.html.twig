@@ -1,1 +1,1 @@
-<td class="text-center"><input type="checkbox" class="toggle toggle-success" checked /></td>
+<td class="text-center"><input data-action="table#switch" data-route="{{ path(config.col.extras.route, { id: config.item.id }) }}" type="checkbox" class="toggle toggle-success" {{ config.value ? "checked" : "" }} /></td>

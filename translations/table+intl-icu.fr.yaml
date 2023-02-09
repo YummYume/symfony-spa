@@ -1,1 +1,8 @@
 table.empty: il n'y a pas de données
+table.modal.yes: oui
+table.modal.no: non
+
+table.user.id: id
+table.user.email: e-mail
+table.user.verified: vérifié
+table.user.delete.message: Voulez-vous vraiment supprimer cette utilisateur ?

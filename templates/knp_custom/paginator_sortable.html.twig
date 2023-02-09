@@ -1,3 +1,3 @@
 <a{% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>
-  <span class="flex items-center">{{ component('arrow_sortable', { sortable: options.class }) }}<p class="ml-2">{{ title }}<p><span>
+  <span class="flex items-center">{{ component('arrow_sortable', { sortable: options.class }) }}<p class="ml-2">{{ title|trans({}, "table+intl-icu") }}<p><span>
 </a>
