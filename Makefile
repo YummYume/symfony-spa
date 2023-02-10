@@ -96,7 +96,7 @@ rabbitmq-consume:
 # Debug
 dump:
 	$(EXECPHP) php bin/console server:dump
-	
+
 # Containers
 list-containers:
 	docker compose ps -a
@@ -121,9 +121,13 @@ logs-encore:
 cc:
 	$(EXECPHP) bin/console c:cl --no-warmup
 	$(EXECPHP) bin/console c:warmup
+	make liip-clear
+
+liip-clear:
+	$(EXECPHP) bin/console liip:imagine:cache:remove
 
 # Linting
-lint: php-cs-fixer eslint prettier
+lint: php-cs-fixer eslint
 
 php-cs-fixer:
 	$(EXECPHP) sh -c "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix src -v --dry-run"
@@ -135,7 +139,7 @@ prettier:
 	$(EXECENCORE) yarn prettier -c
 
 # Fixing
-fix: php-cs-fixer-fix eslint-fix prettier-fix
+fix: php-cs-fixer-fix eslint-fix
 
 php-cs-fixer-fix:
 	$(EXECPHP) sh -c "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix src"

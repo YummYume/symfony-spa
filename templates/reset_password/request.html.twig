@@ -1,11 +1,15 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Reset your password
+    {{ "page.request_password.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.request_password.description"|trans }}
 {% endblock %}
 
 {% block main_title %}
-    Reset your password
+    {{ "page.request_password.title"|trans }}
 {% endblock %}
 
 {% block main_body %}
@@ -23,8 +27,8 @@
         </div>
 
         <div class="flex flex-col items-center gap-2">
-            <small>Enter your email address and we will send you a link to reset your password.</small>
-            {{ component("button", { content: "Send password reset email", submit: true }) }}
+            <small>{{ "page.request_password.enter_your_email"|trans }}</small>
+            {{ component("button", { content: "page.request_password.send"|trans, submit: true }) }}
         </div>
 
         {{ form_end(requestForm) }}

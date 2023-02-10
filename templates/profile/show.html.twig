@@ -4,11 +4,26 @@
     {{ "page.show_profile.title"|trans({ username: profile.username }) }}
 {% endblock %}
 
-{% block main_body %}
-    <h1 class="text-center text-3xl">
-        {{ "page.show_profile.title"|trans({ username: profile.username }) }}
-    </h1>
+{% block description %}
+    {{ "page.show_profile.description"|trans({ username: profile.username }) }}
+{% endblock %}
 
-    {# You can easily render markdown here #}
-    {{ profile.description|default("") }}
+{% block main_title %}
+    {{ "page.show_profile.title"|trans({ username: profile.username }) }}
+{% endblock %}
+
+{% block main_body %}
+    <div class="card card-side bg-base-100 shadow-xl">
+        <figure>
+            {{ component("avatar", { user: profile.user, small: false }) }}
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title">
+                {{ profile.username }}
+            </h2>
+            <p>
+                {{ profile.description|default("") }}
+            </p>
+        </div>
+    </div>
 {% endblock %}

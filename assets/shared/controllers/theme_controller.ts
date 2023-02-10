@@ -6,7 +6,7 @@ import type { TurboBeforeVisitEvent } from '@hotwired/turbo';
 export default class extends Controller {
   static targets = ['light', 'dark'];
 
-  static classes = ['darkMode'];
+  static classes = ['darkMode', 'lightMode'];
 
   declare readonly darkTarget: HTMLElement;
 
@@ -21,6 +21,12 @@ export default class extends Controller {
   declare readonly darkModeClasses: string[];
 
   declare readonly hasDarkModeClass: boolean;
+
+  declare readonly lightModeClass: string;
+
+  declare readonly lightModeClasses: string[];
+
+  declare readonly hasLightModeClass: boolean;
 
   connect() {
     this.element.addEventListener('turbo:before-visit', this.setTheme.bind(this));
@@ -50,11 +56,18 @@ export default class extends Controller {
         document.cookie = `theme_mode=${mode};SameSite=None; Secure; path=/`;
       }
 
-      if (this.hasDarkModeClass) {
+      if (this.hasDarkModeClass && this.hasLightModeClass) {
+        const darkModeClasses = this.darkModeClasses.join(' ');
+        const lightModeClasses = this.lightModeClasses.join(' ');
+
         if (mode === 'dark') {
-          this.element.classList.add(this.darkModeClasses.join(' '));
+          this.element.classList.remove(lightModeClasses);
+          this.element.classList.add(darkModeClasses);
+          this.element.setAttribute('data-theme', darkModeClasses);
         } else {
-          this.element.classList.remove(this.darkModeClasses.join(' '));
+          this.element.classList.remove(darkModeClasses);
+          this.element.classList.add(lightModeClasses);
+          this.element.setAttribute('data-theme', lightModeClasses);
         }
       }
 

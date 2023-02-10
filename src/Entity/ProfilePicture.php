@@ -36,11 +36,14 @@ class ProfilePicture
         originalName: 'originalName',
         dimensions: 'dimensions'
     )]
-    #[Assert\File(
+    #[Assert\Image(
         maxSize: '2M',
         maxSizeMessage: 'profile_picture.file.max_size',
-        extensions: ['png', 'jpg', 'gif'],
-        extensionsMessage: 'profile_picture.file.extension',
+        mimeTypes: ['image/png', 'image/jpeg', 'image/gif'],
+        mimeTypesMessage: 'profile_picture.file.mime_types',
+        detectCorrupted: true,
+        corruptedMessage: 'profile_picture.file.corrupted',
+        sizeNotDetectedMessage: 'profile_picture.file.size_not_detected'
     )]
     private ?File $file = null;
 

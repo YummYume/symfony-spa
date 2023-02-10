@@ -1,0 +1,7 @@
+# Commun
+common.logout: Déconnexion
+
+# Pages
+## Page d'accueil
+page.homepage.title: Page d'accueil de l'administration
+page.homepage.description: La page d'accueil de l'administration pour MyApp.

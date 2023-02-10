@@ -1,0 +1,27 @@
+# Common
+common.contact_us: Nous contacter
+
+# Default
+default.bottom_text: Ce courrier électronique a été envoyé automatiquement depuis MyApp. Si vous rencontrez des problèmes, veuillez nous en informer.
+
+# Registartion confirmation
+registration_confirmation.subject: Vérifiez votre compte
+registration_confirmation.title: Vérifiez votre compte
+registration_confirmation.description: Utilisez le lien fourni dans ce courrier électronique pour vérifier votre compte.
+registration_confirmation.main_text: Bonjour, {username}. Vous avez récemment enregistré un compte sur MyApp en utilisant cette adresse e-mail. Pour vérifier votre compte, veuillez cliquer sur le lien ci-dessous. Le lien expirera dans
+registration_confirmation.safety_message: Si vous n'avez pas créé de compte, veuillez ignorer ce courrier électronique ou
+registration_confirmation.confirm: Vérifier mon compte
+
+# Reset password
+reset_password.subject: Réinitialisez votre mot de passe
+reset_password.title: Réinitialisez votre mot de passe
+reset_password.description: Utilisez le lien fourni dans ce courrier électronique pour réinitialiser votre mot de passe.
+reset_password.main_text: Bonjour, {username}. Vous avez demandé un lien pour réinitialiser votre mot de passe. Pour ce faire, veuillez cliquer ci-dessous. Le lien expirera dans
+reset_password.safety_message: Si vous n'avez pas demandé de nouveau mot de passe, ignorez ce courrier électronique.
+reset_password.reset: Réinitialiser mon mot de passe
+
+# Account deletion
+account_deletion.subject: Suppression de votre compte
+account_deletion.title: Votre compte a été supprimé
+account_deletion.description: Nous confirmons la suppression de votre compte sur MyApp.
+account_deletion.main_text: Bonjour, {username}. Nous sommes désolés de vous voir partir et confirmons la suppression de votre compte sur MyApp, ainsi que de toutes les informations associées.

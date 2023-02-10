@@ -8,14 +8,20 @@ liip_imagine:
         generate: true
         quality: 100
         cache: ~
+    controller:
+        redirect_response_code: 301
 
     filter_sets:
         cache: ~
+
+        # Avatar small
         avatar_small:
             quality: 80
             filters:
                 thumbnail:
                     size: [48, 48]
+
+        # Avatar
         avatar:
             quality: 80
             filters:

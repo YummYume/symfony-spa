@@ -17,11 +17,14 @@ final class ProfileType extends AbstractType
             ->add('username', TextType::class, [
                 'label' => 'profile.username',
                 'required' => true,
+                'help' => 'profile.username.help',
             ])
             ->add('description', TextareaType::class, [
+                'label' => 'profile.description',
                 'required' => false,
             ])
             ->add('picture', ProfilePictureType::class, [
+                'label' => false,
                 'required' => false,
             ])
         ;
