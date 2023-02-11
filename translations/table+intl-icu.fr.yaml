@@ -5,4 +5,4 @@ table.modal.no: non
 table.user.id: id
 table.user.email: e-mail
 table.user.verified: vérifié
-table.user.delete.message: Voulez-vous vraiment supprimer cette utilisateur ?
+table.user.delete.message: Voulez-vous vraiment supprimer cet utilisateur ?

@@ -5,7 +5,7 @@ namespace App\Builder;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 
-class MenuBuilder
+final class MenuBuilder
 {
     public function __construct(private readonly FactoryInterface $factory)
     {

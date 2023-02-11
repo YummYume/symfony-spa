@@ -15,10 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 final class UserController extends AbstractController
 {
     #[Route('/users', name: 'admin_user', methods: ['GET'])]
-    public function index(UserRepository $userRepo, PaginatorInterface $paginator, Request $request): Response
+    public function index(UserRepository $UserRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
-            $userRepo->createQueryBuilder('u'),
+            $UserRepository->createQueryBuilder('u'),
             $request->query->getInt('page', 1),
             5
         );
@@ -74,10 +74,10 @@ final class UserController extends AbstractController
     }
 
     #[Route('/users/check/{id}', name: 'admin_user_status', methods: ['GET'])]
-    public function changeStatus(User $user, UserRepository $userRepo): JsonResponse
+    public function changeStatus(User $user, UserRepository $UserRepository): JsonResponse
     {
         $user->setIsVerified(!$user->isVerified());
-        $userRepo->save($user, true);
+        $UserRepository->save($user, true);
 
         return $this->json(['response' => 'value change']);
     }
