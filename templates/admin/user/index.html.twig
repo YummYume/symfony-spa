@@ -1,13 +1,7 @@
 {% extends "admin/layout.html.twig" %}
 
-{% trans_default_domain "admin" %}
-
 {% block title %}
-    {{ "page.homepage.title"|trans }}
-{% endblock %}
-
-{% block description %}
-    {{ "page.homepage.description"|trans }}
+    Admin - User
 {% endblock %}
 
 {% block main_body %}
@@ -16,6 +10,7 @@
     </h1>
     <div class="flex">
         {{ knp_menu_render('backoffice', { template: knp_custom_menu }) }}
+        {{ component('table', { config }) }}
     </div>
 
     <a class="btn" href="{{ path("security_logout") }}">{{ "common.logout"|trans }}</a>
