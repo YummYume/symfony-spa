@@ -9,60 +9,63 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="mx-auto flex flex-col gap-8">
-        <div>
+    <div class="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <section class="flex flex-col items-center">
             {{ form_start(userForm) }}
-            <section class="my-1">
-                <h2 class="my-1 text-center text-3xl">
-                    {{ "page.edit_profile.user"|trans }}
-                </h2>
+
+            <h2 class="text-center text-3xl">
+                {{ "page.edit_profile.user"|trans }}
+            </h2>
+
+            <div class="max-w-xs">
                 {{ form_row(userForm.email) }}
                 {{ form_row(userForm.currentPassword) }}
                 {{ form_row(userForm.plainPassword) }}
-                {{ component("button", { content: "page.edit_profile.update_account"|trans, submit: true }) }}
-            </section>
+            </div>
+
+            {{ component("button", { content: "page.edit_profile.update_account"|trans, submit: true }) }}
             {{ form_end(userForm) }}
+        </section>
 
-            <div class="divider"></div>
-
+        <section class="flex flex-col items-center">
             {{ form_start(profileForm) }}
-            <section class="my-1">
-                <h2 class="text-center text-3xl">
-                    {{ "page.edit_profile.profile"|trans }}
-                </h2>
+
+            <h2 class="text-center text-3xl">
+                {{ "page.edit_profile.profile"|trans }}
+            </h2>
+
+            <div class="max-w-xs">
                 {{ form_row(profileForm.username) }}
                 {{ form_row(profileForm.description) }}
                 {{ form_row(profileForm.picture) }}
                 {{ component("button", { content: "page.edit_profile.update_profile"|trans, submit: true }) }}
-            </section>
-            {{ form_end(profileForm) }}
+                {{ form_end(profileForm) }}
+            </div>
+        </section>
 
-            {% if not app.user.isAdmin %}
-                <div class="divider"></div>
-                <section class="my-1">
-                    <h2 class="text-center text-3xl">
-                        {{ "page.edit_profile.danger_zone"|trans }}
-                    </h2>
-                    <div class="my-5">
-                        {{
-                            component(
-                                "deletion_prompt_modal",
-                                {
-                                    id: "delete-account-modal",
-                                    title: "page.edit_profile.delete_account"|trans,
-                                    content: "page.edit_profile.delete_account_content"|trans,
-                                    warningMessage: "page.edit_profile.delete_account_warning"|trans,
-                                    closeLabel: "page.edit_profile.delete_account_back"|trans,
-                                    deleteLabel: "page.edit_profile.delete_account_confirm"|trans,
-                                    prompt: "page.edit_profile.deletion_prompt"|trans,
-                                    action: path("app_delete_profile"),
-                                    token: csrf_token("delete-" ~ app.user.profile.slug ~ "-user")
-                                }
-                            )
-                        }}
-                    </div>
-                </section>
-            {% endif %}
-        </div>
+        {% if not app.user.isAdmin %}
+            <section class="mx-auto flex max-w-xs flex-col gap-6 md:col-span-2 lg:col-span-1">
+                <h2 class="text-center text-3xl">
+                    {{ "page.edit_profile.danger_zone"|trans }}
+                </h2>
+
+                {{
+                    component(
+                        "deletion_prompt_modal",
+                        {
+                            id: "delete-account-modal",
+                            title: "page.edit_profile.delete_account"|trans,
+                            content: "page.edit_profile.delete_account_content"|trans,
+                            warningMessage: "page.edit_profile.delete_account_warning"|trans,
+                            closeLabel: "page.edit_profile.delete_account_back"|trans,
+                            deleteLabel: "page.edit_profile.delete_account_confirm"|trans,
+                            prompt: "page.edit_profile.deletion_prompt"|trans,
+                            action: path("app_delete_profile"),
+                            token: csrf_token("delete-#{app.user.profile.slug}-user")
+                        }
+                    )
+                }}
+            </section>
+        {% endif %}
     </div>
 {% endblock %}

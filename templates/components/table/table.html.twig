@@ -1,12 +1,18 @@
-{% set colspan = 1 %}
-<div class="overflow-x-auto w-full" {{ stimulus_controller("table") }}>
+<div class="overflow-x-auto w-full grow" {{ stimulus_controller("table") }}>
   <table class="table table-zebra w-full">
     <thead>
       <tr>
         {% for key, col in config.cols %}
           <th>
             {% if col.queryKey is defined %}
-              {{ knp_pagination_sortable(config.pagination, col.label, col.queryKey, {}, {}, 'knp_custom/paginator_sortable.html.twig') }}
+              {{ knp_pagination_sortable(
+                config.pagination,
+                col.label,
+                col.queryKey,
+                {},
+                {},
+                'knp_custom/paginator_sortable.html.twig'
+              )}}
             {% else %}
               {% if key == 'actions' %}
                 {{ key|upper }}
@@ -21,7 +27,7 @@
     <tbody>
     {% if config.pagination|length > 0 %}
       {% for value in config.pagination %}
-        <tr {% if loop.index is odd %}class="color"{% endif %}>
+        <tr>
           {% for key, col in config.cols %}
             {% if col.queryKey is defined %}
               {{ component(col.type, { config: { item: value, col, value: value[key] } }) }}
@@ -36,26 +42,26 @@
         </tr>
       {% endfor %}
     {% else %}
-      <tr><td class="text-center" colspan="{{ config.cols|length }}">{{ "table.empty"|trans({}, "table+intl-icu") }}</td></tr>
+      <tr>
+        <td class="text-center" colspan="{{ config.cols|length }}">
+          {{ "table.empty"|trans({}, "table+intl-icu") }}
+        </td>
+      </tr>
     {% endif %}
     </tbody>
   </table>
-  <div class="flex justify-center p-2">
-    {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
-  </div>
 
   {% if config.cols.actions is defined %}
     <input type="checkbox" id="action-modal" class="modal-toggle" />
-    <div class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box">
+    <label for="action-modal" class="modal cursor-pointer">
+      <label class="modal-box relative" for="">
         <label for="action-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-        <h3 data-table-target="message" class="font-bold text-lg"></h3>
+        <h3 class="text-lg font-bold" data-table-target="message"></h3>
         <div class="modal-action">
-          <a data-table-target="route" href="" class="btn btn-primary">{{ "table.modal.yes"|trans({}, "table+intl-icu") }}</a>
-          <label for="action-modal" class="btn btn-error">{{ "table.modal.no"|trans({}, "table+intl-icu") }}</label>
+          <a data-table-target="route" href="" class="btn btn-error">{{ "table.modal.yes"|trans({}, "table+intl-icu") }}</a>
+          <label for="action-modal" class="btn btn-success">{{ "table.modal.no"|trans({}, "table+intl-icu") }}</label>
         </div>
-      </div>
-    </div>
+      </label>
+    </label>
   {% endif %}
 </div>
-

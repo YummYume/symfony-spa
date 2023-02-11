@@ -1,37 +1,27 @@
 {% if pageCount > 1 %}
-  <div class="btn-group pagination">
-      {% if first is defined and current != first %}
-          <span class="btn first">
-              <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">«</a>
-          </span>
-      {% endif %}
+    <div class="pagination btn-group rounded-lg bg-base-300">
+        {% if first is defined and current != first %}
+            <a class="btn border-transparent bg-transparent" href="{{ path(route, query|merge({ (pageParameterName): first })) }}">«</a>
+        {% endif %}
 
-      {% if previous is defined %}
-          <span class="btn previous">
-              <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&#8249;</a>
-          </span>
-      {% endif %}
+        {% if previous is defined %}
+            <a class="btn border-transparent bg-transparent" href="{{ path(route, query|merge({ (pageParameterName): previous })) }}">&#8249;</a>
+        {% endif %}
 
-      {% for page in pagesInRange %}
-          {% if page != current %}
-              <span class="btn page">
-                  <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
-              </span>
-          {% else %}
-              <span class="btn btn-active current">{{ page }}</span>
-          {% endif %}
-      {% endfor %}
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <a class="btn border-transparent bg-transparent" href="{{ path(route, query|merge({ (pageParameterName): page })) }}">{{ page }}</a>
+            {% else %}
+                <span class="btn-active btn">{{ page }}</span>
+            {% endif %}
+        {% endfor %}
 
-      {% if next is defined %}
-          <span class="btn next">
-              <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&#8250;</a>
-          </span>
-      {% endif %}
+        {% if next is defined %}
+            <a class="btn border-transparent bg-transparent" href="{{ path(route, query|merge({ (pageParameterName): next })) }}">&#8250;</a>
+        {% endif %}
 
-      {% if last is defined and current != last %}
-          <span class="btn last">
-              <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">»</a>
-          </span>
-      {% endif %}
-  </div>
+        {% if last is defined and current != last %}
+            <a class="btn border-transparent bg-transparent" href="{{ path(route, query|merge({ (pageParameterName): last })) }}">»</a>
+        {% endif %}
+    </div>
 {% endif %}

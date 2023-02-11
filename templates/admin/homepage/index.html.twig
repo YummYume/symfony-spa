@@ -10,13 +10,14 @@
     {{ "page.homepage.description"|trans }}
 {% endblock %}
 
+{% block main_title %}
+    {{ "page.homepage.title"|trans }}
+{% endblock %}
+
 {% block main_body %}
-    <h1>
-        SUPER SECURE PAGE
-    </h1>
     <div class="flex">
-        {{ knp_menu_render('backoffice', { template: knp_custom_menu }) }}
+        {{ knp_menu_render("backoffice", { template: knp_custom_menu }) }}
     </div>
 
-    <a class="btn" href="{{ path("security_logout") }}">{{ "common.logout"|trans }}</a>
+    <a href="{{ path("security_logout") }}">{{ component("button", { content: "common.logout"|trans }) }}</a>
 {% endblock %}
