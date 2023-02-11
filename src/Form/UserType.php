@@ -19,6 +19,14 @@ final class UserType extends AbstractType
                 'label' => 'user.email',
                 'required' => true,
             ])
+            ->add('currentPassword', PasswordType::class, [
+                'label' => 'user.current_password',
+                'required' => false,
+                'attr' => [
+                    'autocomplete' => 'current-password',
+                ],
+                'help' => 'user.current_password.help',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'options' => [
@@ -28,14 +36,14 @@ final class UserType extends AbstractType
                 ],
                 'first_options' => [
                     'label' => 'user.new_password',
+                    'help' => 'user.password.help',
                 ],
                 'second_options' => [
-                    'label' => 'user.repeat_password',
+                    'label' => 'user.repeat_new_password',
                 ],
                 'invalid_message' => 'user.password.no_match',
                 'required' => false,
             ])
-            ->add('profile', ProfileType::class)
         ;
     }
 
@@ -43,6 +51,7 @@ final class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups' => ['Default', 'UserEdit'],
         ]);
     }
 }

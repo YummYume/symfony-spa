@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Enum\ColorTypeEnum;
+use App\Form\ProfileType;
 use App\Form\UserType;
+use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
+use App\Repository\ProfileRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,16 +26,29 @@ final class UserController extends AbstractController
     }
 
     #[Route('', name: 'app_edit_profile', methods: ['GET', 'POST'])]
-    public function editProfile(Request $request): Response
+    public function editProfile(Request $request, ProfileRepository $profileRepository): Response
     {
+        /** @var User */
         $user = $this->getUser();
-        $form = $this->createForm(UserType::class, $user)->handleRequest($request);
+        $profile = $user->getProfile();
+        $userForm = $this->createForm(UserType::class, $user)->handleRequest($request);
+        $profileForm = $this->createForm(ProfileType::class, $profile)->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
+        if ($userForm->isSubmitted()) {
+            if ($userForm->isValid()) {
                 $this->userRepository->save($user, true);
 
-                $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.user.profile_updated');
+                $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.account_updated');
+
+                return $this->redirectToRoute('app_edit_profile');
+            }
+
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
+        } elseif ($profileForm->isSubmitted()) {
+            if ($profileForm->isValid()) {
+                $profileRepository->save($profile, true);
+
+                $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.profile_updated');
 
                 return $this->redirectToRoute('app_edit_profile');
             }
@@ -41,13 +57,18 @@ final class UserController extends AbstractController
         }
 
         return $this->render('user/edit_profile.html.twig', [
-            'form' => $form,
+            'userForm' => $userForm,
+            'profileForm' => $profileForm,
         ]);
     }
 
     #[Route('/delete', name: 'app_delete_profile', methods: ['POST'])]
-    public function deleteProfile(Request $request, TranslatorInterface $translator, TokenStorageInterface $tokenStorage): RedirectResponse
-    {
+    public function deleteProfile(
+        Request $request,
+        TranslatorInterface $translator,
+        TokenStorageInterface $tokenStorage,
+        SecurityEmailManager $securityEmailManager
+    ): RedirectResponse {
         /** @var User */
         $user = $this->getUser();
 
@@ -67,8 +88,13 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_edit_profile');
         }
 
+        $email = $user->getEmail();
+        $username = $user->getProfile()->getUsername();
+
         $tokenStorage->setToken(null);
         $this->userRepository->remove($user, true);
+
+        $securityEmailManager->sendAccountDeletionConfirmationEmail($email, $username);
 
         $this->flashManager->flash(ColorTypeEnum::Info->value, 'flash.delete_profile.success');
 

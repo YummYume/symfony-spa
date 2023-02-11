@@ -7,7 +7,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN apk add --no-cache --update \
     icu-dev supervisor && \
     chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions amqp intl pdo_mysql redis gmagick && \
+    install-php-extensions amqp intl pdo_mysql redis gmagick gd && \
     deluser www-data && \
     adduser -DH -h /home/www-data -s /sbin/nologin -u 1000 www-data
 

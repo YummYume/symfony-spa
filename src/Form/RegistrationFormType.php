@@ -29,19 +29,20 @@ final class RegistrationFormType extends AbstractType
                 ],
                 'first_options' => [
                     'label' => 'user.password',
+                    'help' => 'user.password.help',
                 ],
                 'second_options' => [
-                    'label' => 'user.password_repeat',
+                    'label' => 'user.repeat_password',
                 ],
                 'invalid_message' => 'user.password.no_match',
             ])
             ->add('profile', ProfileRegistrationType::class)
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'page.registration.agree_terms',
+                'label' => 'page.register.agree_terms',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'page.registration.agree_terms',
+                        'message' => 'page.register.agree_terms',
                     ]),
                 ],
             ])
@@ -53,6 +54,7 @@ final class RegistrationFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
             'required' => true,
+            'validation_groups' => ['Default', 'Registration'],
         ]);
     }
 }

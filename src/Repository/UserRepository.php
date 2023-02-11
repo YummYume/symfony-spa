@@ -53,4 +53,20 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
 
         $this->save($user, true);
     }
+
+    /**
+     * @return User[]
+     */
+    public function findUnverifiedSince(\DateTime $since): array
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb
+            ->where($qb->expr()->eq('u.verified', 'false'))
+            ->andWhere($qb->expr()->lt('u.createdAt', ':date'))
+            ->setParameter('date', $since)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

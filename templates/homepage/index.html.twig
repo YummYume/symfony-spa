@@ -1,7 +1,15 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Homepage
+    {{ "page.homepage.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.homepage.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.homepage.title"|trans }}
 {% endblock %}
 
 {% block main_body %}

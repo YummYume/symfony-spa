@@ -6,6 +6,7 @@ module.exports = {
     './assets/**/*.(js|ts)',
     './templates/**/*.html.twig',
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
   },

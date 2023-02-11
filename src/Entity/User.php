@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,21 +42,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\Column(type: Types::STRING)]
     private ?string $password = null;
 
+    #[Assert\When(
+        expression: 'this.getPlainPassword() not in [null, ""]',
+        constraints: [
+            new UserPassword(message: 'user.current_password.invalid'),
+        ],
+        groups: ['UserEdit'],
+    )]
+    private ?string $currentPassword = null;
+
     #[Assert\Regex(
         pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
         message: 'user.password.valid'
     )]
     #[Assert\NotCompromisedPassword(message: 'user.password.not_compromised')]
-    #[Assert\When(
-        expression: 'this.getPassword() in [null, ""]',
-        constraints: [
-            new Assert\NotBlank(message: 'user.password.not_blank'),
-        ],
-    )]
+    #[Assert\NotBlank(message: 'user.password.not_blank', groups: ['Registration'])]
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isVerified = false;
+    private bool $verified = false;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     #[Assert\Valid]
@@ -67,7 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
             'id' => $this->id,
             'email' => $this->email,
             'password' => $this->password,
-            'isVerified' => $this->isVerified,
+            'verified' => $this->verified,
         ]);
     }
 
@@ -78,7 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         $this->id = $fields['id'] ?? null;
         $this->email = $fields['email'] ?? null;
         $this->password = $fields['password'] ?? null;
-        $this->isVerified = $fields['isVerified'] ?? false;
+        $this->verified = $fields['verified'] ?? false;
     }
 
     public function getId(): ?Uuid
@@ -136,6 +141,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         return $this;
     }
 
+    public function getCurrentPassword(): ?string
+    {
+        return $this->currentPassword;
+    }
+
+    public function setCurrentPassword(string $currentPassword): self
+    {
+        $this->currentPassword = $currentPassword;
+
+        return $this;
+    }
+
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
@@ -156,12 +173,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
     public function isVerified(): bool
     {
-        return $this->isVerified;
+        return $this->verified;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    public function setIsVerified(bool $verified): self
     {
-        $this->isVerified = $isVerified;
+        $this->verified = $verified;
 
         return $this;
     }

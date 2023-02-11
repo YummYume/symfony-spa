@@ -6,13 +6,27 @@ import type { TurboBeforeVisitEvent } from '@hotwired/turbo';
 export default class extends Controller {
   static targets = ['light', 'dark'];
 
-  declare readonly hasDarkTarget: boolean;
+  static classes = ['darkMode', 'lightMode'];
 
   declare readonly darkTarget: HTMLElement;
 
-  declare readonly hasLightTarget: boolean;
+  declare readonly hasDarkTarget: boolean;
 
   declare readonly lightTarget: HTMLElement;
+
+  declare readonly hasLightTarget: boolean;
+
+  declare readonly darkModeClass: string;
+
+  declare readonly darkModeClasses: string[];
+
+  declare readonly hasDarkModeClass: boolean;
+
+  declare readonly lightModeClass: string;
+
+  declare readonly lightModeClasses: string[];
+
+  declare readonly hasLightModeClass: boolean;
 
   connect() {
     this.element.addEventListener('turbo:before-visit', this.setTheme.bind(this));
@@ -42,6 +56,21 @@ export default class extends Controller {
         document.cookie = `theme_mode=${mode};SameSite=None; Secure; path=/`;
       }
 
+      if (this.hasDarkModeClass && this.hasLightModeClass) {
+        const darkModeClasses = this.darkModeClasses.join(' ');
+        const lightModeClasses = this.lightModeClasses.join(' ');
+
+        if (mode === 'dark') {
+          this.element.classList.remove(lightModeClasses);
+          this.element.classList.add(darkModeClasses);
+          this.element.setAttribute('data-theme', darkModeClasses);
+        } else {
+          this.element.classList.remove(darkModeClasses);
+          this.element.classList.add(lightModeClasses);
+          this.element.setAttribute('data-theme', lightModeClasses);
+        }
+      }
+
       if (this.hasLightTarget && this.hasDarkTarget) {
         if (mode === 'dark') {
           if (this.lightTarget.classList.contains('swap-on')) this.lightTarget.classList.replace('swap-on', 'swap-off');
@@ -67,9 +96,11 @@ export default class extends Controller {
 
     cookies.forEach((cookie: string) => {
       let ck: string = cookie;
+
       while (ck.charAt(0) === ' ') {
         ck = ck.substring(1, ck.length);
       }
+
       if (ck.indexOf(nameEQ) === 0) {
         result = ck.substring(nameEQ.length, ck.length);
       }

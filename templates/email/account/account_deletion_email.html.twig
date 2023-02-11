@@ -1,0 +1,10 @@
+{% extends "email/layout.html.twig" %}
+
+{% set title = "account_deletion.title"|trans({}, "email", locale) %}
+{% set description = "account_deletion.description"|trans({}, "email", locale) %}
+
+{% block main %}
+    <p>
+        {{ "account_deletion.main_text"|trans({ username }, "email", locale) }}
+    </p>
+{% endblock %}

@@ -3,7 +3,7 @@
 <input type="checkbox" id="{{ id }}" class="modal-toggle" />
 <label class="modal modal-bottom cursor-pointer sm:modal-middle" for="{{ id }}">
     <label class="modal-box relative" for="">
-        <form method="post" action="{{ action }}" {{ stimulus_controller("input-prompt") }} data-input-prompt-prompt-value="{{ prompt }}" data-input-prompt-button-selector-value="#input-prompt-button">
+        <form method="post" action="{{ action }}" {{ stimulus_controller("input-prompt") }} data-input-prompt-prompt-value="{{ prompt }}">
             {% block body %}
                 {% block title %}
                     <h3 class="text-lg font-bold">
@@ -22,7 +22,7 @@
             {% if prompt %}
                 <div class="form-control">
                     <label for="input-prompt" class="label"><span class="label-text">{{ "component.deletion_prompt_modal.label"|trans({ prompt }) }}</span></label>
-                    <input data-action="input->input-prompt#onInput" type="text" name="input" id="input-prompt" class="input-bordered input w-full" required />
+                    <textarea data-action="input->input-prompt#onInput" type="text" name="input" id="input-prompt" class="max-h-24 textarea textarea-accent w-full" required></textarea>
                 </div>
             {% endif %}
             {% if token %}
@@ -30,7 +30,7 @@
             {% endif %}
             <div class="modal-action flex justify-center gap-4">
                 <label for="{{ id }}" class="btn-success btn">{{ closeLabel }}</label>
-                <button id="input-prompt-button" type="submit" class="btn-error btn">{{ deleteLabel }}</button>
+                <button data-input-prompt-target="button" id="input-prompt-button" type="submit" class="btn-error btn">{{ deleteLabel }}</button>
             </div>
         </form>
     </label>

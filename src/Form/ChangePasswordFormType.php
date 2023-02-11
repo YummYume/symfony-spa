@@ -24,6 +24,7 @@ final class ChangePasswordFormType extends AbstractType
                 ],
                 'first_options' => [
                     'label' => 'reset_password_request.new_password',
+                    'help' => 'user.password.help',
                     'constraints' => [
                         new NotBlank([
                             'message' => 'reset_password_request.new_password.blank',

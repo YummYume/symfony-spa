@@ -9,7 +9,6 @@ use App\Form\ResetPasswordRequestFormType;
 use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,7 +105,7 @@ class ResetPasswordController extends AbstractController
     public function reset(
         Request $request,
         TranslatorInterface $translator,
-        EntityManagerInterface $em,
+        UserRepository $userRepository,
         string $token = null
     ): Response {
         if ($this->getUser()) {
@@ -149,10 +148,12 @@ class ResetPasswordController extends AbstractController
                 $this->resetPasswordHelper->removeResetRequest($token);
 
                 $user->setPlainPassword($form->get('plainPassword')->getData());
-                $em->flush();
+                $userRepository->save($user, true);
 
                 // The session is cleaned up after the password has been changed.
                 $this->cleanSessionAfterReset();
+
+                $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.reset_password.updated');
 
                 return $this->redirectToRoute('security_login');
             }

@@ -9,4 +9,10 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class AvatarComponent
 {
     public ?User $user = null;
+
+    public ?string $id = null;
+
+    public bool $small = true;
+
+    public bool $permanent = false;
 }

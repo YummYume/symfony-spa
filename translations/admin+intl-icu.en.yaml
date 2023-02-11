@@ -1,0 +1,7 @@
+## Common
+common.logout: Logout
+
+## Pages
+# Homepage
+page.homepage.title: Administration homepage
+page.homepage.description: The homepage of the administration for MyApp.

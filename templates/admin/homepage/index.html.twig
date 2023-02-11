@@ -1,7 +1,13 @@
 {% extends "admin/layout.html.twig" %}
 
+{% trans_default_domain "admin" %}
+
 {% block title %}
-    Admin
+    {{ "page.homepage.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.homepage.description"|trans }}
 {% endblock %}
 
 {% block main_body %}

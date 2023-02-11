@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProfilePictureRepository::class)]
 #[Vich\Uploadable]
-class ProfilePicture
+class ProfilePicture implements ImageUploadInterface
 {
     use BlameableTrait;
     use FilePropertiesTrait;
@@ -36,11 +36,14 @@ class ProfilePicture
         originalName: 'originalName',
         dimensions: 'dimensions'
     )]
-    #[Assert\File(
+    #[Assert\Image(
         maxSize: '2M',
         maxSizeMessage: 'profile_picture.file.max_size',
-        extensions: ['png', 'jpg', 'gif'],
-        extensionsMessage: 'profile_picture.file.extension',
+        mimeTypes: ['image/png', 'image/jpeg', 'image/gif'],
+        mimeTypesMessage: 'profile_picture.file.mime_types',
+        detectCorrupted: true,
+        corruptedMessage: 'profile_picture.file.corrupted',
+        sizeNotDetectedMessage: 'profile_picture.file.size_not_detected'
     )]
     private ?File $file = null;
 
@@ -50,6 +53,11 @@ class ProfilePicture
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
     }
 
     public function setFile(?File $file = null): static
@@ -65,9 +73,9 @@ class ProfilePicture
         return $this;
     }
 
-    public function getFile(): ?File
+    public function getProfile(): ?Profile
     {
-        return $this->file;
+        return $this->profile;
     }
 
     public function setProfile(Profile $profile): self
@@ -75,10 +83,5 @@ class ProfilePicture
         $this->profile = $profile;
 
         return $this;
-    }
-
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
     }
 }
