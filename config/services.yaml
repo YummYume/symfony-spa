@@ -52,3 +52,8 @@ services:
         bind:
             $publicDir: '%app.public_dir%'
             $fallback: '%app.blur_default_fallback%'
+
+    # Vich Uploader
+    App\EventListener\UploadListener:
+        tags:
+            - { name: kernel.event_listener, event: vich_uploader.post_upload }

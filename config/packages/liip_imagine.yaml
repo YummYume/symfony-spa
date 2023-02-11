@@ -8,6 +8,7 @@ liip_imagine:
         generate: true
         quality: 100
         cache: ~
+    messenger: true
     controller:
         redirect_response_code: 301
 

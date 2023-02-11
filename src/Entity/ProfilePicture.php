@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProfilePictureRepository::class)]
 #[Vich\Uploadable]
-class ProfilePicture
+class ProfilePicture implements ImageUploadInterface
 {
     use BlameableTrait;
     use FilePropertiesTrait;
@@ -55,6 +55,11 @@ class ProfilePicture
         return $this->id;
     }
 
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
     public function setFile(?File $file = null): static
     {
         $this->file = $file;
@@ -68,9 +73,9 @@ class ProfilePicture
         return $this;
     }
 
-    public function getFile(): ?File
+    public function getProfile(): ?Profile
     {
-        return $this->file;
+        return $this->profile;
     }
 
     public function setProfile(Profile $profile): self
@@ -78,10 +83,5 @@ class ProfilePicture
         $this->profile = $profile;
 
         return $this;
-    }
-
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
     }
 }

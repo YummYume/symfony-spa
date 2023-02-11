@@ -16,6 +16,9 @@ security:
                 property: email
 
     firewalls:
+        image_resolver:
+            pattern: ^/media/cache/resolve
+            security: false
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
