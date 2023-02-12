@@ -2,6 +2,11 @@ table.empty: no data is available
 table.modal.yes: yes
 table.modal.no: no
 
+table.more: more
+table.more.show: show
+table.more.edit: edit
+table.more.delete: delete
+
 table.user.id: id
 table.user.email: e-mail
 table.user.verified: verified

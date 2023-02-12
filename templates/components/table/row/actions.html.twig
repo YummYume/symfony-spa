@@ -1,15 +1,21 @@
 <td class="flex gap-2">
-    {% for key, action in config.actions %}
-        {% if action.validation is defined %}
-            <label data-action="click->table#action"
-                for="action-modal"
-                class="btn-{{ key }} btn-square btn"
-                data-route="{{ path(action.route, { id: config.value }) }}"
-                data-message="{{ action.validation.message|trans({}, "table+intl-icu") }}">
-                {% include "icon/#{action.icon}.html.twig" %}
-            </label>
-        {% else %}
-            <a href="{{ path(action.route, { id: config.value }) }}">{{ component("button", { icon: action.icon, square: true, variant: key }) }}</a>
-        {% endif %}
-    {% endfor %}
+    <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn m-1">{{ "table.more"|trans({}, "table+intl-icu") }} {% include "icon/more.html.twig" %}</label>
+        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 w-fit">
+            {% for key, action in config.actions %}
+                <li>
+                    {% if action.validation is defined %}
+                        <label data-action="click->table#action"
+                            for="action-modal"
+                            data-route="{{ path(action.route, { id: config.value }) }}"
+                            data-message="{{ action.validation.message|trans({}, "table+intl-icu") }}">
+                            {{ action.label|trans({}, "table+intl-icu") }}
+                        </label>
+                    {% else %}
+                        <a href="{{ path(action.route, { id: config.value }) }}">{{ action.label|trans({}, "table+intl-icu") }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </td>

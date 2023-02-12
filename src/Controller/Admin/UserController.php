@@ -52,15 +52,15 @@ final class UserController extends AbstractController
                 'actions' => [
                     'info' => [
                         'route' => 'app_homepage',
-                        'icon' => 'eye',
+                        'label' => 'table.more.show',
                     ],
                     'accent' => [
                         'route' => 'app_homepage',
-                        'icon' => 'pencil',
+                        'label' => 'table.more.edit',
                     ],
                     'error' => [
                         'route' => 'app_homepage',
-                        'icon' => 'trash',
+                        'label' => 'table.more.delete',
                         'validation' => [
                             'message' => 'table.user.delete.message',
                         ],
