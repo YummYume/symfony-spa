@@ -1,0 +1,8 @@
+# Global search
+global_search.search: Search
+global_search.type_to_search: Type anything to start searching.
+global_search.search_username: For example, try to type in { username }...
+global_search.profiles: Profiles
+global_search.profiles.more: Search more profiles
+global_search.total_search_time: 'Search time : { time } ms'
+global_search.no_result: No result found.

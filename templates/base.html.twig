@@ -47,12 +47,38 @@
                 {% block nav %}
                     <nav class="navbar bg-base-100">
                         <div class="navbar-start">
-                            <div class="form-control hidden lg:block">
-                                <div class="input-group">
-                                    <input type="text" placeholder="{{ 'common.search'|trans }}..." class="input-bordered input" aria-label="{{ "common.search"|trans }}" />
+                            <div
+                                class="form-control hidden lg:block"
+                                {{ stimulus_controller("class-modal") }}
+                                data-class-modal-visible-class="modal-open"
+                                data-turbo-permanent>
+                                <form action="{{ path("app_search") }}" method="get">
+                                    <div class="input-group">
+                                        <input type="search"
+                                            name="q"
+                                            placeholder="{{ "common.search"|trans }}..."
+                                            class="input-bordered input"
+                                            aria-label="{{ "common.search"|trans }}"
+                                            data-action="mousedown->class-modal#open:prevent" />
 
-                                    {{ component('button', { icon: 'search', square: true }) }}
-                                </div>
+                                        <div class="tooltip tooltip-bottom" data-tip="{{ 'common.global_search'|trans }}">
+                                            {{ component("button", { icon: "search", square: true, submit: true, class: "rounded-l-none" }) }}
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action="{{ path("app_search") }}" method="get">
+                                    <div class="modal" role="dialog" data-class-modal-target="modal" data-action="keydown.esc@window->class-modal#close click->class-modal#close:self">
+                                        <div class="modal-box relative">
+                                            <button aria-label="{{ "common.close"|trans }}" type="button" class="btn-sm btn-circle btn absolute right-2 top-2" data-action="click->class-modal#close">
+                                                {% include "icon/x-mark.html.twig" %}
+                                            </button>
+                                            <h3 class="text-lg font-bold">
+                                                {{ "common.global_search"|trans }}
+                                            </h3>
+                                            {{ component('global_search') }}
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="navbar-center">

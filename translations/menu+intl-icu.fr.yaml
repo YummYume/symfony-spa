@@ -1,2 +1,6 @@
-page.menu.home: Accueil
-page.menu.users: Utilisateurs
+# Back office
+back_office.home: Accueil
+back_office.users: Utilisateurs
+
+# Global search
+global_search.profiles: Profils

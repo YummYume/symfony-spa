@@ -1,0 +1,55 @@
+{% trans_default_domain "components" %}
+
+<div {{ attributes }}>
+    <input type="search"
+        name="q"
+        placeholder="{{ "global_search.search"|trans }}..."
+        class="input-bordered input w-full"
+        aria-label="{{ "global_search.search"|trans }}"
+        data-model="debounce(250)|query"
+        value="{{ query }}" />
+    <div class="py-4">
+        {% if computed.searchResult is not null %}
+            {% if computed.searchResult is not empty %}
+                {% for name, results in computed.searchResult %}
+                    <section class="mb-2">
+                        <h2 class="text-4xl">
+                            {{ ("global_search.#{name}")|trans }}
+                        </h2>
+
+                        {% for hit in results.hits %}
+                            {% set profile = hit._formatted %}
+
+                            <div class="mb-2 flex flex-col">
+                                <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="link-primary link">{{ profile.username|sanitize_html }}</a>
+
+                                <p>
+                                    {{ (profile.description ?? "")|sanitize_html }}
+                                </p>
+                            </div>
+                        {% endfor %}
+
+                        <a class="link" href="{{ path("app_search", { q: results.query, t: name }) }}">{{ "global_search.profiles.more"|trans }}</a>
+                    </section>
+                {% endfor %}
+
+                {% set totalSearchTime = computed.searchResult|reduce((prev, current) => prev + current.processingTimeMs, 0) %}
+
+                <small>{{ "global_search.total_search_time"|trans({ time: totalSearchTime }) }}</small>
+            {% else %}
+                <p>
+                    {{ "global_search.no_result"|trans }}
+                </p>
+            {% endif %}
+        {% else %}
+            <p>
+                {{ "global_search.type_to_search"|trans }}
+            </p>
+            {% if app.user %}
+                <p>
+                    {{ "global_search.search_username"|trans({ username: app.user.profile.username }) }}
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

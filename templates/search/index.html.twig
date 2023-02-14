@@ -1,0 +1,72 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "page.search.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.search.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.search.title"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <form action="{{ path("app_search") }}" method="get" class="form-control" data-turbo-frame="search-results" {{ stimulus_controller("search") }}>
+        <div class="input-group">
+            <input value="{{ search.query ?? "" }}"
+                type="text"
+                name="q"
+                placeholder="{{ "common.search"|trans }}..."
+                class="input-bordered input w-full"
+                aria-label="{{ "common.search"|trans }}"
+                data-action="input->search#submit" />
+
+            {{ component("button", { icon: "search", square: true, submit: true }) }}
+        </div>
+    </form>
+
+    <turbo-frame data-turbo-action="advance" id="search-results">
+        {% set menuItem = knp_menu_get("global_search", [], { query: search.query ?? "" }) %}
+        {{ knp_menu_render(menuItem, { currentAsLink: false, template: knp_custom_menu }) }}
+
+        {% if search %}
+            <span class="label-text-alt">{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
+
+            {% for hit in search.hits %}
+                {% set profile = hit._formatted %}
+
+                <div class="card my-4 bg-base-100 shadow-xl lg:card-side">
+                    <div class="card-body">
+                        <h2 class="card-title gap-0">
+                            {{ profile.username|sanitize_html }}
+                        </h2>
+                        <p>
+                            {{ (profile.description ?? "")|sanitize_html }}
+                        </p>
+                        <div class="card-actions justify-end">
+                            <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="btn-primary btn">{{ "page.search.show_profile"|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>
+                    {{ "page.search.no_result"|trans }}
+                </p>
+            {% endfor %}
+
+            {# TODO proper pagination #}
+            <a class="link" href="{{ path("app_search", { q: search.query, p: search.page + 1, type }) }}" rel="next">Next page</a>
+        {% else %}
+            <p>
+                {{ "page.search.type_to_search"|trans }}
+            </p>
+            {% if app.user %}
+                <p>
+                    {{ "page.search.search_username"|trans({ username: app.user.profile.username }) }}
+                </p>
+            {% endif %}
+        {% endif %}
+    </turbo-frame>
+{% endblock %}

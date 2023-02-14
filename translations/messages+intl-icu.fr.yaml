@@ -6,11 +6,12 @@ common.logout: Déconnexion
 common.register: Enregistrement
 common.save: Enregistrer
 common.search: Rechercher
-common.switch_theme: Basculer de thème
+common.switch_theme: Changer de thème
 common.legal: Légal
 common.my_profile: Mon profil
 common.account_settings: Paramètres du compte
 common.close: Fermer
+common.global_search: Recherche globale
 
 ## Flashes
 # Common
@@ -105,6 +106,16 @@ page.request_password.send: Envoyer un e-mail de réinitialisation du mot de pas
 page.reset_password.title: Réinitialiser votre mot de passe
 page.reset_password.description: Réinitialiser en toute sécurité votre mot de passe oublié.
 page.reset_password.reset: Réinitialiser mon mot de passe
+
+# Search
+page.search.title: Recherche
+page.search.description: Recherchez n'importe quoi sur MyApp.
+page.search.no_result: Aucun résultat trouvé.
+page.search.result_time: >-
+    { hits, plural, =0 {# résultat en { time } ms} one {# résultat en { time } ms} other {# résultats en { time } ms} }
+page.search.show_profile: Voir le profil
+page.search.type_to_search: Tapez n'importe quoi pour commencer la recherche.
+page.search.search_username: Par exemple, essayez de saisir { username }...
 
 ## Entities
 # User

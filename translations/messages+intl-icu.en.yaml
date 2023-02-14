@@ -11,6 +11,7 @@ common.legal: Legal
 common.my_profile: My profile
 common.account_settings: Account settings
 common.close: Close
+common.global_search: Global search
 
 ## Flashes
 # Common
@@ -105,6 +106,16 @@ page.request_password.send: Send password reset email
 page.reset_password.title: Reset your password
 page.reset_password.description: Safely reset your forgotten password.
 page.reset_password.reset: Reset my password
+
+# Search
+page.search.title: Search
+page.search.description: Search anything on MyApp.
+page.search.no_result: No result found.
+page.search.result_time: >-
+    { hits, plural, =0 {# result in { time } ms} one {# result in { time } ms} other {# results in { time } ms} }
+page.search.show_profile: Show profile
+page.search.type_to_search: Type anything to start searching.
+page.search.search_username: For example, try to type in { username }...
 
 ## Entities
 # User

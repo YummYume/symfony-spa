@@ -4,10 +4,12 @@ namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Vich\UploaderBundle\Storage\StorageInterface;
 
 final class AssetDeliveryExtension extends AbstractExtension
 {
     public function __construct(
+        private readonly StorageInterface $storage,
         private readonly string $publicDir,
         private readonly string $fallback
     ) {
@@ -17,6 +19,7 @@ final class AssetDeliveryExtension extends AbstractExtension
     {
         return [
             new TwigFunction('local_asset', [$this, 'getLocalAsset']),
+            new TwigFunction('resolve_upload_uri', [$this, 'resolveUploadUri']),
         ];
     }
 
@@ -29,5 +32,11 @@ final class AssetDeliveryExtension extends AbstractExtension
         }
 
         return $assetPath;
+    }
+
+    // This is WIP
+    public function resolveUploadUri(object|array $obj, ?string $fieldName = null, ?string $className = null): ?string
+    {
+        return $this->storage->resolveUri($obj, $fieldName, $className);
     }
 }
