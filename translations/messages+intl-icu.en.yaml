@@ -12,6 +12,7 @@ common.my_profile: My profile
 common.account_settings: Account settings
 common.close: Close
 common.global_search: Global search
+common.or: or
 
 ## Flashes
 # Common

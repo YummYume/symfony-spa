@@ -200,9 +200,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
         return $this;
     }
-
-    public function isAdmin(): bool
-    {
-        return \in_array(UserRoleEnum::Admin->value, $this->roles, true) || \in_array(UserRoleEnum::SuperAdmin->value, $this->roles, true);
-    }
 }

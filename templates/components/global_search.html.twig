@@ -7,7 +7,8 @@
         class="input-bordered input w-full"
         aria-label="{{ "global_search.search"|trans }}"
         data-model="debounce(250)|query"
-        value="{{ query }}" />
+        value="{{ query }}"
+        data-class-modal-target="initialFocus" />
     <div class="py-4">
         {% if computed.searchResult is not null %}
             {% if computed.searchResult is not empty %}

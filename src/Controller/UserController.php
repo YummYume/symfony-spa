@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Enum\ColorTypeEnum;
+use App\Enum\UserRoleEnum;
 use App\Form\ProfileType;
 use App\Form\UserType;
 use App\Manager\Email\SecurityEmailManager;
@@ -69,12 +70,12 @@ final class UserController extends AbstractController
         TokenStorageInterface $tokenStorage,
         SecurityEmailManager $securityEmailManager
     ): RedirectResponse {
-        /** @var User */
-        $user = $this->getUser();
-
-        if ($user->isAdmin()) {
+        if ($this->isGranted(UserRoleEnum::Admin->value)) {
             return $this->redirectToRoute('app_edit_profile');
         }
+
+        /** @var User */
+        $user = $this->getUser();
 
         if ($translator->trans('page.edit_profile.deletion_prompt') !== $request->get('input')) {
             $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.delete_profile.invalid_prompt');

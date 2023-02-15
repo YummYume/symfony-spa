@@ -15,7 +15,9 @@
 {% block main_body %}
     <section class="flex grow items-center justify-center gap-8">
         {% if app.user %}
-            <a href="{{ path("admin_homepage") }}">{{ component("button", { content: "Admin" }) }}</a>
+            {% if is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
+                <a href="{{ path("admin_homepage") }}">{{ component("button", { content: "common.admin" }) }}</a>
+            {% endif %}
             <a href="{{ path("security_logout") }}">{{ component("button", { content: "common.logout"|trans }) }}</a>
         {% else %}
             <a href="{{ path("security_login") }}">{{ component("button", { content: "page.login.title"|trans }) }}</a>

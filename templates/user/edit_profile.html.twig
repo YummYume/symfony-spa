@@ -43,7 +43,7 @@
             </div>
         </section>
 
-        {% if not app.user.isAdmin %}
+        {% if not is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
             <section class="mx-auto flex max-w-xs flex-col gap-6 md:col-span-2 lg:col-span-1">
                 <h2 class="text-center text-3xl">
                     {{ "page.edit_profile.danger_zone"|trans }}

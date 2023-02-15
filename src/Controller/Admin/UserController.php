@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin')]
 final class UserController extends AbstractController
 {
     #[Route('/users', name: 'admin_user', methods: ['GET'])]
