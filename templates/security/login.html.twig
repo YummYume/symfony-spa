@@ -9,17 +9,17 @@
 {% endblock %}
 
 {% block main_body %}
-    <form method="post" class="flex grow flex-col justify-center">
+    <form method="post" class="mx-auto flex max-w-xs grow flex-col justify-center">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col">
             {% if error %}
                 <div class="alert alert-error mt-8 max-w-xs" role="alert">
                     {{ error.messageKey|trans(error.messageData, "security") }}
                 </div>
             {% endif %}
 
-            <div class="flex flex-col gap-8">
-                <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-6">
                     <div class="form-control">
                         <label for="inputEmail" class="label"><span class="label-text">{{ "user.email"|trans }}</span></label>
                         <input type="email" value="{{ last_username }}" name="_email" id="inputEmail" class="input-bordered input w-80 max-w-xs" autocomplete="email" required autofocus />
@@ -30,7 +30,7 @@
                     </div>
                     <a class="link-secondary link" href="{{ path("app_forgot_password_request") }}">{{ "page.login.forgot_password"|trans }}</a>
                 </div>
-                <div class="flex flex-col gap-1">
+                <div class="flex flex-col gap-2">
                     <div class="form-control">
                         <label class="label w-fit cursor-pointer gap-2">
                             <input type="checkbox" name="_remember_me" class="checkbox-primary checkbox" />

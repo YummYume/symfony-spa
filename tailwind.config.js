@@ -31,6 +31,10 @@ module.exports = {
     'alert-info',
     'alert-success',
     'alert-warning',
+    'btn-error',
+    'btn-info',
+    'btn-success',
+    'btn-warning',
   ],
   plugins: [require('daisyui')],
 };

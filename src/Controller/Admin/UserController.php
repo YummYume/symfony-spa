@@ -41,16 +41,16 @@ final class UserController extends AbstractController
                         // custom value
                     ],
                 ],
-                'isVerified' => [
+                'verified' => [
                     'type' => 'switch',
                     'label' => 'table.user.verified',
-                    'queryKey' => 'u.is_verified',
+                    'queryKey' => 'u.verified',
                     'extras' => [
                         'route' => 'admin_user_status',
                     ],
                 ],
                 'actions' => [
-                    'success' => [
+                    'info' => [
                         'route' => 'app_homepage',
                         'icon' => 'eye',
                     ],

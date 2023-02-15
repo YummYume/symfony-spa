@@ -1,17 +1,26 @@
 {% extends "admin/layout.html.twig" %}
 
+{% trans_default_domain "admin" %}
+
+{% block description %}
+    Admin - {{ "common.user"|trans }}
+{% endblock %}
+
 {% block title %}
-    Admin - User
+    Admin - {{ "common.user"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    Admin - {{ "common.user"|trans }}
 {% endblock %}
 
 {% block main_body %}
-    <h1>
-        SUPER SECURE PAGE
-    </h1>
-    <div class="flex">
+    <div class="flex gap-2">
         {{ knp_menu_render('backoffice', { template: knp_custom_menu }) }}
         {{ component('table', { config }) }}
     </div>
 
-    <a class="btn" href="{{ path("security_logout") }}">{{ "common.logout"|trans }}</a>
+    <div class="flex mx-auto">
+        {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
+    </div>
 {% endblock %}
