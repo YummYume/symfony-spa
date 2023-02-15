@@ -94,7 +94,9 @@ fixtures:
 db-test:
 	$(COMPOSECI) exec php php bin/console --env=test d:d:d --if-exists --force
 	$(COMPOSECI) exec php php bin/console --env=test d:d:c --if-not-exists
+	$(COMPOSECI) exec php php bin/console --env=test meili:delete
 	$(COMPOSECI) exec php php bin/console --env=test d:m:m -n --allow-no-migration --all-or-nothing
+	$(COMPOSECI) exec php php bin/console --env=test meili:create
 	$(COMPOSECI) exec php php bin/console --env=test d:f:l -n
 
 # Services
