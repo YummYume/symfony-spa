@@ -16,12 +16,10 @@
     <section class="flex grow items-center justify-center gap-8">
         {% if app.user %}
             <a href="{{ path("admin_homepage") }}">{{ component("button", { content: "Admin" }) }}</a>
-            <span>OR</span>
-            <a href="{{ path("security_logout") }}">{{ component("button", { content: "Logout" }) }}</a>
+            <a href="{{ path("security_logout") }}">{{ component("button", { content: "common.logout"|trans }) }}</a>
         {% else %}
-            <a href="{{ path("security_login") }}">{{ component("button", { content: "Login" }) }}</a>
-            <span>OR</span>
-            <a href="{{ path("app_register") }}">{{ component("button", { content: "Register" }) }}</a>
+            <a href="{{ path("security_login") }}">{{ component("button", { content: "page.login.title"|trans }) }}</a>
+            <a href="{{ path("app_register") }}">{{ component("button", { content: "common.register"|trans }) }}</a>
         {% endif %}
     </section>
 {% endblock %}

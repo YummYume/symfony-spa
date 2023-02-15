@@ -9,7 +9,7 @@
                 {% include "icon/#{action.icon}.html.twig" %}
             </label>
         {% else %}
-            <a href="{{ path(action.route, { id: config.value }) }}">{{ component("button", { icon: action.icon, square: true, variant: key }) }}</a>
+            <a aria-label="{{ action.icon }}" href="{{ path(action.route, { id: config.value }) }}">{{ component("button", { icon: action.icon, square: true, variant: key }) }}</a>
         {% endif %}
     {% endfor %}
 </td>

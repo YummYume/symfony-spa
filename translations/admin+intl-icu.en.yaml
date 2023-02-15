@@ -1,5 +1,6 @@
 ## Common
 common.logout: Logout
+common.user: User
 
 ## Pages
 # Homepage
