@@ -34,6 +34,10 @@ export default class extends Controller<HTMLElement> {
     });
   }
 
+  disconnect() {
+    this.focusTrap?.deactivate();
+  }
+
   open() {
     if (!this.hasVisibleClass) {
       return;
@@ -68,7 +72,7 @@ export default class extends Controller<HTMLElement> {
       return;
     }
 
-    this.modal.classList.remove(this.visibleClass);
     this.focusTrap?.deactivate();
+    this.modal.classList.remove(this.visibleClass);
   }
 }

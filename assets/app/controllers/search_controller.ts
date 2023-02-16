@@ -5,7 +5,7 @@ export default class extends ApplicationController {
   static debounces = ['submit'];
 
   connect() {
-    useDebounce(this, { wait: 250 });
+    useDebounce(this, { wait: 200 });
   }
 
   submit() {

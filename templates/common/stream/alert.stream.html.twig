@@ -1,0 +1,9 @@
+<turbo-stream action="append" target="app-flashes">
+    <template>
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                {{ component("alert", { message, type }) }}
+            {% endfor %}
+        {% endfor %}
+    </template>
+</turbo-stream>

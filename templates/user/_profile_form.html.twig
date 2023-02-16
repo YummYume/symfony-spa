@@ -1,0 +1,14 @@
+{{ form_start(profileForm) }}
+
+<h2 class="text-center text-3xl">
+    {{ "page.edit_profile.profile"|trans }}
+</h2>
+
+<div class="max-w-xs">
+    {{ form_row(profileForm.username) }}
+    {{ form_row(profileForm.description) }}
+    {{ form_row(profileForm.picture) }}
+    {{ component("button", { content: "page.edit_profile.update_profile"|trans, submit: true }) }}
+</div>
+
+{{ form_end(profileForm) }}

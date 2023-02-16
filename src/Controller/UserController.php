@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/me')]
 final class UserController extends AbstractController
@@ -41,6 +42,14 @@ final class UserController extends AbstractController
 
                 $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.account_updated');
 
+                if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                    $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                    return $this->render('user/stream/edit_account.stream.html.twig', [
+                        'userForm' => $userForm,
+                    ]);
+                }
+
                 return $this->redirectToRoute('app_edit_profile');
             }
 
@@ -50,6 +59,14 @@ final class UserController extends AbstractController
                 $profileRepository->save($profile, true);
 
                 $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.profile_updated');
+
+                if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                    $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                    return $this->render('user/stream/edit_profile.stream.html.twig', [
+                        'profileForm' => $profileForm,
+                    ]);
+                }
 
                 return $this->redirectToRoute('app_edit_profile');
             }

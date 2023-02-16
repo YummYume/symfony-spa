@@ -10,37 +10,12 @@
 
 {% block main_body %}
     <div class="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <section class="flex flex-col items-center">
-            {{ form_start(userForm) }}
-
-            <h2 class="text-center text-3xl">
-                {{ "page.edit_profile.user"|trans }}
-            </h2>
-
-            <div class="max-w-xs">
-                {{ form_row(userForm.email) }}
-                {{ form_row(userForm.currentPassword) }}
-                {{ form_row(userForm.plainPassword) }}
-            </div>
-
-            {{ component("button", { content: "page.edit_profile.update_account"|trans, submit: true }) }}
-            {{ form_end(userForm) }}
+        <section id="account-section" class="flex flex-col items-center">
+            {% include "user/_account_form.html.twig" with { userForm } only %}
         </section>
 
-        <section class="flex flex-col items-center">
-            {{ form_start(profileForm) }}
-
-            <h2 class="text-center text-3xl">
-                {{ "page.edit_profile.profile"|trans }}
-            </h2>
-
-            <div class="max-w-xs">
-                {{ form_row(profileForm.username) }}
-                {{ form_row(profileForm.description) }}
-                {{ form_row(profileForm.picture) }}
-                {{ component("button", { content: "page.edit_profile.update_profile"|trans, submit: true }) }}
-                {{ form_end(profileForm) }}
-            </div>
+        <section id="profile-section" class="flex flex-col items-center">
+            {% include "user/_profile_form.html.twig" with { profileForm } only %}
         </section>
 
         {% if not is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}

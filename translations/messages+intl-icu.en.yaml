@@ -13,6 +13,7 @@ common.account_settings: Account settings
 common.close: Close
 common.global_search: Global search
 common.or: or
+common.admin: Administration
 
 ## Flashes
 # Common

@@ -13,6 +13,7 @@ common.account_settings: Paramètres du compte
 common.close: Fermer
 common.global_search: Recherche globale
 common.or: ou
+common.admin: Administration
 
 ## Flashes
 # Common

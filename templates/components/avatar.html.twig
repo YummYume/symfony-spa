@@ -5,7 +5,7 @@
         <div
             {% if id %}id="{{ id }}"{% endif %}
             class="{{ small ? "w-10 rounded-full" : "h-48 w-48" }} {{ hasPicture ? "bg-neutral-focus text-neutral-content" }}"
-            {% if permanent %}data-turbo-permanent{% endif %}
+            {% if id and permanent %}data-turbo-permanent{% endif %}
         >
             {% if hasPicture %}
                 {{
