@@ -113,3 +113,55 @@
     {%- set widget_class = widget_class|default('textarea textarea-bordered w-full') -%}
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {%- endblock textarea_widget -%}
+
+{%- block vich_file_row -%}
+    {%- set force_error = true -%}
+    {{- form_label(form, null, { label_attr: { for: form.file.vars.id }|merge(form.vars.label_attr) }) -}}
+    {{- form_widget(form) -}}
+    {{- form_errors(form) -}}
+    {%- if form.delete is defined -%}
+        {{- form_row(form.delete) -}}
+    {%- endif -%}
+    {%- if download_uri -%}
+        <a href="{{ asset_helper is same as(true) ? asset(download_uri) : download_uri }}" download>
+            {{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}
+        </a>
+    {%- endif -%}
+    {{ block("form_help") }}
+{%- endblock -%}
+
+{%- block vich_file_widget -%}
+    {{- form_widget(form.file, { attr }) -}}
+{%- endblock -%}
+
+{%- block vich_image_row -%}
+    {%- set force_error = true -%}
+    {{- form_label(form, null, { label_attr: { for: form.file.vars.id }|merge(form.vars.label_attr) }) -}}
+    {{- form_widget(form.file) -}}
+    {{- form_errors(form) -}}
+    {%- if form.delete is defined -%}
+        {{- form_row(form.delete) -}}
+    {%- endif -%}
+    {%- if image_uri -%}
+        <a href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" download>
+            {{
+                component(
+                    "image",
+                    {
+                        src: image_uri,
+                        class: image_class,
+                        filter: image_imagine_filter,
+                        alt: translation_domain is same as(false) ? image_alt : image_alt|trans({}, translation_domain),
+                        width: image_width,
+                        height: image_height
+                    }
+                )
+            }}
+        </a>
+    {%- endif -%}
+    {{ block("form_help") }}
+{%- endblock -%}
+
+{%- block vich_image_widget -%}
+    {{- form_widget(form.file, { attr }) -}}
+{%- endblock -%}

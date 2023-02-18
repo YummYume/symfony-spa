@@ -3,6 +3,7 @@
     "@babel/core": "^7.17.0",
     "@babel/preset-env": "^7.16.0",
     "@hotwired/turbo": "^7.0.1",
+    "@symfony/ux-dropzone": "file:vendor/symfony/ux-dropzone/assets",
     "@symfony/ux-lazy-image": "file:vendor/symfony/ux-lazy-image/assets",
     "@symfony/ux-live-component": "file:vendor/symfony/ux-live-component/assets",
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",

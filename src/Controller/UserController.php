@@ -41,37 +41,38 @@ final class UserController extends AbstractController
                 $this->userRepository->save($user, true);
 
                 $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.account_updated');
-
-                if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
-                    $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-
-                    return $this->render('user/stream/edit_account.stream.html.twig', [
-                        'userForm' => $userForm,
-                    ]);
-                }
-
-                return $this->redirectToRoute('app_edit_profile');
+            } else {
+                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
             }
 
-            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                return $this->render('user/stream/edit_account.stream.html.twig', [
+                    'userForm' => $userForm,
+                ]);
+            } elseif ($userForm->isValid()) {
+                return $this->redirectToRoute('app_edit_profile');
+            }
         } elseif ($profileForm->isSubmitted()) {
             if ($profileForm->isValid()) {
                 $profileRepository->save($profile, true);
 
                 $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.profile_updated');
-
-                if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
-                    $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-
-                    return $this->render('user/stream/edit_profile.stream.html.twig', [
-                        'profileForm' => $profileForm,
-                    ]);
-                }
-
-                return $this->redirectToRoute('app_edit_profile');
+            } else {
+                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
             }
 
-            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                return $this->render('user/stream/edit_profile.stream.html.twig', [
+                    // This is necessary to avoid a problem with VichUploader listeners
+                    'profileForm' => $profileForm->isValid() ? $this->createForm(ProfileType::class, $profile) : $profileForm,
+                ]);
+            } elseif ($profileForm->isValid()) {
+                return $this->redirectToRoute('app_edit_profile');
+            }
         }
 
         return $this->render('user/edit_profile.html.twig', [

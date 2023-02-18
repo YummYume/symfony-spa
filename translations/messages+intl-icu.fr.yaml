@@ -14,6 +14,8 @@ common.close: Fermer
 common.global_search: Recherche globale
 common.or: ou
 common.admin: Administration
+common.upload.default_alt: Image téléchargée
+common.upload.click_or_drop: Faites glisser et déposez un fichier ou cliquez pour parcourir
 
 ## Flashes
 # Common
@@ -139,6 +141,7 @@ profile.description: Description
 # Profile picture
 profile_picture.file: Image
 profile_picture.file.help: Les dimensions recommandées pour une photo de profil sont 200x200. La taille de téléchargement maximale est de 2 Mo.
+profile_picture.current_profile_picture: Votre image de profil actuelle.
 
 # ResetPasswordRequest
 reset_password_request.email: Adresse email

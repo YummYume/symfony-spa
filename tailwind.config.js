@@ -35,6 +35,8 @@ module.exports = {
     'btn-info',
     'btn-success',
     'btn-warning',
+    'mask',
+    'mask-squircle',
   ],
   plugins: [require('daisyui')],
 };

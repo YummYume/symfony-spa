@@ -321,6 +321,9 @@
             "config/packages/uid.yaml"
         ]
     },
+    "symfony/ux-dropzone": {
+        "version": "v2.7.1"
+    },
     "symfony/ux-lazy-image": {
         "version": "v2.7.1"
     },
