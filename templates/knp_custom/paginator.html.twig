@@ -1,27 +1,27 @@
 {% if pageCount > 1 %}
     <div class="btn-group mx-auto">
         {% if first is defined and current != first %}
-            <a class="btn" href="{{ path(route, query|merge({ (pageParameterName): first })) }}">«</a>
+            <a class="btn border-transparent bg-transparent" data-turbo-frame="table_crud" href="{{ path(route, query|merge({ (pageParameterName): first })) }}">«</a>
         {% endif %}
 
         {% if previous is defined %}
-            <a class="btn rounded-none" href="{{ path(route, query|merge({ (pageParameterName): previous })) }}">&#8249;</a>
+            <a class="btn border-transparent bg-transparent" data-turbo-frame="table_crud" href="{{ path(route, query|merge({ (pageParameterName): previous })) }}">&#8249;</a>
         {% endif %}
 
         {% for page in pagesInRange %}
             {% if page != current %}
-                <a class="btn rounded-none" href="{{ path(route, query|merge({ (pageParameterName): page })) }}">{{ page }}</a>
+                <a class="btn border-transparent bg-transparent" data-turbo-frame="table_crud" href="{{ path(route, query|merge({ (pageParameterName): page })) }}">{{ page }}</a>
             {% else %}
                 <span class="btn-active btn">{{ page }}</span>
             {% endif %}
         {% endfor %}
 
         {% if next is defined %}
-            <a class="btn rounded-none" href="{{ path(route, query|merge({ (pageParameterName): next })) }}">&#8250;</a>
+            <a class="btn border-transparent bg-transparent" data-turbo-frame="table_crud" href="{{ path(route, query|merge({ (pageParameterName): next })) }}">&#8250;</a>
         {% endif %}
 
         {% if last is defined and current != last %}
-            <a class="btn" href="{{ path(route, query|merge({ (pageParameterName): last })) }}">»</a>
+            <a class="btn border-transparent bg-transparent" data-turbo-frame="table_crud" href="{{ path(route, query|merge({ (pageParameterName): last })) }}">»</a>
         {% endif %}
     </div>
 {% endif %}

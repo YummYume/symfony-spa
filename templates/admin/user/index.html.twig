@@ -15,10 +15,11 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="flex gap-2">
-        {{ knp_menu_render('back_office', { template: knp_custom_menu }) }}
-        {{ component('table', { config }) }}
-    </div>
+    <turbo-frame id="table_crud" data-turbo-action="advance">
+        <div class="flex gap-2">
+            {{ knp_menu_render('back_office', { template: knp_custom_menu }) }}
+            {{ component('table', { config }) }}
+        </div>
 
     {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
 {% endblock %}
