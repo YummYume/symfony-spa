@@ -7,5 +7,7 @@ common.user: User
 page.homepage.title: Administration homepage
 page.homepage.description: The homepage of the administration for MyApp.
 
-# Admin user
-flash.update_user.success.is_verified: User updated.
+## Flashes
+# User
+flash.user.verified: User { email } is now verified.
+flash.user.unverified: User { email } is now unverified.

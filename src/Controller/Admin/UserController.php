@@ -8,25 +8,23 @@ use App\Manager\FlashManager;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\UX\Turbo\TurboBundle;
 
 final class UserController extends AbstractController
 {
-
-    public function __construct(private readonly FlashManager $flashManager, private readonly UserRepository $userRepository)
-    {
+    public function __construct(
+        private readonly FlashManager $flashManager,
+        private readonly UserRepository $userRepository,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager
+    ) {
     }
 
     #[Route('/users', name: 'admin_user', methods: ['GET', 'POST'])]
-    public function index(
-        PaginatorInterface $paginator, 
-        Request $request,
-        TokenStorageInterface $tokenStorage,
-    ): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
             $this->userRepository->createQueryBuilder('u'),
@@ -39,24 +37,14 @@ final class UserController extends AbstractController
                 'id' => [
                     'type' => 'text',
                     'label' => 'table.user.id',
-                    'queryKey' => 'u.id',
-                    'extras' => [
-                        // custom value
-                    ],
+                    'queryKey' => 'u.id.toBase32',
                 ],
                 'email' => [
                     'type' => 'text',
                     'label' => 'table.user.email',
                     'queryKey' => 'u.email',
-                    'extras' => [
-                        // custom value
-                    ],
                 ],
-                'verified' => [
-                    'type' => 'switch',
-                    'label' => 'table.user.verified',
-                    'queryKey' => 'u.verified',
-                ],
+                'verified' => $this->getUserVerifiedRowOptions(),
                 'actions' => [
                     'info' => [
                         'route' => 'app_homepage',
@@ -78,48 +66,62 @@ final class UserController extends AbstractController
             'pagination' => $pagination,
         ];
 
-        if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
-            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            $targetUser = null;
+        return $this->render('admin/user/index.html.twig', ['config' => $config]);
+    }
 
-            $targetId = $request->get('id');
-            if ($targetId) {
-                $targetUser = $this->userRepository->find($targetId);
-            }
+    // TODO use sprintf for condition when php-cs-fixer supports PHP 8.2
+    #[Route(
+        '/users/{id}/verify',
+        name: 'admin_user_verify',
+        methods: ['POST'],
+        condition: ('"'.TurboBundle::STREAM_FORMAT.'" === request.getPreferredFormat()')
+    )]
+    public function setUserVerified(User $user, Request $request): Response
+    {
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        $token = $request->get('_token');
 
-            if(!$targetUser) {
-                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
+        if ($this->isCsrfTokenValid(sprintf('switch-%s-user', $user->getId()->toBase32()), $token)) {
+            $verified = 'on' === $request->get('_verified');
 
-                return $this->redirectToRoute('admin_user', ['config' => $config]);
-            }
-            
-            dd($this->isCsrfTokenValid(sprintf('switch-%s-user', $targetId), $request->get('_token')));
+            $user->setIsVerified($verified);
+            $this->userRepository->save($user, true);
 
-            if (!$this->isCsrfTokenValid(sprintf('switch-%s-user', $targetId), $request->get('_token'))) {
-                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_csrf');
-    
-                return $this->redirectToRoute('admin_user', ['config' => $config]);
-            }
-
-            $tokenStorage->setToken(null);
-
-            $targetUser->setIsVerified(!$targetUser->isVerified());
-            $this->userRepository->save($targetUser, true);
-
-            $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_user.success.is_verified');
-
-            return $this->render('components/table/row/stream/switch.stream.html.twig', 
-                [
-                    'config' => [
-                        'value' => $targetUser->isVerified(),
-                        'item' => [
-                            'id' => $targetUser->getId(),
-                        ],
-                    ]
-                ]
-            );
+            $this->flashManager->flash(ColorTypeEnum::Success->value, $verified ? 'flash.user.verified' : 'flash.user.unverified', [
+                'email' => $user->getEmail(),
+            ], 'admin');
+        } else {
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_csrf');
         }
 
-        return $this->render('admin/user/index.html.twig', ['config' => $config]);
+        return $this->render('components/table/row/stream/switch.stream.html.twig', [
+            'target' => sprintf('user-verify-form_%s', $user->getId()->toBase32()),
+            'config' => [
+                'value' => $user->isVerified(),
+                'item' => $user,
+                'col' => $this->getUserVerifiedRowOptions(),
+            ],
+        ]);
+    }
+
+    private function getUserVerifiedRowOptions(): array
+    {
+        return [
+            'type' => 'switch',
+            'label' => 'table.user.verified',
+            'queryKey' => 'u.verified',
+            'formRoute' => 'admin_user_verify',
+            'formRouteParams' => [
+                'id' => static fn (User $user): string => $user->getId()->toBase32(),
+            ],
+            'extras' => [
+                'id' => static fn (User $user): string => sprintf('user-verify-form_%s', $user->getId()->toBase32()),
+                'name' => '_verified',
+                'csrfToken' => fn (User $user): string => $this->csrfTokenManager->getToken(
+                    sprintf('switch-%s-user', $user->getId()->toBase32())
+                )->getValue(),
+                'submitOnChange' => true,
+            ],
+        ];
     }
 }
