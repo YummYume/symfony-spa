@@ -44,7 +44,7 @@
                                         {{ profile.username|sanitize_html("app.highlight_sanitizer") }}
                                     </h2>
                                     <p>
-                                        {{ (profile.description ?? "")|sanitize_html }}
+                                        {{ (profile.description ?? "")|sanitize_html("app.highlight_sanitizer") }}
                                     </p>
                                 </div>
                             </div>
