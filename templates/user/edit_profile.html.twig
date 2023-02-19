@@ -10,11 +10,11 @@
 
 {% block main_body %}
     <div class="grid gap-20 md:grid-cols-2">
-        <section id="account-section" class="flex flex-col items-center justify-self-end">
+        <section id="account-section" class="flex flex-col items-center md:justify-self-end">
             {% include "user/_account_form.html.twig" with { userForm } only %}
         </section>
 
-        <section id="profile-section" class="flex flex-col items-center justify-self-start">
+        <section id="profile-section" class="flex flex-col items-center md:justify-self-start">
             {% include "user/_profile_form.html.twig" with { profileForm } only %}
         </section>
 
