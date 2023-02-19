@@ -6,3 +6,6 @@ common.user: User
 # Homepage
 page.homepage.title: Administration homepage
 page.homepage.description: The homepage of the administration for MyApp.
+
+# Admin user
+flash.update_user.success.is_verified: User updated.

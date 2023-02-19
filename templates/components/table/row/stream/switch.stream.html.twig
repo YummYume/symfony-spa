@@ -1,0 +1,7 @@
+{% include "common/stream/alert.stream.html.twig" only %}
+
+  <turbo-stream action="update" target="{{ config.item.id }}">
+      <template>
+          {% include "components/table/row/switch.html.twig" with { config } only %}
+      </template>
+  </turbo-stream>

@@ -6,3 +6,6 @@ common.user: Utilisateur
 ## Page d'accueil
 page.homepage.title: Page d'accueil de l'administration
 page.homepage.description: La page d'accueil de l'administration pour MyApp.
+
+# Admin user
+flash.update_user.success.is_verified: L'utilisateur a été mise à jour.

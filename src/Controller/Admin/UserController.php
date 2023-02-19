@@ -3,21 +3,33 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Enum\ColorTypeEnum;
+use App\Manager\FlashManager;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Turbo\TurboBundle;
 
 final class UserController extends AbstractController
 {
-    #[Route('/users', name: 'admin_user', methods: ['GET'])]
-    public function index(UserRepository $UserRepository, PaginatorInterface $paginator, Request $request): Response
+
+    public function __construct(private readonly FlashManager $flashManager, private readonly UserRepository $userRepository)
+    {
+    }
+
+    #[Route('/users', name: 'admin_user', methods: ['GET', 'POST'])]
+    public function index(
+        PaginatorInterface $paginator, 
+        Request $request,
+        TokenStorageInterface $tokenStorage,
+    ): Response
     {
         $pagination = $paginator->paginate(
-            $UserRepository->createQueryBuilder('u'),
+            $this->userRepository->createQueryBuilder('u'),
             $request->query->getInt('page', 1),
             5
         );
@@ -44,9 +56,6 @@ final class UserController extends AbstractController
                     'type' => 'switch',
                     'label' => 'table.user.verified',
                     'queryKey' => 'u.verified',
-                    'extras' => [
-                        'route' => 'admin_user_status',
-                    ],
                 ],
                 'actions' => [
                     'info' => [
@@ -69,15 +78,48 @@ final class UserController extends AbstractController
             'pagination' => $pagination,
         ];
 
+        if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+            $targetUser = null;
+
+            $targetId = $request->get('id');
+            if ($targetId) {
+                $targetUser = $this->userRepository->find($targetId);
+            }
+
+            if(!$targetUser) {
+                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
+
+                return $this->redirectToRoute('admin_user', ['config' => $config]);
+            }
+            
+            dd($this->isCsrfTokenValid(sprintf('switch-%s-user', $targetId), $request->get('_token')));
+
+            if (!$this->isCsrfTokenValid(sprintf('switch-%s-user', $targetId), $request->get('_token'))) {
+                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_csrf');
+    
+                return $this->redirectToRoute('admin_user', ['config' => $config]);
+            }
+
+            $tokenStorage->setToken(null);
+
+            $targetUser->setIsVerified(!$targetUser->isVerified());
+            $this->userRepository->save($targetUser, true);
+
+            $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_user.success.is_verified');
+
+            return $this->render('components/table/row/stream/switch.stream.html.twig', 
+                [
+                    'config' => [
+                        'value' => $targetUser->isVerified(),
+                        'item' => [
+                            'id' => $targetUser->getId(),
+                        ],
+                    ]
+                ]
+            );
+        }
+
         return $this->render('admin/user/index.html.twig', ['config' => $config]);
-    }
-
-    #[Route('/users/check/{id}', name: 'admin_user_status', methods: ['GET'])]
-    public function changeStatus(User $user, UserRepository $UserRepository): JsonResponse
-    {
-        $user->setIsVerified(!$user->isVerified());
-        $UserRepository->save($user, true);
-
-        return $this->json(['response' => 'value change']);
     }
 }

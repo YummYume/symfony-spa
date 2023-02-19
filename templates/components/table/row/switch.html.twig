@@ -1,3 +1,13 @@
 <td>
-    <input data-action="table#switch" data-route="{{ path(config.col.extras.route, { id: config.item.id }) }}" type="checkbox" class="toggle-success toggle" {{ config.value ? "checked" : "" }} />
+    <form method="POST" action="{{ path(app.current_route) }}">
+        <input 
+            id="{{ config.item.id }}" 
+            data-action="table#submit" 
+            type="checkbox" 
+            class="toggle-success toggle" 
+            {{ config.value ? "checked" : "" }} 
+        />
+        <input type="hidden" name="id" value="{{ config.item.id }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('switch-#{config.item.id}-user') }}" />
+    <form>
 </td>

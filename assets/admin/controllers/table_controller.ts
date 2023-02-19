@@ -12,10 +12,12 @@ export default class extends Controller {
 
   declare readonly messageTarget: HTMLElement;
 
-  private async switch(e: Event): Promise<void> {
+  submit(e: Event) {
     const target = e.target as HTMLElement;
-    if (target.dataset.route) {
-      await fetch(`${window.origin}${target.dataset.route}`);
+    const form = target.parentElement;
+
+    if (form instanceof HTMLFormElement) {
+      form.requestSubmit();
     }
   }
 
