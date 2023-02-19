@@ -68,7 +68,7 @@
                                 </form>
                                 <form action="{{ path("app_search") }}" method="get">
                                     <div class="modal" role="dialog" data-class-modal-target="modal" data-action="keydown.esc@window->class-modal#close click->class-modal#close:self">
-                                        <div class="modal-box relative">
+                                        <div class="modal-box relative flex flex-col gap-2">
                                             <button aria-label="{{ "common.close"|trans }}" type="button" class="btn-sm btn-circle btn absolute right-2 top-2" data-action="click->class-modal#close">
                                                 {% include "icon/x-mark.html.twig" %}
                                             </button>
@@ -99,7 +99,6 @@
                                     {% endcomponent %}
                                 </a>
                             </div>
-
                             <div class="hidden lg:block">
                                 {% component dropdown %}
                                     {% block button %}

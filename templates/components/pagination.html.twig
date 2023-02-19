@@ -1,0 +1,41 @@
+{% set padding = 2 %}
+
+{% if pages > 1 %}
+    <div class="btn-group mx-auto">
+        {% if page != 1 %}
+            <a class="btn" href="{{ path(path.route, path.params|merge({ (path.pageParam): 1 })) }}">«</a>
+            <a class="btn" href="{{ path(path.route, path.params|merge({ (path.pageParam): page - 1 })) }}">&#8249;</a>
+        {% endif %}
+
+        {% for p in page - padding..page - 1 %}
+            {% if p > 0 and pages - page <= 2 %}
+                <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): p })) }}">{{ p }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% for p in page..page + padding %}
+            {% if p < pages %}
+                {% if p != page %}
+                    <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): p })) }}">{{ p }}</a>
+                {% else %}
+                    <span class="btn-active btn rounded-none">{{ p }}</span>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if pages - page > 2 %}
+            <span class="btn rounded-none">...</span>
+        {% endif %}
+
+        {% if page != pages %}
+            <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): pages })) }}">{{ pages }}</a>
+        {% else %}
+            <span class="btn-active btn rounded-none">{{ page }}</span>
+        {% endif %}
+
+        {% if page < pages %}
+            <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): page + 1 })) }}">&#8250;</a>
+            <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): pages })) }}">»</a>
+        {% endif %}
+    </div>
+{% endif %}

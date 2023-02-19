@@ -20,7 +20,7 @@ final class ProfilePictureType extends AbstractType
                 'allow_delete' => true,
                 'image_alt' => 'profile_picture.current_profile_picture',
                 'image_imagine_filter' => 'avatar',
-                'image_class' => 'mask mask-squircle',
+                'image_class' => 'rounded-3xl',
                 'attr' => [
                     'accept' => 'image/*',
                 ],

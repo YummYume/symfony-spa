@@ -1,15 +1,15 @@
 {% trans_default_domain "components" %}
 
 <div {{ attributes }}>
-    <input type="search"
-        name="q"
-        placeholder="{{ "global_search.search"|trans }}..."
-        class="input-bordered input w-full"
-        aria-label="{{ "global_search.search"|trans }}"
-        data-model="debounce(200)|query"
-        value="{{ query }}"
-        data-class-modal-target="initialFocus" />
-    <div class="py-4">
+    <div class="flex flex-col gap-2">
+        <input type="search"
+            name="q"
+            placeholder="{{ "global_search.search"|trans }}..."
+            class="input-bordered input w-full"
+            aria-label="{{ "global_search.search"|trans }}"
+            data-model="debounce(200)|query"
+            value="{{ query }}"
+            data-class-modal-target="initialFocus" />
         {% if computed.searchResult is not null %}
             {% if computed.searchResult is not empty %}
                 {% for name, results in computed.searchResult %}

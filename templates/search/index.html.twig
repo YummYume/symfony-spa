@@ -25,48 +25,56 @@
 
             {{ component("button", { icon: "search", square: true, submit: true }) }}
         </div>
-    </form>
 
-    <turbo-frame data-turbo-action="advance" id="search-results">
-        {% set menuItem = knp_menu_get("global_search", [], { query: search.query ?? "" }) %}
-        {{ knp_menu_render(menuItem, { currentAsLink: false, template: knp_custom_menu }) }}
-
-        {% if search %}
+        <turbo-frame data-turbo-action="advance" id="search-results">
             <span class="label-text-alt">{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
 
-            {% for hit in search.hits %}
-                {% set profile = hit._formatted %}
+            {% set menuItem = knp_menu_get("global_search", [], { query: search.query ?? "" }) %}
+            {{ knp_menu_render(menuItem, { currentAsLink: false, template: knp_custom_menu }) }}
 
-                <div class="card my-4 bg-base-100 shadow-xl lg:card-side">
-                    <div class="card-body">
-                        <h2 class="card-title gap-0">
-                            {{ profile.username|sanitize_html }}
-                        </h2>
+            {% if search %}
+                <div class="flex flex-col gap-6">
+                    {% for hit in search.hits %}
+                        {% set profile = hit._formatted %}
+
+                        <a href="{{ path("app_profile_show", { slug: profile.slug }) }}">
+                            <div class="card bg-base-200 shadow-lg transition-all hover:-translate-y-1 hover:bg-base-300 hover:shadow-xl">
+                                <div class="card-body">
+                                    <h2 class="card-title gap-0">
+                                        {{ profile.username|sanitize_html("app.highlight_sanitizer") }}
+                                    </h2>
+                                    <p>
+                                        {{ (profile.description ?? "")|sanitize_html }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    {% else %}
                         <p>
-                            {{ (profile.description ?? "")|sanitize_html }}
+                            {{ "page.search.no_result"|trans }}
                         </p>
-                        <div class="card-actions justify-end">
-                            <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="btn-primary btn">{{ "page.search.show_profile"|trans }}</a>
-                        </div>
-                    </div>
+                    {% endfor %}
+
+                    {{ component("pagination", {
+                        path: {
+                            pageParam: 'p',
+                            params: { q: search.query, type },
+                            route: 'app_search'
+                        },
+                        page: search.page,
+                        pages: search.totalPages
+                    }) }}
                 </div>
             {% else %}
                 <p>
-                    {{ "page.search.no_result"|trans }}
+                    {{ "page.search.type_to_search"|trans }}
                 </p>
-            {% endfor %}
-
-            {# TODO proper pagination #}
-            <a class="link" href="{{ path("app_search", { q: search.query, p: search.page + 1, type }) }}" rel="next">Next page</a>
-        {% else %}
-            <p>
-                {{ "page.search.type_to_search"|trans }}
-            </p>
-            {% if app.user %}
-                <p>
-                    {{ "page.search.search_username"|trans({ username: app.user.profile.username }) }}
-                </p>
+                {% if app.user %}
+                    <p>
+                        {{ "page.search.search_username"|trans({ username: app.user.profile.username }) }}
+                    </p>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    </turbo-frame>
+        </turbo-frame>
+    </form>
 {% endblock %}

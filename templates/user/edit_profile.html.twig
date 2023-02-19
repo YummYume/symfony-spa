@@ -9,17 +9,17 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <section id="account-section" class="flex flex-col items-center">
+    <div class="grid gap-20 md:grid-cols-2">
+        <section id="account-section" class="flex flex-col items-center justify-self-end">
             {% include "user/_account_form.html.twig" with { userForm } only %}
         </section>
 
-        <section id="profile-section" class="flex flex-col items-center">
+        <section id="profile-section" class="flex flex-col items-center justify-self-start">
             {% include "user/_profile_form.html.twig" with { profileForm } only %}
         </section>
 
         {% if not is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
-            <section class="mx-auto flex max-w-xs flex-col gap-6 md:col-span-2 lg:col-span-1">
+            <section class="mx-auto flex max-w-xs flex-col gap-6 md:col-span-2">
                 <h2 class="text-center text-3xl">
                     {{ "page.edit_profile.danger_zone"|trans }}
                 </h2>
