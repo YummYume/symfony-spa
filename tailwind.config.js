@@ -5,6 +5,7 @@ module.exports = {
   content: [
     './assets/**/*.(js|ts)',
     './templates/**/*.html.twig',
+    './src/Components',
   ],
   darkMode: 'class',
   theme: {

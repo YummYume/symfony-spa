@@ -15,6 +15,7 @@ final class ProfileRegistrationType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'profile.username',
+                'help' => 'profile.username.help',
             ])
         ;
     }

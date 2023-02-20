@@ -1,0 +1,21 @@
+<form
+    method="post"
+    action="{{ path(
+        config.col.formRoute|default(app.current_route ?? "app_homepage"),
+        table_parse_options(config.col.formRouteParams|default(app.current_route_parameters ?? []), config.item)
+    ) }}"
+    {{ stimulus_controller("submit") }}
+    {% if config.col.extras.id|default(false) %}id="{{ table_parse_option(config.col.extras.id, config.item) }}"{% endif %}
+>
+    <input
+        name=" {{ config.col.extras.name|default('_checkbox') }}"
+        type="checkbox"
+        class="toggle-success toggle"
+        {{ config.value ? "checked" : "" }}
+        value="{{ config.value ? "off" : "on" }}"
+        {% if config.col.extras.submitOnChange|default(false) %}data-action="change->submit#submit"{% endif %}
+    />
+    {% if config.col.extras.csrfToken|default(false) %}
+        <input type="hidden" name="_token" value="{{ table_parse_option(config.col.extras.csrfToken, config.item) }}" />
+    {% endif %}
+</form>

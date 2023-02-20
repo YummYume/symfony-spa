@@ -1,0 +1,8 @@
+# Common
+common.empty: Pas de données disponibles
+common.actions: Actions
+
+# Users
+user.email: E-mail
+user.username: Nom d'utilisateur
+user.verified: Verifié

@@ -1,0 +1,31 @@
+{% extends "admin/layout.html.twig" %}
+
+{% trans_default_domain "admin" %}
+
+{% block title %}
+    {{ "page.user_edit.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.user_edit.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.user_edit.title"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <div id="user-admin-form">
+        <h1>
+            Edit User
+        </h1>
+
+        {{ include("admin/user/_form.html.twig", { button_label: "Update" }) }}
+
+        {% include "admin/user/_send_validation_email.html.twig" with { user } only %}
+
+        {% include "admin/user/_delete_form.html.twig" with { user } only %}
+
+        <a href="{{ path("admin_user") }}">back to list</a>
+    </div>
+{% endblock %}

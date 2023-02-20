@@ -23,7 +23,7 @@
                 aria-label="{{ "common.search"|trans }}"
                 data-action="input->search#submit" />
 
-            {{ component("button", { icon: "search", square: true, submit: true }) }}
+            {{ component("button", { icon: "search", square: true, submit: true, ariaLabel: "common.global_search"|trans }) }}
         </div>
 
         <turbo-frame data-turbo-action="advance" id="search-results">

@@ -1,11 +1,31 @@
 {% extends "base.html.twig" %}
 
-{% block main_body %}
-    <h1>
-        {{ status_code }} | {{ status_text }}
-    </h1>
+{% trans_default_domain "errors" %}
 
-    <p>
-        Oops... Something went wrong. <a href="{{ path("app_homepage") }}">Return to the homepage</a>.
-    </p>
+{% block title %}
+    {{ status_code }} - {{ status_text }}
+{% endblock %}
+
+{% block description %}
+    {{ "error.something_went_wrong"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <div class="flex h-full items-center justify-center">
+        <section class="flex max-w-fit flex-col items-center justify-center gap-4 text-center">
+            <h1 class="text-6xl">
+                {{ status_code }} - {{ status_text }}
+            </h1>
+            <div class="divider"></div>
+            <p class="text-xl">
+                {{ "error.something_went_wrong"|trans }}
+            </p>
+            <p class="text-lg">
+                {{ "error.general_message"|trans }}
+            </p>
+            <p class="text-lg">
+                <a class="link-primary link" href="{{ path("app_homepage") }}">{{ "error.return_to_homepage"|trans }}</a>.
+            </p>
+        </section>
+    </div>
 {% endblock %}

@@ -1,8 +1,22 @@
-# Commun
+# Common
 common.logout: Déconnexion
 common.user: Utilisateur
+
+# Flahshes
+## Common
+flash.common.updated: Mis à jour avec succés.
+flash.common.deleted: Supprimé avec succès.
 
 # Pages
 ## Page d'accueil
 page.homepage.title: Page d'accueil de l'administration
 page.homepage.description: La page d'accueil de l'administration pour MyApp.
+
+## User
+page.user.title: Utilisateurs
+page.user.description: Liste des utilisateurs enregistrés sur le site.
+
+# Flashes
+## User
+flash.user.verified: L'utilisateur { email } est maintenant vérifié.
+flash.user.unverified: L'utilisateur { email } n'est plus vérifié.

@@ -52,7 +52,7 @@ final class UserController extends AbstractController
                     'userForm' => $userForm,
                 ]);
             } elseif ($userForm->isValid()) {
-                return $this->redirectToRoute('app_edit_profile');
+                return $this->redirectToRoute('app_edit_profile', status: Response::HTTP_SEE_OTHER);
             }
         } elseif ($profileForm->isSubmitted()) {
             if ($profileForm->isValid()) {
@@ -71,7 +71,7 @@ final class UserController extends AbstractController
                     'profileForm' => $profileForm->isValid() ? $this->createForm(ProfileType::class, $profile) : $profileForm,
                 ]);
             } elseif ($profileForm->isValid()) {
-                return $this->redirectToRoute('app_edit_profile');
+                return $this->redirectToRoute('app_edit_profile', status: Response::HTTP_SEE_OTHER);
             }
         }
 
@@ -117,6 +117,6 @@ final class UserController extends AbstractController
 
         $this->flashManager->flash(ColorTypeEnum::Info->value, 'flash.delete_profile.success');
 
-        return $this->redirectToRoute('app_homepage');
+        return $this->redirectToRoute('app_homepage', status: Response::HTTP_SEE_OTHER);
     }
 }

@@ -8,6 +8,8 @@ common.save: Enregistrer
 common.search: Rechercher
 common.switch_theme: Changer de thème
 common.legal: Légal
+common.account_menu: Menu du compte
+common.my_account: Mon compte
 common.my_profile: Mon profil
 common.account_settings: Paramètres du compte
 common.close: Fermer
@@ -16,6 +18,18 @@ common.or: ou
 common.admin: Administration
 common.upload.default_alt: Image téléchargée
 common.upload.click_or_drop: Faites glisser et déposez un fichier ou cliquez pour parcourir
+common.first_page: Première page ({ number })
+common.previous_page: Page précédente ({ number })
+common.page_number: Page { number }
+common.current_page: Page actuelle ({ number })
+common.next_page: Page suivante ({ number })
+common.last_page: Dernière page ({ number })
+common.show_password: Afficher/masquer le mot de passe
+common.menu: Menu
+
+# Icons
+icon.eye: Afficher
+icon.pencil: Modifier
 
 ## Flashes
 # Common

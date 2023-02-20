@@ -1,0 +1,86 @@
+{% extends "admin/layout.html.twig" %}
+
+{% trans_default_domain "admin" %}
+
+{% block title %}
+    {{ "page.user_show.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.user_show.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.user_show.title"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <h1>
+        User
+    </h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <td>
+                    {{ user.id }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Email
+                </th>
+                <td>
+                    {{ user.email }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Roles
+                </th>
+                <td>
+                    {{ user.roles ? user.roles|json_encode : "" }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Password
+                </th>
+                <td>
+                    {{ user.password }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Verified
+                </th>
+                <td>
+                    {{ user.verified ? "Yes" : "No" }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    CreatedAt
+                </th>
+                <td>
+                    {{ user.createdAt ? user.createdAt|date("Y-m-d H:i:s") : "" }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    UpdatedAt
+                </th>
+                <td>
+                    {{ user.updatedAt ? user.updatedAt|date("Y-m-d H:i:s") : "" }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path("admin_user") }}">back to list</a>
+
+    <a href="{{ path("admin_user_edit", { id: user.id.toBase32 }) }}">edit</a>
+{% endblock %}

@@ -32,7 +32,7 @@
     </head>
     <body>
         <div class="drawer">
-            <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
+            <input id="mobile-drawer" type="checkbox" class="drawer-toggle" aria-label="{{ "common.menu"|trans }}" />
             <div class="drawer-content flex flex-col overflow-hidden">
                 {% block flashes %}
                     <div id="app-flashes" class="fixed bottom-3 left-2 right-2 z-10 mr-auto flex max-w-lg flex-col gap-2 transition-all">
@@ -62,13 +62,13 @@
                                             data-action="mousedown->class-modal#open:prevent" />
 
                                         <div class="tooltip tooltip-bottom" data-tip="{{ 'common.global_search'|trans }}">
-                                            {{ component("button", { icon: "search", square: true, submit: true, class: "rounded-l-none" }) }}
+                                            {{ component("button", { icon: "search", square: true, submit: true, class: "rounded-l-none", ariaLabel: "common.global_search"|trans }) }}
                                         </div>
                                     </div>
                                 </form>
                                 <form action="{{ path("app_search") }}" method="get">
                                     <div class="modal" role="dialog" data-class-modal-target="modal" data-action="keydown.esc@window->class-modal#close click->class-modal#close:self">
-                                        <div class="modal-box relative flex flex-col gap-2">
+                                        <div class="modal-box relative flex flex-col gap-2 max-h-[80vh]">
                                             <button aria-label="{{ "common.close"|trans }}" type="button" class="btn-sm btn-circle btn absolute right-2 top-2" data-action="click->class-modal#close">
                                                 {% include "icon/x-mark.html.twig" %}
                                             </button>
@@ -89,7 +89,7 @@
                         <div class="navbar-end gap-4">
                             <div class="tooltip tooltip-bottom" data-tip="{{ 'common.switch_theme'|trans }}">
                                 <a role="button" aria-label="{{ 'common.switch_theme'|trans }}" href="{{ path('app_change_theme', { mode: themeMode }) }}">
-                                    {% component button with { circle: true, centered: false, ghost: true } %}
+                                    {% component button with { circle: true, centered: false, ghost: true, ariaLabel: "common.switch_theme"|trans } %}
                                         {% block content %}
                                             <label class="swap swap-rotate swap-active">
                                                 <svg data-theme-target="light" class="{{ isLight ? 'swap-on' : 'swap-off' }} fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
@@ -103,9 +103,9 @@
                                 {% include "common/_locale_switcher.html.twig" only %}
                             </div>
 
-                            <div id="navbar-user-dropdown">
+                            <nav id="navbar-user-dropdown">
                                 {% include "common/_user_dropdown.html.twig" with { permanent: true } only %}
-                            </div>
+                            </nav>
                         </div>
                     </nav>
                 {% endblock %}
@@ -161,7 +161,7 @@
                                 class="input-bordered input w-0 grow"
                                 aria-label="{{ "common.search"|trans }}" />
 
-                            {{ component("button", { icon: "search", square: true, submit: true }) }}
+                            {{ component("button", { icon: "search", square: true, submit: true, ariaLabel: "common.global_search"|trans }) }}
                         </div>
                     </form>
 
@@ -174,7 +174,7 @@
                             {% block items %}
                                 {% for locale in enabled_locales %}
                                     <li>
-                                        <a href="{{ path(app.current_route, app.current_route_parameters|merge({ _locale: locale })) }}">
+                                        <a href="{{ path(app.current_route ?? "app_homepage", (app.current_route_parameters ?? [])|merge({ _locale: locale })) }}">
                                             {{ locale|locale_name(app.request.locale)|title }}
                                         </a>
                                     </li>

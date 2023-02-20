@@ -5,7 +5,7 @@
 
 {% block items %}
     {% for locale in enabled_locales %}
-        <li><a href="{{ path(app.current_route, app.current_route_parameters|merge({ _locale: locale })) }}">{{ locale|locale_name(app.request.locale)|title }}</a></li>
+        <li><a href="{{ path(app.current_route ?? "app_homepage", (app.current_route_parameters ?? [])|merge({ _locale: locale })) }}">{{ locale|locale_name(app.request.locale)|title }}</a></li>
     {% endfor %}
 {% endblock %}
 {% endcomponent %}

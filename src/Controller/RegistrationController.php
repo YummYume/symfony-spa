@@ -47,7 +47,7 @@ final class RegistrationController extends AbstractController
 
                 $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.register.email_sent');
 
-                return $this->redirectToRoute('app_homepage');
+                return $this->redirectToRoute('app_homepage', status: Response::HTTP_SEE_OTHER);
             }
 
             $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
@@ -104,6 +104,6 @@ final class RegistrationController extends AbstractController
 
         $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.register.email_verified');
 
-        return $this->redirectToRoute('security_login');
+        return $this->redirectToRoute('security_login', status: Response::HTTP_SEE_OTHER);
     }
 }

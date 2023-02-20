@@ -14,9 +14,7 @@ class ThemeController extends AbstractController
     public function changeTheme(string $mode, Request $request): RedirectResponse
     {
         $referer = $request->headers->get('referer');
-
         $response = new RedirectResponse($referer);
-
         $cookie = Cookie::create('theme_mode')
             ->withValue('light' === $mode ? 'dark' : 'light')
             ->withSecure(true)

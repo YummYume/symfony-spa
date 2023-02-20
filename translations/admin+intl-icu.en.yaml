@@ -1,8 +1,22 @@
-## Common
+# Common
 common.logout: Logout
 common.user: User
 
-## Pages
-# Homepage
+# Flahshes
+## Common
+flash.common.updated: Updated successfully.
+flash.common.deleted: Deleted successfully.
+
+# Pages
+## Homepage
 page.homepage.title: Administration homepage
 page.homepage.description: The homepage of the administration for MyApp.
+
+## User
+page.user.title: Users
+page.user.description: List of users registered on the website.
+
+# Flashes
+## User
+flash.user.verified: User { email } is now verified.
+flash.user.unverified: User { email } is now unverified.
