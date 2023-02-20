@@ -13,24 +13,26 @@
         {% if computed.searchResult is not null %}
             {% if computed.searchResult is not empty %}
                 {% for name, results in computed.searchResult %}
-                    <section class="mb-2">
+                    <section class="my-2">
                         <h2 class="text-4xl">
                             {{ ("global_search.#{name}")|trans }}
                         </h2>
 
-                        {% for hit in results.hits %}
-                            {% set profile = hit._formatted %}
+                        <div class="mx-2">
+                            {% for hit in results.hits %}
+                                {% set profile = hit._formatted %}
 
-                            <div class="mb-2 flex flex-col">
-                                <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="link-primary link">{{ profile.username|sanitize_html("app.highlight_sanitizer") }}</a>
+                                <div class="mb-2 flex flex-col">
+                                    <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="link-primary link">{{ profile.username|sanitize_html("app.highlight_sanitizer") }}</a>
 
-                                <p>
-                                    {{ (profile.description ?? "")|sanitize_html("app.highlight_sanitizer") }}
-                                </p>
-                            </div>
-                        {% endfor %}
+                                    <p>
+                                        {{ (profile.description ?? "")|sanitize_html("app.highlight_sanitizer") }}
+                                    </p>
+                                </div>
+                            {% endfor %}
 
-                        <a class="link" href="{{ path("app_search", { q: results.query, t: name }) }}">{{ "global_search.profiles.more"|trans }}</a>
+                            <a class="link" href="{{ path("app_search", { q: results.query, t: name }) }}">{{ "global_search.profiles.more"|trans }}</a>
+                        </div>
                     </section>
                 {% endfor %}
 
@@ -38,12 +40,12 @@
 
                 <small>{{ "global_search.total_search_time"|trans({ time: totalSearchTime }) }}</small>
             {% else %}
-                <p>
+                <p class="my-2">
                     {{ "global_search.no_result"|trans }}
                 </p>
             {% endif %}
         {% else %}
-            <p>
+            <p class="mt-2">
                 {{ "global_search.type_to_search"|trans }}
             </p>
             {% if app.user %}

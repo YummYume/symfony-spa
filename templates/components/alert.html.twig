@@ -1,9 +1,9 @@
 <div {{ stimulus_controller("notification") }}
     data-notification-delay-value="5000"
-    data-transition-enter-from="opacity-0 translate-x-6"
-    data-transition-enter-to="opacity-100 translate-x-0"
+    data-transition-enter-from="opacity-0 translate-y-10"
+    data-transition-enter-to="opacity-100 translate-y-0"
     data-transition-leave-from="opacity-100 translate-x-0"
-    data-transition-leave-to="opacity-0 translate-x-6"
+    data-transition-leave-to="opacity-0 translate-x-0"
     class="alert-{{ type }} alert hidden transform flex-row items-center shadow-lg transition duration-1000"
     role="alert">
     <span>{% include "icon/#{type}.html.twig" %}</span>

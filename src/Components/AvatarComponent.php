@@ -12,6 +12,8 @@ final class AvatarComponent
 
     public ?string $id = null;
 
+    public string $class = '';
+
     public bool $small = true;
 
     public bool $permanent = false;

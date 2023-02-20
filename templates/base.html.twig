@@ -35,7 +35,7 @@
             <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col overflow-hidden">
                 {% block flashes %}
-                    <div id="app-flashes" class="fixed top-2 left-2 right-2 z-10 ml-auto flex max-w-lg flex-col gap-2">
+                    <div id="app-flashes" class="fixed bottom-3 left-2 right-2 z-10 mr-auto flex max-w-lg flex-col gap-2 transition-all">
                         {% for type, messages in app.flashes %}
                             {% for message in messages %}
                                 {{ component("alert", { message, type }) }}
@@ -100,21 +100,7 @@
                                 </a>
                             </div>
                             <div class="hidden lg:block">
-                                {% component dropdown %}
-                                    {% block button %}
-                                        {{ component('button', { content: app.request.locale|locale_name(app.request.locale)|title }) }}
-                                    {% endblock %}
-
-                                    {% block items %}
-                                        {% for locale in enabled_locales %}
-                                            <li>
-                                                <a href="{{ path(app.current_route, app.current_route_parameters|merge({ _locale: locale })) }}">
-                                                    {{ locale|locale_name(app.request.locale)|title }}
-                                                </a>
-                                            </li>
-                                        {% endfor %}
-                                    {% endblock %}
-                                {% endcomponent %}
+                                {% include "common/_locale_switcher.html.twig" only %}
                             </div>
 
                             <div id="navbar-user-dropdown">
@@ -125,7 +111,7 @@
                 {% endblock %}
 
                 {% block main %}
-                    <main class="container mx-auto flex grow flex-col gap-10 py-10">
+                    <main class="container px-2 md:px-1 mx-auto flex grow flex-col gap-10 py-10">
                         {% if block('main_title') %}
                             <h1 class="text-center text-4xl">
                                 {% block main_title %}{% endblock %}
@@ -167,10 +153,17 @@
             <div class="drawer-side">
                 <label for="mobile-drawer" class="drawer-overlay"></label>
                 <div class="menu w-80 bg-base-100 p-4 text-base-content flex flex-col gap-4 overflow-y-auto">
-                    <div class="input-group">
-                        <input type="text" placeholder="{{ "common.search"|trans }}..." class="input-bordered input w-0 grow" aria-label="{{ "common.search"|trans }}" />
-                        {{ component('button', { icon: 'search', square: true }) }}
-                    </div>
+                    <form action="{{ path("app_search") }}" method="get">
+                        <div class="input-group">
+                            <input type="search"
+                                name="q"
+                                placeholder="{{ "common.search"|trans }}..."
+                                class="input-bordered input w-0 grow"
+                                aria-label="{{ "common.search"|trans }}" />
+
+                            {{ component("button", { icon: "search", square: true, submit: true }) }}
+                        </div>
+                    </form>
 
                     <div class="form-control">
                         {% component dropdown with { alignRight: false } %}
