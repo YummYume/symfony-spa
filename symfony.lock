@@ -81,6 +81,30 @@
     "meilisearch/search-bundle": {
         "version": "v0.10.1"
     },
+    "nelmio/cors-bundle": {
+        "version": "2.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
+        },
+        "files": [
+            "config/packages/nelmio_cors.yaml"
+        ]
+    },
+    "nelmio/security-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.4",
+            "ref": "65726efb67ff51d89de38195bc0d230fa811f64d"
+        },
+        "files": [
+            "config/packages/nelmio_security.yaml"
+        ]
+    },
     "nyholm/psr7": {
         "version": "1.5",
         "recipe": {
@@ -105,6 +129,30 @@
             ".env.test",
             "phpunit.xml.dist",
             "tests/bootstrap.php"
+        ]
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "6.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "sentry/sentry-symfony": {
+        "version": "4.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.6",
+            "ref": "f7b4706a3e8a6f096b7392f3146f4f7f65ff594c"
+        },
+        "files": [
+            "config/packages/sentry.yaml"
         ]
     },
     "stof/doctrine-extensions-bundle": {
@@ -319,6 +367,18 @@
         },
         "files": [
             "config/packages/uid.yaml"
+        ]
+    },
+    "symfony/ux-autocomplete": {
+        "version": "2.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.6",
+            "ref": "07d9602b7231ba355f484305d6cea58310c01741"
+        },
+        "files": [
+            "config/routes/ux_autocomplete.yaml"
         ]
     },
     "symfony/ux-dropzone": {

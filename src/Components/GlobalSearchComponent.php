@@ -3,6 +3,7 @@
 namespace App\Components;
 
 use App\Entity\Profile;
+use App\Enum\SearchTypeEnum;
 use Meilisearch\Bundle\SearchService;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -31,10 +32,8 @@ final class GlobalSearchComponent
         $results = [];
 
         $profiles = $this->searchService->rawSearch(Profile::class, $this->query, [
-            'attributesToRetrieve' => ['username', 'slug', 'description'],
-            'attributesToHighlight' => ['username', 'description'],
-            'attributesToCrop' => ['description'],
-            'cropMarker' => '...',
+            ...SearchTypeEnum::getSearchOptions(SearchTypeEnum::Profiles),
+            'highlightPreTag' => '<em class="bg-warning dark:bg-secondary">',
             'limit' => 5,
         ]);
 

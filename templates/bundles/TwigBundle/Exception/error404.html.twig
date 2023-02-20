@@ -1,11 +1,31 @@
 {% extends "base.html.twig" %}
 
-{% block main_body %}
-    <h1>
-        Page not found
-    </h1>
+{% trans_default_domain "errors" %}
 
-    <p>
-        The requested page couldn't be located. Checkout for any URL misspelling or <a href="{{ path("app_homepage") }}">return to the homepage</a>.
-    </p>
+{% block title %}
+    {{ "not_found.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "not_found.description"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <div class="flex h-full items-center justify-center">
+        <section class="flex max-w-fit flex-col items-center justify-center gap-4 text-center">
+            <h1 class="text-6xl">
+                {{ "not_found.title"|trans }}
+            </h1>
+            <div class="divider"></div>
+            <p class="text-xl">
+                {{ "not_found.general_message"|trans }}
+            </p>
+            <p class="text-lg">
+                {{ "not_found_check_url"|trans }}
+            </p>
+            <p class="text-lg">
+                <a class="link-primary link" href="{{ path("app_homepage") }}">{{ "error.return_to_homepage"|trans }}</a>.
+            </p>
+        </section>
+    </div>
 {% endblock %}

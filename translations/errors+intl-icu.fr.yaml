@@ -1,0 +1,10 @@
+# General error
+error.something_went_wrong: Oups... Une erreur s'est produite.
+error.general_message: Cette erreur a été automatiquement enregistrée et nous travaillons à la corriger.
+error.return_to_homepage: Retour à la page d'accueil
+
+# 404
+not_found.title: Page introuvable
+not_found.description: La page que vous recherchez n'existe pas.
+not_found.general_message: La page demandée est introuvable.
+not_found_check_url: Vérifiez pour toute faute dans d'URL.

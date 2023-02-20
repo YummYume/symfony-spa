@@ -1,17 +1,14 @@
-<button class="
-        btn-{{ variant }}
-        btn
-        gap-2
-        {{ circle ? "btn-circle" }}
-        {{ ghost ? "btn-ghost" }}
-        {{ centered ? "mx-auto flex" }}
-        {{
-    square
-        ? "btn-square"
-    }}
-        {{ class }}
-    "
-    type="{{ submit ? "submit" : "button" }}">
+{% set tag = button ? "button" : "a" %}
+
+<{{ tag }}
+    class="{{ class }}"
+    {% if button %}
+        type="{{ submit ? "submit" : "button" }}"
+    {% else %}
+        href="{{ href }}"
+    {% endif %}
+    {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+>
     {% if icon or content %}
         {% if icon and iconPosition == "left" %}
             {% include "icon/#{icon}.html.twig" %}
@@ -25,4 +22,4 @@
 
         {% endblock %}
     {% endif %}
-</button>
+</{{ tag }}>

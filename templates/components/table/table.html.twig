@@ -1,3 +1,5 @@
+{% trans_default_domain "tables" %}
+
 <div class="overflow-x-auto w-full grow">
     <table class="table table-zebra w-full">
         <thead>
@@ -15,7 +17,7 @@
                             )}}
                         {% else %}
                             {% if key == 'actions' %}
-                                {{ key|upper }}
+                                {{ "common.actions"|trans }}
                             {% else %}
                                 {{ col.label|upper }}
                             {% endif %}
@@ -29,10 +31,10 @@
                 <tr>
                     {% for key, col in config.cols %}
                         {% if col.queryKey is defined %}
-                            {{ component(col.type, { config: { item: value, col, value: value[key] } }) }}
+                            {{ component(col.type, { config: { item: value, col, value: get_property(value, key) } }) }}
                         {% else %}
                             {% if key == 'actions' %}
-                                {{ component(key, { config: { actions: col, value: value.id } }) }}
+                                {{ component(key, { config: { actions: col, value } }) }}
                             {% else %}
                                 {{ component(col.type, { config: { col } }) }}
                             {% endif %}
@@ -42,23 +44,10 @@
             {% else %}
                 <tr>
                     <td class="text-center" colspan="{{ config.cols|length }}">
-                        {{ "table.empty"|trans({}, "table+intl-icu") }}
+                        {{ "common.empty"|trans }}
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    {% if config.cols.actions is defined %}
-        <input type="checkbox" id="action-modal" class="modal-toggle" />
-        <label for="action-modal" class="modal cursor-pointer">
-            <label class="modal-box relative" for="">
-                <label for="action-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                <h3 class="text-lg font-bold" data-table-target="message"></h3>
-                <div class="modal-action">
-                    <a data-table-target="route" href="" class="btn btn-error">{{ "table.modal.yes"|trans({}, "table+intl-icu") }}</a>
-                    <label for="action-modal" class="btn btn-success">{{ "table.modal.no"|trans({}, "table+intl-icu") }}</label>
-                </div>
-            </label>
-        </label>
-    {% endif %}
 </div>

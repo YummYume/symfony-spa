@@ -51,7 +51,7 @@ final class EmailVerifier
     {
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId()->toBase58(), $user->getEmail());
 
-        $user->setIsVerified(true);
+        $user->setVerified(true);
 
         $this->userRepository->save($user, true);
     }

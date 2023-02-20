@@ -18,12 +18,12 @@
                             {{ ("global_search.#{name}")|trans }}
                         </h2>
 
-                        <div class="mx-2">
+                        <div class="m-2">
                             {% for hit in results.hits %}
                                 {% set profile = hit._formatted %}
 
                                 <div class="mb-2 flex flex-col">
-                                    <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="link-primary link">{{ profile.username|sanitize_html("app.highlight_sanitizer") }}</a>
+                                    <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="link-primary link-hover link text-lg transition-all max-w-fit">{{ profile.username|sanitize_html("app.highlight_sanitizer") }}</a>
 
                                     <p>
                                         {{ (profile.description ?? "")|sanitize_html("app.highlight_sanitizer") }}

@@ -26,7 +26,20 @@
                     </div>
                     <div class="form-control">
                         <label for="inputPassword" class="label"><span class="label-text">{{ "user.password"|trans }}</span></label>
-                        <input type="password" name="_password" id="inputPassword" class="input-bordered input w-80 max-w-xs" autocomplete="current-password" required />
+                        <div class="input-group" {{ stimulus_controller("password-visibility") }}>
+                            <input type="password"
+                                name="_password"
+                                id="inputPassword"
+                                class="input-bordered input w-80 max-w-xs"
+                                autocomplete="current-password"
+                                required
+                                data-password-visibility-target="input"
+                                spellcheck="false" />
+                            <button class="btn-square btn rounded-r-lg" type="button" data-action="password-visibility#toggle" aria-label="{{ "common.show_password"|trans }}">
+                                {% include "icon/eye.html.twig" only %}
+                                {% include "icon/eye_slash.html.twig" with { class: "hidden" } only %}
+                            </button>
+                        </div>
                     </div>
                     <a class="link-secondary link" href="{{ path("app_forgot_password_request") }}">{{ "page.login.forgot_password"|trans }}</a>
                 </div>

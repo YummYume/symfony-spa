@@ -24,7 +24,7 @@ final class UserFixtures extends Fixture
         $admin = (new User())
             ->setEmail('root@root.com')
             ->setPlainPassword('root')
-            ->setIsVerified(true)
+            ->setVerified(true)
             ->setRoles([UserRoleEnum::SuperAdmin->value, UserRoleEnum::AllowedToSwitch->value])
             ->setProfile($adminProfile)
         ;
@@ -40,7 +40,7 @@ final class UserFixtures extends Fixture
             $user = (new User())
                 ->setEmail($faker->unique()->safeEmail())
                 ->setPlainPassword($faker->password(8))
-                ->setIsVerified(true)
+                ->setVerified(true)
                 ->setProfile($profile)
             ;
 

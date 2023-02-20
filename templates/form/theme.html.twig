@@ -101,7 +101,15 @@
 
 {%- block password_widget -%}
     {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
-    {{- parent() -}}
+    {%- set type = type|default('password') -%}
+    {%- set attr = attr|merge({ "data-password-visibility-target": "input", spellcheck: "false" }) -%}
+    <div class="input-group" {{ stimulus_controller("password-visibility") }}>
+        {{ block('form_widget_simple') }}
+        <button class="btn btn-square rounded-r-lg" type="button" data-action="password-visibility#toggle" aria-label="{{ "common.show_password"|trans }}">
+            {% include "icon/eye.html.twig" only %}
+            {% include "icon/eye_slash.html.twig" with { class: "hidden" } only %}
+        </button>
+    </div>
 {%- endblock password_widget -%}
 
 {%- block text_widget -%}

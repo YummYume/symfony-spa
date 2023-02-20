@@ -1,7 +1,9 @@
+{% trans_default_domain "messages" %}
+
 {% if app.user %}
     {% component dropdown with { permanent: permanent ?? true } %}
     {% block button %}
-        {% component button with { circle: true, ghost: true } %}
+        {% component button with { circle: true, ghost: true, ariaLabel: "common.account_menu"|trans } %}
         {% block content %}
             {{ component("avatar", { user: app.user, permanent, id: "user-picture" }) }}
         {% endblock %}
@@ -9,15 +11,27 @@
     {% endblock %}
 
     {% block items %}
-        <li><a tabindex="0" href="{{ path("app_profile_show", { slug: app.user.profile.slug }) }}">{{ "common.my_profile"|trans }}</a></li>
-        <li><a tabindex="0" href="{{ path("app_edit_profile") }}">{{ "common.account_settings"|trans }}</a></li>
-        <li><a tabindex="0" href="{{ path("security_logout") }}">{{ "common.logout"|trans }}</a></li>
+        <li class="menu-title select-none">
+            <span>{{ "common.my_account"|trans }}</span>
+        </li>
+        <li><a href="{{ path("app_profile_show", { slug: app.user.profile.slug }) }}">{{ "common.my_profile"|trans }}</a></li>
+        <li><a href="{{ path("app_edit_profile") }}">{{ "common.account_settings"|trans }}</a></li>
+        {% if is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
+            <li class="menu-title select-none">
+                <span>{{ "common.admin"|trans }}</span>
+            </li>
+            <li><a href="{{ path("admin_homepage") }}">{{ "common.admin"|trans }}</a></li>
+        {% endif %}
+        <li class="menu-title select-none">
+            <span>{{ "common.logout"|trans }}</span>
+        </li>
+        <li><a href="{{ path("security_logout") }}">{{ "common.logout"|trans }}</a></li>
     {% endblock %}
     {% endcomponent %}
 {% else %}
     {% component dropdown %}
     {% block button %}
-        {% component button with { circle: true, ghost: true } %}
+        {% component button with { circle: true, ghost: true, ariaLabel: "common.account_menu"|trans } %}
         {% block content %}
             {{ component("avatar") }}
         {% endblock %}
@@ -25,8 +39,8 @@
     {% endblock %}
 
     {% block items %}
-        <li><a tabindex="0" href="{{ path("security_login") }}">{{ "common.login"|trans }}</a></li>
-        <li><a tabindex="0" href="{{ path("app_register") }}">{{ "common.register"|trans }}</a></li>
+        <li><a href="{{ path("security_login") }}">{{ "common.login"|trans }}</a></li>
+        <li><a href="{{ path("app_register") }}">{{ "common.register"|trans }}</a></li>
     {% endblock %}
     {% endcomponent %}
 {% endif %}

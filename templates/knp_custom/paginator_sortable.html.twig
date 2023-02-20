@@ -1,6 +1,6 @@
-<a{% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>
-  <span class="flex gap-2 items-center">
-    {{ component('arrow_sortable', { sortable: options.class }) }}
-    <p>{{ title|trans({}, "table+intl-icu") }}<p>
-  <span>
+<a {% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>
+    <span class="flex gap-2 items-center">
+        {{ component('arrow_sortable', { sortable: options.class }) }}
+        <p>{{ title|trans({}, "tables") }}<p>
+    <span>
 </a>
