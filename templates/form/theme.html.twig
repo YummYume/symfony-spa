@@ -143,7 +143,7 @@
         {{- form_row(form.delete) -}}
     {%- endif -%}
     {%- if image_uri -%}
-        <a href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" download>
+        <a class="flex justify-center items-center" href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" download>
             {{
                 component(
                     "image",

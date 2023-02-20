@@ -49,13 +49,15 @@ final class MenuBuilder
             'childrenAttributes' => ['class' => 'menu menu-compact-sm bg-base-100 shadow-md w-fit px-2 rounded-box'],
         ]);
 
-        $this->setCurrent($menu->addChild('global_search.profiles', [
+        $defaultMenu = $menu->addChild('global_search.profiles', [
             'route' => 'app_search',
             'routeParameters' => ['t' => SearchTypeEnum::Profiles->value, 'q' => $options['query'] ?? ''],
             'extras' => [
                 'icon' => 'users',
             ],
-        ]), true);
+        ]);
+
+        $defaultMenu->setCurrent(true);
 
         return $menu;
     }

@@ -33,7 +33,7 @@
     <body>
         <div class="drawer">
             <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content flex flex-col">
+            <div class="drawer-content flex flex-col overflow-hidden">
                 {% block flashes %}
                     <div id="app-flashes" class="fixed top-2 left-2 right-2 z-10 ml-auto flex max-w-lg flex-col gap-2">
                         {% for type, messages in app.flashes %}
@@ -166,7 +166,7 @@
             {# Drawer content #}
             <div class="drawer-side">
                 <label for="mobile-drawer" class="drawer-overlay"></label>
-                <div class="menu w-80 bg-base-100 p-4 text-base-content flex flex-col gap-4">
+                <div class="menu w-80 bg-base-100 p-4 text-base-content flex flex-col gap-4 overflow-y-auto">
                     <div class="input-group">
                         <input type="text" placeholder="{{ "common.search"|trans }}..." class="input-bordered input w-0 grow" aria-label="{{ "common.search"|trans }}" />
                         {{ component('button', { icon: 'search', square: true }) }}

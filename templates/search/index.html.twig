@@ -27,7 +27,9 @@
         </div>
 
         <turbo-frame data-turbo-action="advance" id="search-results">
-            <span class="label-text-alt">{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
+            {% if search %}
+                <span class="label-text-alt">{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
+            {% endif %}
 
             {% set menuItem = knp_menu_get("global_search", [], { query: search.query ?? "" }) %}
             {{ knp_menu_render(menuItem, { currentAsLink: false, template: knp_custom_menu }) }}
