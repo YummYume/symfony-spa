@@ -14,6 +14,6 @@ final class PaginationComponent
     public array $path = [
         'pageParam' => '',
         'params' => null,
-        'route' => ''
+        'route' => '',
     ];
 }
