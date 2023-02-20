@@ -15,17 +15,11 @@
 {% endblock %}
 
 {% block main_body %}
-    <div id="user-admin-form">
-        <h1>
-            Edit User
-        </h1>
-
+    <div id="user-admin-form" class="flex flex-col gap-4 max-w-xs mx-auto">
         {{ include("admin/user/_form.html.twig", { button_label: "Update" }) }}
-
         {% include "admin/user/_send_validation_email.html.twig" with { user } only %}
-
         {% include "admin/user/_delete_form.html.twig" with { user } only %}
-
-        <a href="{{ path("admin_user") }}">back to list</a>
     </div>
+
+    {{ component('button', { button: false, content: 'back to list', href: path("admin_user") }) }}
 {% endblock %}

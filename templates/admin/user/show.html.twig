@@ -15,10 +15,6 @@
 {% endblock %}
 
 {% block main_body %}
-    <h1>
-        User
-    </h1>
-
     <table class="table">
         <tbody>
             <tr>
@@ -80,7 +76,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path("admin_user") }}">back to list</a>
-
-    <a href="{{ path("admin_user_edit", { id: user.id.toBase32 }) }}">edit</a>
+    {{ component("button", { button: false, content: "edit", href: path("admin_user_edit", { id: user.id.toBase32 }) }) }}
+    {{ component("button", { button: false, content: "back to list", href: path("admin_user") }) }}
 {% endblock %}
