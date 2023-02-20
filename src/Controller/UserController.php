@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Enum\ColorTypeEnum;
+use App\Enum\UserRoleEnum;
 use App\Form\ProfileType;
 use App\Form\UserType;
 use App\Manager\Email\SecurityEmailManager;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/me')]
 final class UserController extends AbstractController
@@ -39,21 +41,38 @@ final class UserController extends AbstractController
                 $this->userRepository->save($user, true);
 
                 $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.account_updated');
-
-                return $this->redirectToRoute('app_edit_profile');
+            } else {
+                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
             }
 
-            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                return $this->render('user/stream/edit_account.stream.html.twig', [
+                    'userForm' => $userForm,
+                ]);
+            } elseif ($userForm->isValid()) {
+                return $this->redirectToRoute('app_edit_profile');
+            }
         } elseif ($profileForm->isSubmitted()) {
             if ($profileForm->isValid()) {
                 $profileRepository->save($profile, true);
 
                 $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.update_profile.profile_updated');
-
-                return $this->redirectToRoute('app_edit_profile');
+            } else {
+                $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
             }
 
-            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                return $this->render('user/stream/edit_profile.stream.html.twig', [
+                    // This is necessary to avoid a problem with VichUploader listeners
+                    'profileForm' => $profileForm->isValid() ? $this->createForm(ProfileType::class, $profile) : $profileForm,
+                ]);
+            } elseif ($profileForm->isValid()) {
+                return $this->redirectToRoute('app_edit_profile');
+            }
         }
 
         return $this->render('user/edit_profile.html.twig', [
@@ -69,12 +88,12 @@ final class UserController extends AbstractController
         TokenStorageInterface $tokenStorage,
         SecurityEmailManager $securityEmailManager
     ): RedirectResponse {
-        /** @var User */
-        $user = $this->getUser();
-
-        if ($user->isAdmin()) {
+        if ($this->isGranted(UserRoleEnum::Admin->value)) {
             return $this->redirectToRoute('app_edit_profile');
         }
+
+        /** @var User */
+        $user = $this->getUser();
 
         if ($translator->trans('page.edit_profile.deletion_prompt') !== $request->get('input')) {
             $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.delete_profile.invalid_prompt');

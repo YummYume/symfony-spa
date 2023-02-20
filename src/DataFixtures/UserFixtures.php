@@ -11,7 +11,7 @@ use Faker\Factory;
 
 final class UserFixtures extends Fixture
 {
-    public const FIXTURE_RANGE = 20;
+    public const FIXTURE_RANGE = 200;
 
     public const REFERENCE_IDENTIFIER = 'user_';
 

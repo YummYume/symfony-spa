@@ -4,10 +4,12 @@ namespace App\Entity\Traits;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait FilePropertiesTrait
 {
     #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups('searchable')]
     private ?string $fileName = null;
 
     #[ORM\Column(type: Types::INTEGER, nullable: true)]

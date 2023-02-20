@@ -9,6 +9,8 @@ use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
+use Doctrine\ORM\EntityManagerInterface;
+use Meilisearch\Bundle\SearchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,7 +62,9 @@ final class RegistrationController extends AbstractController
     public function verifyUserEmail(
         Request $request,
         UserRepository $userRepository,
-        EmailVerifier $emailVerifier
+        EmailVerifier $emailVerifier,
+        SearchService $searchService,
+        EntityManagerInterface $entityManager
     ): RedirectResponse {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_homepage');
@@ -84,6 +88,8 @@ final class RegistrationController extends AbstractController
 
         try {
             $emailVerifier->handleEmailConfirmation($request, $user);
+
+            $searchService->index($entityManager, $user->getProfile());
         } catch (ExpiredSignatureException $exception) {
             $this->securityEmailManager->sendRegisterEmailConfirmation($user);
 

@@ -18,7 +18,12 @@ final class ProfilePictureType extends AbstractType
                 'help' => 'profile_picture.file.help',
                 'required' => false,
                 'allow_delete' => true,
-                'imagine_pattern' => 'avatar',
+                'image_alt' => 'profile_picture.current_profile_picture',
+                'image_imagine_filter' => 'avatar',
+                'image_class' => 'rounded-3xl',
+                'attr' => [
+                    'accept' => 'image/*',
+                ],
             ])
         ;
     }

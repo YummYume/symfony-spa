@@ -12,6 +12,8 @@ parameters:
     app.locales: en|fr
     app.public_dir: '%kernel.project_dir%/public'
     app.blur_default_fallback: '%env(BLUR_DEFAULT_FALLBACK)%'
+    knp_menu.renderer.twig.options:
+        currentClass: bg-primary rounded-lg text-white
 
 services:
     # default configuration for services in *this* file
@@ -49,9 +51,10 @@ services:
 
     # MenuBuilder
     App\Builder\MenuBuilder:
-        arguments: ["@knp_menu.factory"]
+        arguments: ['@knp_menu.factory']
         tags:
-            - { name: knp_menu.menu_builder, method: createBackoffice, alias: backoffice }
+            - { name: knp_menu.menu_builder, method: createBackOffice, alias: back_office }
+            - { name: knp_menu.menu_builder, method: createGlobalSearch, alias: global_search }
 
     # Twig
     App\Twig\AssetDeliveryExtension:

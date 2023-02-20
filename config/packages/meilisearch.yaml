@@ -1,0 +1,11 @@
+meilisearch:
+    url: '%env(MEILISEARCH_URL)%'
+    api_key: '%env(MEILISEARCH_MASTER_KEY)%'
+    prefix: '%env(APP_ENV)%_'
+    indices:
+        - name: profiles
+          class: App\Entity\Profile
+          enable_serializer_groups: true
+          index_if: isIndexable
+          settings:
+              searchableAttributes: ['username', 'slug', 'description', 'picture']

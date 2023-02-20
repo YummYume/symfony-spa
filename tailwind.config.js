@@ -35,6 +35,11 @@ module.exports = {
     'btn-info',
     'btn-success',
     'btn-warning',
+    'bg-primary',
+    'bg-warning',
+    'dark:bg-secondary',
+    'rounded-lg',
+    'rounded-3xl',
   ],
   plugins: [require('daisyui')],
 };

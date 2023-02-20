@@ -11,6 +11,7 @@ user.email.unique: An account with this email address already exists.
 user.password.valid: Your password should contain at least 8 characters, with at least one lowercase letter, one uppercase letter, one digit and one special character (#\?!@$%^&*-).
 user.password.not_compromised: This password was compromised in a data breach, it must not be used. Please enter another password.
 user.password.not_blank: Please enter a password.
+user.password.no_match: Passwords do not match.
 user.current_password.invalid: Your current password does not match.
 
 # Reset Password Request

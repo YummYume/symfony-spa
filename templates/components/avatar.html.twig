@@ -1,11 +1,11 @@
 {% set hasPicture = user.profile.picture.fileName|default(null) %}
 
-<div class="avatar {{ user and not hasPicture ? "placeholder" }}">
+<div class="avatar {{ user and not hasPicture ? "placeholder" }} {{ class }}">
     {% if user %}
         <div
             {% if id %}id="{{ id }}"{% endif %}
             class="{{ small ? "w-10 rounded-full" : "h-48 w-48" }} {{ hasPicture ? "bg-neutral-focus text-neutral-content" }}"
-            {% if permanent %}data-turbo-permanent{% endif %}
+            {% if id and permanent %}data-turbo-permanent{% endif %}
         >
             {% if hasPicture %}
                 {{
@@ -21,7 +21,7 @@
                     )
                 }}
             {% else %}
-                <span aria-label="{{ "user.profile.picture"|trans({ username: user.profile.username }) }}" class="{{ small ? "text-xl" : "text-6xl" }}">
+                <span aria-label="{{ "user.profile.picture"|trans({ username: user.profile.username }) }}" class="select-none {{ small ? "text-xl" : "text-6xl" }}">
                     {{ user.profile.username|u.truncate(1)|upper }}
                 </span>
             {% endif %}

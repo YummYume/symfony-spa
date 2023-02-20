@@ -81,7 +81,9 @@ services:
       db:
         condition: service_healthy
     environment:
-      - PMA_ARBITRARY=1
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 512M
+      MAX_EXECUTION_TIME: 300
 
   mailcatcher:
     image: schickling/mailcatcher:latest
@@ -122,15 +124,26 @@ services:
     restart: unless-stopped
     environment:
       # Uncomment the following line to disable HTTPS
-      SERVER_NAME: ':80'
+      SERVER_NAME: ":80"
       MERCURE_PUBLISHER_JWT_KEY: "${MERCURE_JWT_SECRET:?err}"
-      MERCURE_SUBSCRIBER_JWT_KEY: '${MERCURE_JWT_SECRET:?err}'
+      MERCURE_SUBSCRIBER_JWT_KEY: "${MERCURE_JWT_SECRET:?err}"
     # Uncomment the following line to enable the development mode
     command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev
     container_name: mercure
     ports:
-      - "3000:80"
-      # - "443:443"
+      - 3000:80
+      # - 443:443
     volumes:
       - ./data/mercure/data:/data
       - ./data/mercure/config:/config
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.0
+    container_name: meilisearch
+    restart: unless-stopped
+    ports:
+      - 7700:7700
+    volumes:
+      - ./data/meilisearch:/meili_data
+    environment:
+      MEILI_MASTER_KEY: "${MEILISEARCH_MASTER_KEY:?err}"

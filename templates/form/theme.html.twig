@@ -113,3 +113,80 @@
     {%- set widget_class = widget_class|default('textarea textarea-bordered w-full') -%}
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {%- endblock textarea_widget -%}
+
+{%- block vich_file_row -%}
+    {%- set force_error = true -%}
+    {{- form_label(form, null, { label_attr: { for: form.file.vars.id }|merge(form.vars.label_attr) }) -}}
+    {{- form_widget(form) -}}
+    {{- form_errors(form) -}}
+    {%- if form.delete is defined -%}
+        {{- form_row(form.delete) -}}
+    {%- endif -%}
+    {%- if download_uri -%}
+        <a href="{{ asset_helper is same as(true) ? asset(download_uri) : download_uri }}" download>
+            {{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}
+        </a>
+    {%- endif -%}
+    {{ block("form_help") }}
+{%- endblock -%}
+
+{%- block vich_file_widget -%}
+    {{- form_widget(form.file, { attr }) -}}
+{%- endblock -%}
+
+{%- block vich_image_row -%}
+    {%- set force_error = true -%}
+    {{- form_label(form, null, { label_attr: { for: form.file.vars.id }|merge(form.vars.label_attr) }) -}}
+    {{- form_widget(form.file) -}}
+    {{- form_errors(form) -}}
+    {%- if form.delete is defined -%}
+        {{- form_row(form.delete) -}}
+    {%- endif -%}
+    {%- if image_uri -%}
+        <a class="flex justify-center items-center" href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" download>
+            {{
+                component(
+                    "image",
+                    {
+                        src: image_uri,
+                        class: image_class,
+                        filter: image_imagine_filter,
+                        alt: translation_domain is same as(false) ? image_alt : image_alt|trans({}, translation_domain),
+                        width: image_width,
+                        height: image_height
+                    }
+                )
+            }}
+        </a>
+    {%- endif -%}
+    {{ block("form_help") }}
+{%- endblock -%}
+
+{%- block vich_image_widget -%}
+    {{- form_widget(form.file, { attr }) -}}
+{%- endblock -%}
+
+{% block dropzone_widget %}
+    {%- set dataController = (attr['data-controller']|default('') ~ ' symfony--ux-dropzone--dropzone')|trim -%}
+    {%- set attr = attr|merge({ 'data-controller': '', class: (attr.class|default('') ~ ' dropzone-input')|trim}) -%}
+
+    <div class="dropzone-container | !border-[hsl(var(--bc)/0.2)] rounded-lg" data-controller="{{ dataController }}">
+        <input type="file" {{ block('widget_attributes') }} data-symfony--ux-dropzone--dropzone-target="input" />
+
+        <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder">
+            {%- if attr.placeholder is defined and attr.placeholder is not none -%}
+                {{- translation_domain is same as(false) ? attr.placeholder : attr.placeholder|trans({}, translation_domain) -}}
+            {%- endif -%}
+        </div>
+
+        <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
+            <button class="dropzone-preview-button" type="button"
+                    data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
+
+            <div class="dropzone-preview-image" style="display: none"
+                data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
+
+            <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
+        </div>
+    </div>
+{% endblock %}

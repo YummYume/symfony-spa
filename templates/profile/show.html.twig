@@ -13,9 +13,9 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="card card-side bg-base-100 shadow-xl">
-        <figure>
-            {{ component("avatar", { user: profile.user, small: false }) }}
+    <div class="card bg-base-100 shadow-xl md:card-side">
+        <figure class="min-w-[12.5rem]">
+            {{ component("avatar", { user: profile.user, small: false, class: "mask mask-squircle md:mask-square" }) }}
         </figure>
         <div class="card-body">
             <h2 class="card-title">

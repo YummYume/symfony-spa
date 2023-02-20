@@ -18,6 +18,7 @@ $finder = (new PhpCsFixer\Finder())
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
+    ->setIndent('    ')
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,

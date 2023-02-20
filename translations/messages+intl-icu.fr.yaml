@@ -6,11 +6,16 @@ common.logout: Déconnexion
 common.register: Enregistrement
 common.save: Enregistrer
 common.search: Rechercher
-common.switch_theme: Basculer de thème
+common.switch_theme: Changer de thème
 common.legal: Légal
 common.my_profile: Mon profil
 common.account_settings: Paramètres du compte
 common.close: Fermer
+common.global_search: Recherche globale
+common.or: ou
+common.admin: Administration
+common.upload.default_alt: Image téléchargée
+common.upload.click_or_drop: Faites glisser et déposez un fichier ou cliquez pour parcourir
 
 ## Flashes
 # Common
@@ -106,6 +111,16 @@ page.reset_password.title: Réinitialiser votre mot de passe
 page.reset_password.description: Réinitialiser en toute sécurité votre mot de passe oublié.
 page.reset_password.reset: Réinitialiser mon mot de passe
 
+# Search
+page.search.title: Recherche
+page.search.description: Recherchez n'importe quoi sur MyApp.
+page.search.no_result: Aucun résultat trouvé.
+page.search.result_time: >-
+    { hits, plural, =0 {# résultat en { time } ms} one {# résultat en { time } ms} other {# résultats en { time } ms} }
+page.search.show_profile: Voir le profil
+page.search.type_to_search: Tapez n'importe quoi pour commencer la recherche.
+page.search.search_username: Par exemple, essayez de saisir { username }...
+
 ## Entities
 # User
 user.email: Courrier électronique
@@ -126,6 +141,7 @@ profile.description: Description
 # Profile picture
 profile_picture.file: Image
 profile_picture.file.help: Les dimensions recommandées pour une photo de profil sont 200x200. La taille de téléchargement maximale est de 2 Mo.
+profile_picture.current_profile_picture: Votre image de profil actuelle.
 
 # ResetPasswordRequest
 reset_password_request.email: Adresse email

@@ -71,7 +71,7 @@ else
 endif
 
 # DB
-db: db-drop db-create migration fixtures
+db: db-drop db-create meilisearch-delete migration meilisearch-create fixtures
 
 db-create:
 	$(EXECPHP) php bin/console d:d:c --if-not-exists
@@ -94,12 +94,31 @@ fixtures:
 db-test:
 	$(COMPOSECI) exec php php bin/console --env=test d:d:d --if-exists --force
 	$(COMPOSECI) exec php php bin/console --env=test d:d:c --if-not-exists
+	$(COMPOSECI) exec php php bin/console --env=test meili:delete
 	$(COMPOSECI) exec php php bin/console --env=test d:m:m -n --allow-no-migration --all-or-nothing
+	$(COMPOSECI) exec php php bin/console --env=test meili:create
 	$(COMPOSECI) exec php php bin/console --env=test d:f:l -n
 
 # Services
+# Rabbitmq
 rabbitmq-consume:
 	$(EXECPHP) php bin/console messenger:consume -vv
+
+# Meilisearch
+meilisearch-create:
+	$(EXECPHP) php bin/console meili:create
+
+meilisearch-import:
+	$(EXECPHP) php bin/console meili:import
+
+meilisearch-update:
+	$(EXECPHP) php bin/console meili:import --update-settings
+
+meilisearch-clear:
+	$(EXECPHP) php bin/console meili:clear
+
+meilisearch-delete:
+	$(EXECPHP) php bin/console meili:delete
 
 # Debug
 dump:

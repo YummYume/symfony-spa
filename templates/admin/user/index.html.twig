@@ -16,11 +16,9 @@
 
 {% block main_body %}
     <div class="flex gap-2">
-        {{ knp_menu_render('backoffice', { template: knp_custom_menu }) }}
+        {{ knp_menu_render('back_office', { template: knp_custom_menu }) }}
         {{ component('table', { config }) }}
     </div>
 
-    <div class="flex mx-auto">
-        {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
-    </div>
+    {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
 {% endblock %}

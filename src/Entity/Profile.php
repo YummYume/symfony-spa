@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,14 +37,17 @@ class Profile
     #[ORM\Column(type: Types::STRING, length: 50)]
     #[Assert\NotBlank(message: 'profile.username.not_blank')]
     #[Assert\Regex(pattern: '/^[A-zÀ-ú\d ]{2,50}$/', message: 'profile.username.invalid')]
+    #[Groups('searchable')]
     private ?string $username = null;
 
     #[ORM\Column(type: Types::STRING, length: 100, unique: true)]
     #[Gedmo\Slug(fields: ['username'])]
+    #[Groups('searchable')]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Assert\Length(max: 2500, maxMessage: 'profile.description.max_length')]
+    #[Groups('searchable')]
     private ?string $description = null;
 
     #[ORM\OneToOne(inversedBy: 'profile', cascade: ['persist', 'remove'])]
@@ -52,6 +56,7 @@ class Profile
 
     #[ORM\OneToOne(inversedBy: 'profile', cascade: ['persist', 'remove'])]
     #[Assert\Valid]
+    #[Groups('searchable')]
     private ?ProfilePicture $picture = null;
 
     public function getId(): ?Uuid
@@ -64,7 +69,7 @@ class Profile
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -76,7 +81,7 @@ class Profile
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -100,7 +105,7 @@ class Profile
         return $this->user;
     }
 
-    public function setUser(User $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
@@ -117,5 +122,11 @@ class Profile
         $this->picture = $picture;
 
         return $this;
+    }
+
+    #[Groups('searchable')]
+    public function isIndexable(): bool
+    {
+        return $this->user?->isVerified();
     }
 }

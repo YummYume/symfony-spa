@@ -18,6 +18,7 @@ final class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'user.email',
                 'required' => true,
+                'disabled' => true,
             ])
             ->add('currentPassword', PasswordType::class, [
                 'label' => 'user.current_password',
