@@ -1,5 +1,13 @@
 controllers:
+    prefix: '/{_locale}'
     resource:
         path: ../src/Controller/
         namespace: App\Controller
+    type: attribute
+
+controllers_admin:
+    prefix: '/{_locale}/_admin'
+    resource:
+        path: ../src/Controller/Admin/
+        namespace: App\Controller\Admin
     type: attribute

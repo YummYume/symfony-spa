@@ -1,19 +1,27 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Homepage
+    {{ "page.homepage.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.homepage.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.homepage.title"|trans }}
 {% endblock %}
 
 {% block main_body %}
-    <section class="flex items-center justify-center gap-8">
+    <section class="flex grow items-center justify-center gap-8">
         {% if app.user %}
-            <a class="btn" href="{{ path("admin_homepage") }}">Admin</a>
-            <span>OR</span>
-            <a class="btn" href="{{ path("security_logout") }}">Logout</a>
+            {% if is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
+                <a href="{{ path("admin_homepage") }}">{{ component("button", { content: "common.admin"|trans }) }}</a>
+            {% endif %}
+            <a href="{{ path("security_logout") }}">{{ component("button", { content: "common.logout"|trans }) }}</a>
         {% else %}
-            <a class="btn" href="{{ path("security_login") }}">Login</a>
-            <span>OR</span>
-            <a class="btn" href="{{ path("app_register") }}">Register</a>
+            <a href="{{ path("security_login") }}">{{ component("button", { content: "page.login.title"|trans }) }}</a>
+            <a href="{{ path("app_register") }}">{{ component("button", { content: "common.register"|trans }) }}</a>
         {% endif %}
     </section>
 {% endblock %}

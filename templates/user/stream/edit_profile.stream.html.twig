@@ -1,0 +1,13 @@
+{% include "common/stream/alert.stream.html.twig" only %}
+
+<turbo-stream action="update" target="navbar-user-dropdown">
+    <template>
+        {% include "common/_user_dropdown.html.twig" with { permanent: false } only %}
+    </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="profile-section">
+    <template>
+        {% include "user/_profile_form.html.twig" with { profileForm } only %}
+    </template>
+</turbo-stream>

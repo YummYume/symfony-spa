@@ -1,0 +1,57 @@
+# Common
+common.logout: Logout
+common.user: User
+common.id: ID
+common.yes: Yes
+common.no: No
+common.created_at: Created at
+common.updated_at: Updated at
+common.created_by: Created by
+common.updated_by: Updated by
+common.create: Create
+common.edit: Edit
+common.delete: Delete
+common.back_to_list: Back to list
+common.save: Save
+common.go_back: Go back
+common.delete.cannot_be_undone: This cannot be undone.
+
+# Flahshes
+## Common
+flash.common.created: Created successfully.
+flash.common.updated: Updated successfully.
+flash.common.deleted: Deleted successfully.
+
+## User
+flash.user.validation_email_sent: Validation email sent.
+flash.user.already_verified: This user is already verified.
+
+# Pages
+## Homepage
+page.homepage.title: Administration homepage
+page.homepage.description: The homepage of the administration for MyApp.
+
+## User
+### List
+page.user.title: Users
+page.user.description: List of users registered on the website.
+
+### Show
+page.user_show.title: Information of { username }
+page.user_show.description: All information of { username }.
+
+### Edit
+page.user_edit.title: Edit user
+page.user_edit.description: Edit a user's information.
+page.user_edit.account: Account
+page.user_edit.profile: Profile
+page.user_edit.send_validation_email: Send validation email (in English)
+
+### Delete
+page.user_delete.title: Delete user
+page.user_delete.content: Are you sure you want to delete this user?
+
+# Flashes
+## User
+flash.user.verified: User { email } is now verified.
+flash.user.unverified: User { email } is now unverified.

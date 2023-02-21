@@ -1,16 +1,30 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Password Reset Email Sent
+    {{ "page.check_email.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.check_email.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.check_email.title"|trans }}
 {% endblock %}
 
 {% block main_body %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password. This link will expire in {{
-            resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, "ResetPasswordBundle")
-        }}.
-    </p>
-    <p>
-        If you don't receive an email please check your spam folder or <a href="{{ path("app_forgot_password_request") }}">try again</a>.
-    </p>
+    <div class="flex grow flex-col items-center justify-center gap-4">
+        <p>
+            {{ "page.check_email.email_sent"|trans }}
+        </p>
+        <p>
+            {{ "page.check_email.link_expires_in"|trans }}
+            <strong class="font-semibold">{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, "ResetPasswordBundle") }}</strong>.
+        </p>
+        <p>
+            {{ "page.check_email.check_spam"|trans }} <a class="link-secondary link" href="{{ path("app_forgot_password_request") }}">{{ "page.check_email.try_again"|trans }}</a>.
+        </p>
+
+        <a class="btn-primary btn" href="{{ path("security_login") }}">{{ "common.login"|trans }}</a>
+    </div>
 {% endblock %}

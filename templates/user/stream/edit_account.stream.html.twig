@@ -1,0 +1,7 @@
+{% include "common/stream/alert.stream.html.twig" only %}
+
+<turbo-stream action="update" target="account-section">
+    <template>
+        {% include "user/_account_form.html.twig" with { userForm } only %}
+    </template>
+</turbo-stream>

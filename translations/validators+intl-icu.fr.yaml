@@ -1,0 +1,34 @@
+## Pages
+# Register
+page.register.agree_terms: Vous devez accepter nos conditions d'utilisation pour vous inscrire.
+
+## Entities
+# User
+user.email.not_blank: Veuillez saisir une adresse e-mail.
+user.email.max_length: Votre adresse e-mail doit contenir jusqu'à { limit } caractères.
+user.email.invalid: Veuillez saisir une adresse e-mail valide.
+user.email.unique: Un compte avec cette adresse e-mail existe déjà.
+user.password.valid: Votre mot de passe doit contenir au moins 8 caractères, comprenant au moins une minuscule, une majuscule, un chiffre et un caractère spécial (#\?!@$%^&*-).
+user.password.not_compromised: Ce mot de passe a été compromis lors d'une fuite de données, il ne doit pas être utilisé. Veuillez entrer un autre mot de passe.
+user.password.not_blank: Veuillez saisir un mot de passe.
+user.password.no_match: Les mots de passe ne correspondent pas.
+user.current_password.invalid: Votre mot de passe actuel ne correspond pas.
+
+# Reset Password Request
+reset_password_request.email.not_blank: Veuillez saisir votre adresse e-mail.
+reset_password_request.email.invalid: Veuillez saisir une adresse e-mail valide.
+reset_password_request.new_password.not_blank: Veuillez saisir un nouveau mot de passe.
+reset_password_request.new_password.length: Votre mot de passe doit contenir au moins { limit } caractères.
+reset_password_request.plain_password.no_match: Les mots de passe ne correspondent pas.
+
+# Profile
+profile.username.unique: Ce nom d'utilisateur est déjà pris ou ne peut pas être utilisé.
+profile.username.not_blank: Veuillez saisir un nom d'utilisateur.
+profile.username.invalid: Votre nom d'utilisateur doit contenir entre 2 et 50 caractères et ne peut contenir que des lettres, des nombres et des espaces.
+profile.description.max_length: Votre description doit contenir jusqu'à { limit } caractères.
+
+# Profile Picture
+profile_picture.file.max_size: Cette image est trop grande ({ size } { suffix }). La taille maximum autorisée est de { limit } { suffix }.
+profile_picture.file.mime_types: Le type de cette image est invalide ({ type }). Les types autorisés sont { types }.
+profile_ picture.file.corrupted: Cette image est corrompue et ne peut pas être traitée.
+profile_picture.file.size_not_detected: La taille de l'image n'a pas pu être détectée. Veuillez réessayer.

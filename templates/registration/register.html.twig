@@ -4,24 +4,28 @@
     {{ "page.register.title"|trans }}
 {% endblock %}
 
+{% block description %}
+    {{ "page.register.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.register.title"|trans }}
+{% endblock %}
+
 {% block main_body %}
-    {% for flash_error in app.flashes("verify_email_error") %}
-        <div class="alert-danger alert" role="alert">
-            {{ flash_error }}
-        </div>
-    {% endfor %}
+    <div class="mx-auto flex max-w-xs grow flex-col">
+        {% for flash_error in app.flashes("verify_email_error") %}
+            <div class="alert alert-error" role="alert">
+                {{ flash_error }}
+            </div>
+        {% endfor %}
 
-    <h1>
-        {{ "page.register.title"|trans }}
-    </h1>
-
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.profile.username) }}
-    {{ form_row(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.agreeTerms) }}
-
-    <button type="submit" class="btn">{{ "common.register"|trans }}</button>
-
-    {{ form_end(registrationForm) }}
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.profile.username) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+        {{ component("button", { content: "common.register"|trans, submit: true }) }}
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}

@@ -6,18 +6,20 @@ use App\Entity\Traits\BlameableTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Enum\UserRoleEnum;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'user.email.unique', errorPath: 'email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     use BlameableTrait;
     use TimestampableTrait;
@@ -28,31 +30,61 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     #[Assert\NotBlank(message: 'user.email.not_blank')]
     #[Assert\Length(max: 180, maxMessage: 'user.email.max_length')]
     #[Assert\Email(message: 'user.email.invalid')]
     private ?string $email = null;
 
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: Types::STRING)]
     private ?string $password = null;
+
+    #[Assert\When(
+        expression: 'this.getPlainPassword() not in [null, ""]',
+        constraints: [
+            new UserPassword(message: 'user.current_password.invalid'),
+        ],
+        groups: ['UserEdit'],
+    )]
+    private ?string $currentPassword = null;
 
     #[Assert\Regex(
         pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
         message: 'user.password.valid'
     )]
     #[Assert\NotCompromisedPassword(message: 'user.password.not_compromised')]
+    #[Assert\NotBlank(message: 'user.password.not_blank', groups: ['Registration'])]
     private ?string $plainPassword = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $isVerified = false;
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private bool $verified = false;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    #[Assert\Valid()]
+    #[Assert\Valid]
     private ?Profile $profile = null;
+
+    public function serialize()
+    {
+        return serialize([
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password,
+            'verified' => $this->verified,
+        ]);
+    }
+
+    public function unserialize(string $data)
+    {
+        $fields = unserialize($data);
+
+        $this->id = $fields['id'] ?? null;
+        $this->email = $fields['email'] ?? null;
+        $this->password = $fields['password'] ?? null;
+        $this->verified = $fields['verified'] ?? false;
+    }
 
     public function getId(): ?Uuid
     {
@@ -97,7 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -105,6 +137,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getCurrentPassword(): ?string
+    {
+        return $this->currentPassword;
+    }
+
+    public function setCurrentPassword(string $currentPassword): self
+    {
+        $this->currentPassword = $currentPassword;
 
         return $this;
     }
@@ -117,6 +161,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+        $this->updatedAt = new \DateTime();
 
         return $this;
     }
@@ -128,12 +173,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isVerified(): bool
     {
-        return $this->isVerified;
+        return $this->verified;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    public function setVerified(bool $verified): self
     {
-        $this->isVerified = $isVerified;
+        $this->verified = $verified;
 
         return $this;
     }

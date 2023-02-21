@@ -2,22 +2,18 @@
 
 namespace App\Manager;
 
+use App\Enum\ColorTypeEnum;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class FlashManager
 {
-    public const FLASH_SUCCESS = 'success';
-    public const FLASH_INFO = 'info';
-    public const FLASH_ERROR = 'error';
-    public const FLASH_WARNING = 'warning';
-
     public const ALLOWED_FLASH_TYPES = [
-        self::FLASH_SUCCESS,
-        self::FLASH_INFO,
-        self::FLASH_ERROR,
-        self::FLASH_WARNING,
+        ColorTypeEnum::Success->value,
+        ColorTypeEnum::Info->value,
+        ColorTypeEnum::Error->value,
+        ColorTypeEnum::Warning->value,
     ];
 
     public function __construct(
@@ -35,7 +31,7 @@ final class FlashManager
     ): void {
         /** @var Session */
         $session = $this->requestStack->getSession();
-        $translationType = \in_array($type, [], true) ? $type : self::FLASH_INFO;
+        $translationType = \in_array($type, self::ALLOWED_FLASH_TYPES, true) ? $type : ColorTypeEnum::Info->value;
 
         $session->getFlashBag()->add($translationType, $this->translator->trans($message, $parameters, $translationDomain, $locale));
     }

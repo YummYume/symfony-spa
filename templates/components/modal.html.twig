@@ -1,0 +1,28 @@
+<label for="{{ modalId }}" class="btn {{ openButtonClass }}">{{ openButtonText }}</label>
+
+<input type="checkbox" id="{{ modalId }}" class="modal-toggle" />
+{% block modal %}
+    <div class="modal modal-bottom sm:modal-middle {{ modalClass }}">
+        <div class="modal-box relative">
+            {% block modal_box %}
+                <h3 class="text-lg font-bold">
+                    {% block title %}
+                        {{ title }}
+                    {% endblock %}
+                </h3>
+                <div class="py-4">
+                    {% block content %}
+                        <p>
+                            {{ content }}
+                        </p>
+                    {% endblock %}
+                </div>
+                <div class="modal-action">
+                    {% block modal_action %}
+                        <label for="{{ modalId }}" class="btn {{ closeButtonClass }}">{{ closeButtonText }}</label>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

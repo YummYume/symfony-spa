@@ -1,10 +1,14 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['form/theme.html.twig']
+    globals:
+        enabled_locales: '%kernel.enabled_locales%'
+        knp_custom_menu: 'knp_custom/menu.html.twig'
 
 when@dev:
     twig:
         auto_reload: true
+        cache: false
 
 when@test:
     twig:

@@ -1,0 +1,7 @@
+# config/packages/html_sanitizer.yaml
+framework:
+    html_sanitizer:
+        sanitizers:
+            app.highlight_sanitizer:
+                allow_elements:
+                    em: ['class']

@@ -1,45 +1,173 @@
-# Common
+## Common
+common.app_name: AppName
+common.description: Welcome to MyApp!
 common.login: Login
 common.logout: Logout
-common.sign_in: Sign in
+common.register: Register
+common.save: Save
 common.search: Search
+common.switch_theme: Switch theme
+common.legal: Legal
+common.account_menu: Account menu
+common.my_account: My Account
+common.my_profile: My profile
+common.account_settings: Account settings
+common.close: Close
+common.global_search: Global search
+common.or: or
+common.admin: Administration
+common.upload.default_alt: Uploaded image
+common.upload.click_or_drop: Drag and drop a file or click to browse
+common.first_page: First page ({ number })
+common.previous_page: Previous page ({ number })
+common.page_number: Page { number }
+common.current_page: Current page ({ number })
+common.next_page: Next page ({ number })
+common.last_page: Last page ({ number })
+common.show_password: Show/hide password
+common.menu: Menu
+common.no_script_message: It looks like JavaScript is not enabled in your browser. You might experience some issues while browsing.
 
-# Pages
+# Icons
+icon.eye: Show
+icon.pencil: Edit
+
+## Flashes
+# Common
+flash.common.invalid_form: Invalid form. Please try again.
+flash.common.invalid_csrf: Invalid CSRF token. Please try again.
+
+# Register email
+flash.register.email_sent: Thank you for registering. We sent you an email to verify your account.
+flash.register.link_expired: This link has expired. A new one is on the way to your email address!
+flash.register.email_verified: Account verified. You can now safely log in.
+
+# Reset password
+flash.reset_password.updated: Password successfully updated.
+
+# Delete profile
+flash.update_profile.account_updated: Account updated.
+flash.update_profile.profile_updated: Profile updated.
+flash.delete_profile.invalid_prompt: Invalid input. Please try again.
+flash.delete_profile.success: Account deleted. You should receive an email shortly to confirm the deletion.
+
+## Pages
+# Homepage
+page.homepage.title: Homepage
+page.homepage.description: Welcome to MyApp! The best app ever created.
+
 # About Us
 page.about_us.title: About Us
+page.about_us.description: Everything you need to know about MyApp, from why it was created to why you should use it.
 
 # Contact
 page.contact.title: Contact
+page.contact.description: Learn how to get in touch with the MyApp staff here.
 
 # Cookie Policy
 page.cookie_policy.title: Cookie Policy
+page.cookie_policy.description: Concerned about your privacy and why we use cookies? Your answers here.
 
 # Privacy Policy
 page.privacy_policy.title: Privacy Policy
+
 page.privacy_policy.text: Welcome to StackUp.fr, the website and online service of StackUp. We respect the privacy of our users and we are committed to protecting it through our compliance with this privacy policy, which describes the types of information we may collect from you or that you may provide when you use our www.StackUp.fr website, or our services and our practices for collecting, using, maintaining, protecting and disclosing that information. This Privacy Policy applies to the data collected by us, or those working on our behalf, through information you enter or from the imported data from authorized and approved sources. It does not apply to data collected through offline means, or from other sites, products, or services not approved by us. By using or accessing our Website or the Services in any manner, you acknowledge that you accept the practices and policies described in this Privacy Policy, and you hereby consent that we may collect, use, and share your information as described herein. If you do not agree with our policies and practices, your choice is not to use our Website or our Services.
+
 
 # Terms of Use
 page.terms_of_use.title: Terms of Use
+page.terms_of_use.description: General terms of use of MyApp.
 
-# Registration
-page.registration.agree_terms: I agree to the terms of use
+# Register
+page.register.title: Create an account
+page.register.description: Register an account to access all the functionalities of MyApp.
+page.register.agree_terms: I agree to the terms of use
 
 # Login
 page.login.title: Login
+page.login.description: Log in with your account to MyApp.
 page.login.forgot_password: Forgot your password?
 page.login.remember_me: Remember me
 page.login.no_account: No account yet? Click here to register.
 
-# Entities
+# Edit profile
+page.edit_profile.title: Account settings
+page.edit_profile.description: Update your account and profile information here.
+page.edit_profile.user: My account
+page.edit_profile.update_account: Update my account
+page.edit_profile.profile: My profile
+page.edit_profile.update_profile: Update my profile
+page.edit_profile.danger_zone: Danger zone
+page.edit_profile.delete_account: Delete your account
+page.edit_profile.delete_account_content: Are you sure you want to delete your account? Everything related to it will also be deleted.
+page.edit_profile.delete_account_warning: This cannot be undone.
+page.edit_profile.delete_account_back: I changed my mind
+page.edit_profile.delete_account_confirm: Delete my account
+page.edit_profile.deletion_prompt: I understand the consequences and wish to delete my account
+
+# Show Profile
+page.show_profile.title: Profile of { username }
+page.show_profile.description: The profile of { username } on MyApp.
+
+# Check email
+page.check_email.title: Reset my password
+page.check_email.description: Process to get a new password via mail.
+page.check_email.email_sent: If an account matching your email exists, then an email was just sent with a link that you can use to reset your password.
+page.check_email.link_expires_in: This link will expire in
+page.check_email.check_spam: If you didn't receive any email, please check your spam folder or
+page.check_email.try_again: try again
+
+# Request password
+page.request_password.title: Reset your password
+page.request_password.description: Forgot your password? No problem. You can easily get a link to reset it.
+page.request_password.enter_your_email: Enter your email address and we will send you a link to reset your password.
+page.request_password.send: Send password reset email
+
+# Reset password
+page.reset_password.title: Reset your password
+page.reset_password.description: Safely reset your forgotten password.
+page.reset_password.reset: Reset my password
+
+# Search
+page.search.title: Search
+page.search.description: Search anything on MyApp.
+page.search.no_result: No result found.
+page.search.result_time: >-
+    { hits, plural, =0 {# result in { time } ms} one {# result in { time } ms} other {# results in { time } ms} }
+page.search.show_profile: Show profile
+page.search.type_to_search: Type anything to start searching.
+page.search.search_username: For example, try to type in { username }...
+
+## Entities
 # User
 user.email: Email
 user.password: Password
+user.password.help: Should contain at least 8 characters, with at least one lowercase letter, one uppercase letter, one digit and one special character (#\?!@$%^&*-).
+user.repeat_password: Repeat password
+user.current_password: Current password
+user.current_password.help: For security measures, you must provide your current password to modify your password.
+user.new_password: New password
+user.repeat_new_password: Repeat new password
+user.roles: Roles
+user.verified: Verified
+user.profile.picture: Profile picture of { username }
 
 # Profile
 profile.username: Username
+profile.username.help: Your username is used in your profile's URL. It must contain between 2 and 50 characters and cannot contain special characters.
+profile.description: Description
+
+# Profile picture
+profile_picture.file: Picture
+profile_picture.file.help: The recommended dimensions for a profile picture are 200x200. The maximum upload size is 2 MB.
+profile_picture.current_profile_picture: Your current profile picture.
 
 # ResetPasswordRequest
 reset_password_request.email: Email
-reset_password_request.email.help: The email address associated with your account
+reset_password_request.email.help: The email address associated with your account.
 reset_password_request.new_password: New password
 reset_password_request.repeat_password: Repeat your password
+
+## Components
+# Deletion prompt modal
+component.deletion_prompt_modal.label: To continue, type in "{ prompt }".

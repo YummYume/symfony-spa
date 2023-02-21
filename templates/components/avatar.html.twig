@@ -1,0 +1,36 @@
+{% set hasPicture = user.profile.picture.fileName|default(null) %}
+
+<div class="avatar {{ user and not hasPicture ? "placeholder" }} {{ class }}">
+    {% if user %}
+        <div
+            {% if id %}id="{{ id }}"{% endif %}
+            class="{{ small ? "w-10 rounded-full" : "h-48 w-48" }} {{ hasPicture ? "bg-neutral-focus text-neutral-content" }}"
+            {% if id and permanent %}data-turbo-permanent{% endif %}
+        >
+            {% if hasPicture %}
+                {{
+                    component(
+                        "image",
+                        {
+                            src: vich_uploader_asset(user.profile.picture, "file"),
+                            filter: small ? "avatar_small" : "avatar",
+                            alt: "user.profile.picture"|trans({ username: user.profile.username }),
+                            width: small ? 48 : 200,
+                            height: small ? 48 : 200
+                        }
+                    )
+                }}
+            {% else %}
+                <span aria-label="{{ "user.profile.picture"|trans({ username: user.profile.username }) }}" class="select-none {{ small ? "text-xl" : "text-6xl" }}">
+                    {{ user.profile.username|u.truncate(1)|upper }}
+                </span>
+            {% endif %}
+        </div>
+    {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="{{ small ? "h-6 w-6" : "h-40 w-40" }}">
+            <path stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+    {% endif %}
+</div>

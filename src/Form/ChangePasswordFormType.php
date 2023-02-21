@@ -24,6 +24,7 @@ final class ChangePasswordFormType extends AbstractType
                 ],
                 'first_options' => [
                     'label' => 'reset_password_request.new_password',
+                    'help' => 'user.password.help',
                     'constraints' => [
                         new NotBlank([
                             'message' => 'reset_password_request.new_password.blank',
@@ -38,8 +39,6 @@ final class ChangePasswordFormType extends AbstractType
                     'label' => 'reset_password_request.repeat_password',
                 ],
                 'invalid_message' => 'reset_password_request.plain_password.no_match',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
             ])
         ;

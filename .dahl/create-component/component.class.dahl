@@ -1,0 +1,11 @@
+<?php
+
+namespace _{ @namespace }_;
+
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
+
+#[AsTwigComponent('_{ @twigName }_', '_{ @twigLocation }_')]
+final class _{ filename }__{ suffix }_
+{
+    // Properties
+}

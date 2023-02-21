@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "page.show_profile.title"|trans({ username: profile.username }) }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.show_profile.description"|trans({ username: profile.username }) }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.show_profile.title"|trans({ username: profile.username }) }}
+{% endblock %}
+
+{% block main_body %}
+    <div class="card bg-base-100 shadow-xl md:card-side">
+        <figure class="min-w-[12.5rem]">
+            {{ component("avatar", { user: profile.user, small: false, class: "mask mask-squircle md:mask-square" }) }}
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title">
+                {{ profile.username }}
+            </h2>
+            <p>
+                {{ profile.description|default("") }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

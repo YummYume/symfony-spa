@@ -59,6 +59,12 @@
             ".php-cs-fixer.dist.php"
         ]
     },
+    "knplabs/knp-menu-bundle": {
+        "version": "v3.2.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.1.1"
+    },
     "liip/imagine-bundle": {
         "version": "2.10",
         "recipe": {
@@ -70,6 +76,45 @@
         "files": [
             "config/packages/liip_imagine.yaml",
             "config/routes/liip_imagine.yaml"
+        ]
+    },
+    "meilisearch/search-bundle": {
+        "version": "v0.10.1"
+    },
+    "nelmio/cors-bundle": {
+        "version": "2.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
+        },
+        "files": [
+            "config/packages/nelmio_cors.yaml"
+        ]
+    },
+    "nelmio/security-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.4",
+            "ref": "65726efb67ff51d89de38195bc0d230fa811f64d"
+        },
+        "files": [
+            "config/packages/nelmio_security.yaml"
+        ]
+    },
+    "nyholm/psr7": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "0cd4d2d0e7f646fda75f9944f747a56e6ed13d4c"
+        },
+        "files": [
+            "config/packages/nyholm_psr7.yaml"
         ]
     },
     "phpunit/phpunit": {
@@ -84,6 +129,30 @@
             ".env.test",
             "phpunit.xml.dist",
             "tests/bootstrap.php"
+        ]
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "6.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "sentry/sentry-symfony": {
+        "version": "4.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.6",
+            "ref": "f7b4706a3e8a6f096b7392f3146f4f7f65ff594c"
+        },
+        "files": [
+            "config/packages/sentry.yaml"
         ]
     },
     "stof/doctrine-extensions-bundle": {
@@ -300,10 +369,40 @@
             "config/packages/uid.yaml"
         ]
     },
+    "symfony/ux-autocomplete": {
+        "version": "2.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.6",
+            "ref": "07d9602b7231ba355f484305d6cea58310c01741"
+        },
+        "files": [
+            "config/routes/ux_autocomplete.yaml"
+        ]
+    },
+    "symfony/ux-dropzone": {
+        "version": "v2.7.1"
+    },
     "symfony/ux-lazy-image": {
         "version": "v2.7.1"
     },
+    "symfony/ux-live-component": {
+        "version": "2.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.6",
+            "ref": "73e69baf18f47740d6f58688c5464b10cdacae06"
+        },
+        "files": [
+            "config/routes/ux_live_component.yaml"
+        ]
+    },
     "symfony/ux-turbo": {
+        "version": "v2.7.1"
+    },
+    "symfony/ux-twig-component": {
         "version": "v2.7.1"
     },
     "symfony/validator": {

@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "page.edit_profile.title"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.edit_profile.title"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <div class="grid gap-20 md:grid-cols-2">
+        <section id="account-section" class="flex flex-col items-center md:justify-self-end">
+            {% include "user/_account_form.html.twig" with { userForm } only %}
+        </section>
+
+        <section id="profile-section" class="flex flex-col items-center md:justify-self-start">
+            {% include "user/_profile_form.html.twig" with { profileForm } only %}
+        </section>
+
+        {% if not is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
+            <section class="mx-auto flex max-w-xs flex-col gap-6 md:col-span-2">
+                <h2 class="text-center text-3xl">
+                    {{ "page.edit_profile.danger_zone"|trans }}
+                </h2>
+
+                {{
+                    component(
+                        "deletion_prompt_modal",
+                        {
+                            id: "delete-account-modal",
+                            title: "page.edit_profile.delete_account"|trans,
+                            content: "page.edit_profile.delete_account_content"|trans,
+                            warningMessage: "page.edit_profile.delete_account_warning"|trans,
+                            closeLabel: "page.edit_profile.delete_account_back"|trans,
+                            deleteLabel: "page.edit_profile.delete_account_confirm"|trans,
+                            prompt: "page.edit_profile.deletion_prompt"|trans,
+                            action: path("app_delete_profile"),
+                            token: csrf_token("delete-#{app.user.profile.slug}-user")
+                        }
+                    )
+                }}
+            </section>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,5 +1,7 @@
 {% use 'form_div_layout.html.twig' %}
 
+{# General #}
+
 {%- block form_row -%}
     {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('mb-6')) }) -%}
     {{- parent() -}}
@@ -11,12 +13,12 @@
 {%- endblock widget_attributes -%}
 
 {%- block form_label -%}
-    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-gray-800')) }) -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block label label-text')) }) -%}
     {{- parent() -}}
 {%- endblock form_label -%}
 
 {%- block form_help -%}
-    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 text-gray-600')) }) -%}
+    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 label-text')) }) -%}
     {{- parent() -}}
 {%- endblock form_help -%}
 
@@ -30,6 +32,40 @@
     {%- endif -%}
 {%- endblock form_errors -%}
 
+{# Checkbox #}
+
+{%- block checkbox_row -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('form-control')) }) -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_errors(form) -}}
+        <div class="label cursor-pointer gap-2 w-fit">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_label(form) -}}
+        </div>
+        {{- form_help(form) -}}
+    </div>
+{%- endblock checkbox_row -%}
+
+{%- block checkbox_widget -%}
+    {%- set widget_class = widget_class|default('checkbox checkbox-primary') -%}
+    {{- parent() -}}
+{%- endblock checkbox_widget -%}
+
+{# Choice #}
+
+{# {%- block choice_widget -%}
+    {%- set widget_class = widget_class|default('select select-bordered w-full max-w-xs') -%}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {{- block('choice_widget_collapsed') -}}
+    {% endif %}
+{%- endblock choice_widget -%}
+
 {%- block choice_widget_expanded -%}
     {%- set attr = attr|merge({ class: attr.class|default('mt-2') }) -%}
     <div {{ block('widget_container_attributes') }}>
@@ -40,40 +76,147 @@
             </div>
         {% endfor -%}
     </div>
-{%- endblock choice_widget_expanded -%}
+{%- endblock choice_widget_expanded -%} #}
 
-{%- block checkbox_row -%}
-    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('form-control')) }) -%}
-    {%- set widget_attr = {} -%}
-    {%- if help is not empty -%}
-        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+{# {% block choice_widget_collapsed %}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
+    {% set required = false %}
     {%- endif -%}
-    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
-        {{- form_errors(form) -}}
-        <label class="label cursor-pointer">
-            {{- form_label(form) -}}
-            {{- form_widget(form, widget_attr) -}}
-        </label>
-        {{- form_help(form) -}}
-    </div>
-{%- endblock checkbox_row -%}
+    <select class="select select-bordered w-full max-w-xs" {% if multiple %} multiple="multiple"{% endif %}>
+    {%- if placeholder is not none -%}
+        <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+    {%- endif -%}
+    {%- if preferred_choices|length > 0 -%}
+        {% set options = preferred_choices %}
+        {% set render_preferred_choices = true %}
+        {{- block('choice_widget_options') -}}
+        {%- if choices|length > 0 and separator is not none -%}
+            <option disabled="disabled">{{ separator }}</option>
+        {%- endif -%}
+    {%- endif -%}
+    {%- set options = choices -%}
+    {%- set render_preferred_choices = false -%}
+    {{- block('choice_widget_options') -}}
+    </select>
+{% endblock %} #}
 
-{%- block password_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+{# File #}
+
+{% block file_widget %}
+    {%- set widget_class = widget_class|default('file-input file-input-bordered file-input-primary w-full max-w-xs') -%}
+    {{- block('form_widget') -}}
+{% endblock %}
+
+{# Radio #}
+
+{%- block radio_widget -%}
+    {%- set widget_class = widget_class|default('mr-2') -%}
     {{- parent() -}}
-{%- endblock password_widget -%}
+{%- endblock radio_widget -%}
+
+{# Text #}
 
 {%- block email_widget -%}
     {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
     {{- parent() -}}
 {%- endblock email_widget -%}
 
-{%- block checkbox_widget -%}
-    {%- set widget_class = widget_class|default('checkbox') -%}
-    {{- parent() -}}
-{%- endblock checkbox_widget -%}
+{%- block password_widget -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+    {%- set type = type|default('password') -%}
+    {%- set attr = attr|merge({ "data-password-visibility-target": "input", spellcheck: "false" }) -%}
+    <div class="input-group" {{ stimulus_controller("password-visibility") }}>
+        {{ block('form_widget_simple') }}
+        <button class="btn btn-square rounded-r-lg" type="button" data-action="password-visibility#toggle" aria-label="{{ "common.show_password"|trans }}">
+            {% include "icon/eye.html.twig" only %}
+            {% include "icon/eye_slash.html.twig" with { class: "hidden" } only %}
+        </button>
+    </div>
+{%- endblock password_widget -%}
 
-{%- block radio_widget -%}
-    {%- set widget_class = widget_class|default('mr-2') -%}
-    {{- parent() -}}
-{%- endblock radio_widget -%}
+{%- block text_widget -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+    {{ block('form_widget') }}
+{%- endblock text_widget -%}
+
+{%- block textarea_widget -%}
+    {%- set widget_class = widget_class|default('textarea textarea-bordered w-full') -%}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{%- block vich_file_row -%}
+    {%- set force_error = true -%}
+    {{- form_label(form, null, { label_attr: { for: form.file.vars.id }|merge(form.vars.label_attr) }) -}}
+    {{- form_widget(form) -}}
+    {{- form_errors(form) -}}
+    {%- if form.delete is defined -%}
+        {{- form_row(form.delete) -}}
+    {%- endif -%}
+    {%- if download_uri -%}
+        <a href="{{ asset_helper is same as(true) ? asset(download_uri) : download_uri }}" download>
+            {{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}
+        </a>
+    {%- endif -%}
+    {{ block("form_help") }}
+{%- endblock -%}
+
+{%- block vich_file_widget -%}
+    {{- form_widget(form.file, { attr }) -}}
+{%- endblock -%}
+
+{%- block vich_image_row -%}
+    {%- set force_error = true -%}
+    {{- form_label(form, null, { label_attr: { for: form.file.vars.id }|merge(form.vars.label_attr) }) -}}
+    {{- form_widget(form.file) -}}
+    {{- form_errors(form) -}}
+    {%- if form.delete is defined -%}
+        {{- form_row(form.delete) -}}
+    {%- endif -%}
+    {%- if image_uri -%}
+        <a class="flex justify-center items-center" href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" download>
+            {{
+                component(
+                    "image",
+                    {
+                        src: image_uri,
+                        class: image_class,
+                        filter: image_imagine_filter,
+                        alt: translation_domain is same as(false) ? image_alt : image_alt|trans({}, translation_domain),
+                        width: image_width,
+                        height: image_height
+                    }
+                )
+            }}
+        </a>
+    {%- endif -%}
+    {{ block("form_help") }}
+{%- endblock -%}
+
+{%- block vich_image_widget -%}
+    {{- form_widget(form.file, { attr }) -}}
+{%- endblock -%}
+
+{% block dropzone_widget %}
+    {%- set dataController = (attr['data-controller']|default('') ~ ' symfony--ux-dropzone--dropzone')|trim -%}
+    {%- set attr = attr|merge({ 'data-controller': '', class: (attr.class|default('') ~ ' dropzone-input')|trim}) -%}
+
+    <div class="dropzone-container | !border-[hsl(var(--bc)/0.2)] rounded-lg" data-controller="{{ dataController }}">
+        <input type="file" {{ block('widget_attributes') }} data-symfony--ux-dropzone--dropzone-target="input" />
+
+        <div class="dropzone-placeholder" data-symfony--ux-dropzone--dropzone-target="placeholder">
+            {%- if attr.placeholder is defined and attr.placeholder is not none -%}
+                {{- translation_domain is same as(false) ? attr.placeholder : attr.placeholder|trans({}, translation_domain) -}}
+            {%- endif -%}
+        </div>
+
+        <div class="dropzone-preview" data-symfony--ux-dropzone--dropzone-target="preview" style="display: none">
+            <button class="dropzone-preview-button" type="button"
+                    data-symfony--ux-dropzone--dropzone-target="previewClearButton"></button>
+
+            <div class="dropzone-preview-image" style="display: none"
+                data-symfony--ux-dropzone--dropzone-target="previewImage"></div>
+
+            <div data-symfony--ux-dropzone--dropzone-target="previewFilename" class="dropzone-preview-filename"></div>
+        </div>
+    </div>
+{% endblock %}

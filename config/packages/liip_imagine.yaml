@@ -4,3 +4,27 @@ liip_imagine:
     driver: 'gmagick'
     twig:
         mode: lazy
+    webp:
+        generate: true
+        quality: 100
+        cache: ~
+    messenger: true
+    controller:
+        redirect_response_code: 301
+
+    filter_sets:
+        cache: ~
+
+        # Avatar small
+        avatar_small:
+            quality: 80
+            filters:
+                thumbnail:
+                    size: [48, 48]
+
+        # Avatar
+        avatar:
+            quality: 80
+            filters:
+                thumbnail:
+                    size: [200, 200]

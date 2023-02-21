@@ -11,7 +11,7 @@ use Faker\Factory;
 
 final class UserFixtures extends Fixture
 {
-    public const FIXTURE_RANGE = 20;
+    public const FIXTURE_RANGE = 200;
 
     public const REFERENCE_IDENTIFIER = 'user_';
 
@@ -24,7 +24,7 @@ final class UserFixtures extends Fixture
         $admin = (new User())
             ->setEmail('root@root.com')
             ->setPlainPassword('root')
-            ->setIsVerified(true)
+            ->setVerified(true)
             ->setRoles([UserRoleEnum::SuperAdmin->value, UserRoleEnum::AllowedToSwitch->value])
             ->setProfile($adminProfile)
         ;
@@ -34,12 +34,13 @@ final class UserFixtures extends Fixture
 
         foreach (range(1, self::FIXTURE_RANGE) as $i) {
             $profile = (new Profile())
-                ->setUsername($faker->userName())
+                ->setUsername(str_replace('.', ' ', $faker->unique()->userName()))
+                ->setDescription($faker->paragraph(5))
             ;
             $user = (new User())
                 ->setEmail($faker->unique()->safeEmail())
                 ->setPlainPassword($faker->password(8))
-                ->setIsVerified(true)
+                ->setVerified(true)
                 ->setProfile($profile)
             ;
 

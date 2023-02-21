@@ -1,0 +1,27 @@
+templates:
+ # Generate twig template for icon
+ i-twig:
+  from: "./.dahl/create-icon/icon.twig.dahl"
+  to: "./templates/icon"
+  suffix: ".html"
+  extension: ".twig"
+
+ # Generate yml file for translation
+ trans:
+  from: "./.dahl/create-translation/translation.yml.dahl"
+  to: "./translations"
+  extension: ".yaml"
+
+ # Generate class for component
+ c-class:
+  from: "./.dahl/create-component/component.class.dahl" 
+  suffix: "Component"
+  extension: ".php"
+
+ # Generate twig template for component
+ c-twig:
+  from: "./.dahl/create-component/component.twig.dahl"
+  suffix: ".html"
+  extension: ".twig"
+
+  

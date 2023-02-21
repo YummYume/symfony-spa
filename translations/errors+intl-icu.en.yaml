@@ -1,0 +1,10 @@
+# General error
+error.something_went_wrong: Oops... Something went wrong.
+error.general_message: This error was automatically logged and we are working on fixing it.
+error.return_to_homepage: Return to the homepage
+
+# 404
+not_found.title: Page not found
+not_found.description: The page you are looking for doesn't exist.
+not_found.general_message: The requested page couldn't be located.
+not_found_check_url: Check for any URL misspellings.

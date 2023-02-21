@@ -7,6 +7,13 @@ parameters:
     container.dumper.inline_factories: true
     email.noreplay_email: '%env(MAILER_NOREPLY_EMAIL)%'
     email.noreplay_name: '%env(MAILER_NOREPLY_NAME)%'
+    app.default_locale: '%env(DEFAULT_LOCALE)%'
+    app.allowed_locales: ['en', 'fr']
+    app.locales: en|fr
+    app.public_dir: '%kernel.project_dir%/public'
+    app.blur_default_fallback: '%env(BLUR_DEFAULT_FALLBACK)%'
+    knp_menu.renderer.twig.options:
+        currentClass: bg-primary rounded-lg text-white
 
 services:
     # default configuration for services in *this* file
@@ -26,13 +33,6 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    # Emails
-    App\Manager\Email\:
-        resource: '../src/Manager/Email/'
-        bind:
-            $noreplyEmail: '%email.noreplay_email%'
-            $noreplyName: '%email.noreplay_name%'
-
     # Redis
     Redis:
         # you can also use \RedisArray, \RedisCluster or \Predis\Client classes
@@ -48,3 +48,21 @@ services:
         arguments:
             - '@Redis'
             - prefix: session_
+
+    # MenuBuilder
+    App\Builder\MenuBuilder:
+        arguments: ['@knp_menu.factory']
+        tags:
+            - { name: knp_menu.menu_builder, method: createBackOffice, alias: back_office }
+            - { name: knp_menu.menu_builder, method: createGlobalSearch, alias: global_search }
+
+    # Twig
+    App\Twig\AssetDeliveryExtension:
+        bind:
+            $publicDir: '%app.public_dir%'
+            $fallback: '%app.blur_default_fallback%'
+
+    # Vich Uploader
+    App\EventListener\UploadListener:
+        tags:
+            - { name: kernel.event_listener, event: vich_uploader.post_upload }

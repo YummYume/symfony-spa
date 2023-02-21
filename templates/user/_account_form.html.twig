@@ -1,0 +1,15 @@
+{{ form_start(userForm) }}
+
+<h2 class="text-center text-3xl">
+    {{ "page.edit_profile.user"|trans }}
+</h2>
+
+<div class="max-w-xs">
+    {{ form_row(userForm.email) }}
+    {{ form_row(userForm.currentPassword) }}
+    {{ form_row(userForm.plainPassword) }}
+</div>
+
+{{ component("button", { content: "page.edit_profile.update_account"|trans, submit: true }) }}
+
+{{ form_end(userForm) }}

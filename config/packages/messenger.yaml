@@ -30,12 +30,19 @@ framework:
                     exchange:
                         name: low
 
+            liip_imagine:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                retry_strategy:
+                    max_retries: 3
+                    multiplier: 2
+
             failed: 'doctrine://default?queue_name=failed'
 
         routing:
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async_priority_high
             Symfony\Component\Notifier\Message\ChatMessage: async_priority_high
             Symfony\Component\Notifier\Message\SmsMessage: async_priority_low
+            Liip\ImagineBundle\Message\WarmupCache: liip_imagine
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

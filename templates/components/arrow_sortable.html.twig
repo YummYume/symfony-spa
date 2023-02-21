@@ -1,0 +1,7 @@
+{% if sortable == 'sortable' %}
+  {% include 'icon/arrow_up_down.html.twig' %}
+{% elseif sortable == 'asc' %}
+  {% include 'icon/arrow_down.html.twig' %}
+{% elseif sortable == 'desc' %}
+  {% include 'icon/arrow_up.html.twig' %}
+{% endif %}

@@ -57,5 +57,6 @@
   "php-cs-fixer.autoFixByBracket": false,
   "eslint.packageManager": "yarn",
   "eslint.probe": ["javascript", "typescript", "html", "markdown"],
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  "keyboard.dispatch": "keyCode"
 }

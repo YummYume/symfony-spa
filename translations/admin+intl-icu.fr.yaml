@@ -1,0 +1,56 @@
+# Common
+common.logout: Déconnexion
+common.user: Utilisateur
+common.id: Identifiant
+common.yes: Oui
+common.no: Non
+common.created_at: Créé le
+common.updated_at: Mis à jour le
+common.created_by: Créé par
+common.updated_by: Mis à jour par
+common.create: Créer
+common.edit: Modifier
+common.delete: Supprimer
+common.back_to_list: Retour à la liste
+common.save: Sauvegarder
+common.go_back: Retour en arrière
+common.delete.cannot_be_undone: Cette action est irréversible.
+
+# Flahshes
+## Common
+flash.common.updated: Mis à jour avec succés.
+flash.common.deleted: Supprimé avec succès.
+
+## User
+flash.user.validation_email_sent: E-mail de validation envoyé.
+flash.user.already_verified: Cet utilisateur est déjà vérifié.
+
+# Pages
+## Page d'accueil
+page.homepage.title: Page d'accueil de l'administration
+page.homepage.description: La page d'accueil de l'administration pour MyApp.
+
+## User
+### List
+page.user.title: Utilisateurs
+page.user.description: Liste des utilisateurs enregistrés sur le site.
+
+### Show
+page.user_show.title: Informations de { username }
+page.user_show.description: Toutes les informations de { username }.
+
+### Edit
+page.user_edit.title: Modifier l'utilisateur
+page.user_edit.description: Modifier les informations d'un utilisateur.
+page.user_edit.account: Compte
+page.user_edit.profile: Profil
+page.user_edit.send_validation_email: Envoyer un e-mail de validation (en Français)
+
+### Delete
+page.user_delete.title: Supprimer l'utilisateur
+page.user_delete.content: Voulez-vous vraiment supprimer cet utilisateur ?
+
+# Flashes
+## User
+flash.user.verified: L'utilisateur { email } est maintenant vérifié.
+flash.user.unverified: L'utilisateur { email } n'est plus vérifié.

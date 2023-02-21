@@ -1,16 +1,22 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Reset your password
+    {{ "page.reset_password.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.reset_password.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.reset_password.title"|trans }}
 {% endblock %}
 
 {% block main_body %}
-    <h1>
-        Reset your password
-    </h1>
-
-    {{ form_start(resetForm) }}
-    {{ form_row(resetForm.plainPassword) }}
-    <button class="btn-primary btn">Reset password</button>
-    {{ form_end(resetForm) }}
+    <div class="flex grow flex-col items-center justify-center">
+        {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        {{ component("button", { content: "page.reset_password.reset"|trans, submit: true }) }}
+        {{ form_end(resetForm) }}
+    </div>
 {% endblock %}

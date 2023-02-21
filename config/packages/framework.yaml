@@ -4,6 +4,7 @@ framework:
     csrf_protection: true
     http_method_override: false
     handle_all_throwables: true
+    disallow_search_engine_index: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
@@ -17,6 +18,10 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+when@prod:
+    framework:
+        disallow_search_engine_index: false
 
 when@test:
     framework:

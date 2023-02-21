@@ -1,0 +1,19 @@
+{% trans_default_domain "tables" %}
+
+<td class="flex gap-2">
+    {% for key, action in config.actions %}
+        {{
+            component(
+                "button",
+                {
+                    icon: action.icon,
+                    square: true,
+                    variant: key,
+                    href: path(action.route, table_parse_options(action.routeParams|default([]), config.value)),
+                    ariaLabel: ("icon.#{action.icon}")|trans({}, "messages"),
+                    centered: false
+                }
+            )
+        }}
+    {% endfor %}
+</td>

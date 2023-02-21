@@ -1,0 +1,28 @@
+{% extends "admin/layout.html.twig" %}
+
+{% trans_default_domain "admin" %}
+
+{% block title %}
+    {{ "page.user.title"|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ "page.user.description"|trans }}
+{% endblock %}
+
+{% block main_title %}
+    {{ "page.user.title"|trans }}
+{% endblock %}
+
+{% block main_body %}
+    <turbo-frame id="table_crud" data-turbo-action="advance">
+        <div class="flex gap-2 flex-col md:flex-row">
+            {{ knp_menu_render('back_office', { template: knp_custom_menu }) }}
+            {{ component('table', { config }) }}
+        </div>
+
+        <div class="flex items-center justify-center">
+            {{ knp_pagination_render(config.pagination, 'knp_custom/paginator.html.twig') }}
+        </div>
+    </turbo-frame>
+{% endblock %}

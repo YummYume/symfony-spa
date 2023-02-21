@@ -52,4 +52,10 @@ final class ResetPasswordRequestRepository extends ServiceEntityRepository imple
     ): ResetPasswordRequestInterface {
         return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
     }
+
+    public function removeResetPasswordRequest(ResetPasswordRequestInterface $resetPasswordRequest): void
+    {
+        $this->getEntityManager()->remove($resetPasswordRequest);
+        $this->getEntityManager()->flush();
+    }
 }

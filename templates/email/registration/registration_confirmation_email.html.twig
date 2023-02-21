@@ -1,0 +1,17 @@
+{% extends "email/layout.html.twig" %}
+
+{% set title = "registration_confirmation.title"|trans({}, "email", locale) %}
+{% set description = "registration_confirmation.description"|trans({}, "email", locale) %}
+{% set button_link = signedUrl %}
+{% set button_text = "registration_confirmation.confirm"|trans({}, "email", locale) %}
+
+{% block main %}
+    <p>
+        {{ "registration_confirmation.main_text"|trans({ username }, "email", locale) }} <strong class="font-semibold">{{ expiresAtMessageKey|trans(expiresAtMessageData, "VerifyEmailBundle", locale) }}</strong>.
+    </p>
+    <br />
+    <p>
+        {{ "registration_confirmation.safety_message"|trans({}, "email", locale) }}
+        <a href="{{ url("app_contact", { _locale: locale|default("en") }) }}" class="link-accent link">{{ "common.contact_us"|trans({}, "email", locale) }}</a>.
+    </p>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Profile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Gedmo\Sluggable\Util\Urlizer;
 
 /**
  * @extends ServiceEntityRepository<Profile>
@@ -37,5 +38,24 @@ final class ProfileRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function sluggifyAndFind(array $fields): array
+    {
+        $username = $fields['username'] ?? null;
+
+        if (null === $username) {
+            return [];
+        }
+
+        $transliterator = new Urlizer();
+
+        $slug = $transliterator->transliterate($username);
+
+        $slug = $transliterator->urlize($slug);
+
+        return $this->findBy([
+            'slug' => $slug,
+        ]);
     }
 }

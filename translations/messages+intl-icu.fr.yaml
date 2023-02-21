@@ -1,0 +1,171 @@
+## Common
+common.app_name: AppName
+common.description: Bienvenue sur MyApp !
+common.login: Connexion
+common.logout: Déconnexion
+common.register: Enregistrement
+common.save: Enregistrer
+common.search: Rechercher
+common.switch_theme: Changer de thème
+common.legal: Légal
+common.account_menu: Menu du compte
+common.my_account: Mon compte
+common.my_profile: Mon profil
+common.account_settings: Paramètres du compte
+common.close: Fermer
+common.global_search: Recherche globale
+common.or: ou
+common.admin: Administration
+common.upload.default_alt: Image téléchargée
+common.upload.click_or_drop: Faites glisser et déposez un fichier ou cliquez pour parcourir
+common.first_page: Première page ({ number })
+common.previous_page: Page précédente ({ number })
+common.page_number: Page { number }
+common.current_page: Page actuelle ({ number })
+common.next_page: Page suivante ({ number })
+common.last_page: Dernière page ({ number })
+common.show_password: Afficher/masquer le mot de passe
+common.menu: Menu
+common.no_script_message: Il semble que Javascript ne soit pas activé dans votre navigateur. Vous pourriez rencontrer des problèmes lors de la navigation.
+
+# Icons
+icon.eye: Afficher
+icon.pencil: Modifier
+
+## Flashes
+# Common
+flash.common.invalid_form: Formulaire non valide. Veuillez réessayer.
+flash.common.invalid_csrf: jeton CSRF non valide. Veuillez réessayer.
+
+# Register email
+flash.register.email_sent: Merci de vous être enregistré. Nous vous avons envoyé un email pour vérifier votre compte.
+flash.register.link_expired: Ce lien a expiré. Un nouveau est en route vers votre adresse email !
+flash.register.email_verified: Compte vérifié. Vous pouvez maintenant vous connecter en toute sécurité.
+
+# Reset password
+flash.reset_password.updated: Mot de passe mis à jour avec succès.
+
+# Delete profile
+flash.update_profile.account_updated: Compte mis à jour.
+flash.update_profile.profile_updated: Profil mis à jour.
+flash.delete_profile.invalid_prompt: Entrée non valide. Veuillez réessayer.
+flash.delete_profile.success: Compte supprimé. Vous devriez recevoir un email sous peu pour confirmer la suppression.
+
+## Pages
+# Homepage
+page.homepage.title: Page d'accueil
+page.homepage.description: Bienvenue sur MyApp ! La meilleure application jamais créée.
+
+# About Us
+page.about_us.title: À Propos
+page.about_us.description: Tout ce que vous devez savoir sur MyApp, de pourquoi il a été créé à pourquoi vous devriez l'utiliser.
+
+# Contact
+page.contact.title: Contact
+page.contact.description: Apprenez comment entrer en contact avec l'équipe MyApp ici.
+
+# Cookie Policy
+page.cookie_policy.title: Politique de cookies
+page.cookie_policy.description: Préoccupé par votre vie privée et pourquoi nous utilisons des cookies ? Vos réponses ici.
+
+# Privacy Policy
+page.privacy_policy.title: Politique de confidentialité
+page.privacy_policy.description: Politique de confidentialité officielle de MyApp.
+
+# Terms of Use
+page.terms_of_use.title: Conditions d'utilisation
+page.terms_of_use.description: Conditions générales d'utilisation de MyApp.
+
+# Register
+page.register.title: Créer un compte
+page.register.description: Enregistrez un compte pour accéder à toutes les fonctionnalités de MyApp.
+page.register.agree_terms: J'accepte les conditions d'utilisation
+
+# Login
+page.login.title: Connexion
+page.login.description: Connectez-vous avec votre compte à MyApp.
+page.login.forgot_password: Mot de passe oublié ?
+page.login.remember_me: Se souvenir de moi
+page.login.no_account: Pas encore de compte ? Cliquez ici pour vous enregistrer.
+
+# Edit profile
+page.edit_profile.title: Paramètres du compte
+page.edit_profile.description: Mettez à jour les informations de votre compte et de votre profil ici.
+page.edit_profile.user: Mon compte
+page.edit_profile.update_account: Mettre à jour mon compte
+page.edit_profile.profile: Mon profil
+page.edit_profile.update_profile: Mettre à jour mon profil
+page.edit_profile.danger_zone: Zone de danger
+page.edit_profile.delete_account: Supprimer votre compte
+page.edit_profile.delete_account_content: Êtes-vous sûr de vouloir supprimer votre compte? Tout ce qui est lié à celui-ci sera également supprimé.
+page.edit_profile.delete_account_warning: Cela ne peut pas être annulé.
+page.edit_profile.delete_account_back: J'ai changé d'avis
+page.edit_profile.delete_account_confirm: Supprimer mon compte
+page.edit_profile.deletion_prompt: Je comprends les conséquences et je souhaite supprimer mon compte.
+
+# Show Profile
+page.show_profile.title: Profil de {username}
+page.show_profile.description: Le profil de {username} sur MyApp.
+
+# Check email
+page.check_email.title: Réinitialiser mon mot de passe
+page.check_email.description: Processus pour obtenir un nouveau mot de passe par courrier.
+page.check_email.email_sent: Si un compte correspondant à votre adresse e-mail existe, un e-mail vous a été envoyé avec un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
+page.check_email.link_expires_in: Ce lien expirera dans
+page.check_email.check_spam: Si vous n'avez pas reçu d'email, veuillez vérifier votre dossier spam ou
+page.check_email.try_again: réessayer
+
+# Request password
+page.request_password.title: Réinitialiser votre mot de passe
+page.request_password.description: Vous avez oublié votre mot de passe? Pas de problème. Vous pouvez facilement obtenir un lien pour le réinitialiser.
+page.request_password.enter_your_email: Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+page.request_password.send: Envoyer un e-mail de réinitialisation du mot de passe
+
+# Reset password
+page.reset_password.title: Réinitialiser votre mot de passe
+page.reset_password.description: Réinitialiser en toute sécurité votre mot de passe oublié.
+page.reset_password.reset: Réinitialiser mon mot de passe
+
+# Search
+page.search.title: Recherche
+page.search.description: Recherchez n'importe quoi sur MyApp.
+page.search.no_result: Aucun résultat trouvé.
+page.search.result_time: >-
+    { hits, plural, =0 {# résultat en { time } ms} one {# résultat en { time } ms} other {# résultats en { time } ms} }
+page.search.show_profile: Voir le profil
+page.search.type_to_search: Tapez n'importe quoi pour commencer la recherche.
+page.search.search_username: Par exemple, essayez de saisir { username }...
+
+## Entities
+# User
+user.email: Courrier électronique
+user.password: Mot de passe
+user.password.help: Doit contenir au moins 8 caractères, avec au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial (#\?!@$%^&*-).
+user.repeat_password: Répéter le mot de passe
+user.current_password: Mot de passe actuel
+user.current_password.help: Pour des mesures de sécurité, vous devez fournir votre mot de passe actuel pour modifier votre mot de passe.
+user.new_password: Nouveau mot de passe
+user.repeat_new_password: Répéter le nouveau mot de passe
+user.roles: Rôles
+user.verified: Vérifié
+user.profile.picture: Image de profil de { username }
+
+# Profile
+profile.username: Nom d'utilisateur
+profile.username.help: Votre nom d'utilisateur est utilisé dans l'URL de votre profil. Il doit contenir entre 2 et 50 caractères et ne peut pas contenir de caractères spéciaux.
+profile.description: Description
+
+# Profile picture
+profile_picture.file: Image
+profile_picture.file.help: Les dimensions recommandées pour une photo de profil sont 200x200. La taille de téléchargement maximale est de 2 Mo.
+profile_picture.current_profile_picture: Votre image de profil actuelle.
+
+# ResetPasswordRequest
+reset_password_request.email: Adresse email
+reset_password_request.email.help: L'adresse email associée à votre compte.
+reset_password_request.new_password: Nouveau mot de passe
+reset_password_request.repeat_password: Répétez votre mot de passe
+
+## Components
+# Deletion prompt modal
+component.deletion_prompt_modal.label: Pour continuer, tapez "{ prompt }".

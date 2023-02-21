@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventListener;
+namespace App\EventSubscriber;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class UserListener implements EventSubscriberInterface
+final class UserSubscriber implements EventSubscriberInterface
 {
     public function __construct(private readonly UserPasswordHasherInterface $passwordHasher)
     {

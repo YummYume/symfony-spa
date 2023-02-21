@@ -49,8 +49,9 @@ data/*
 
 ###> IDE ###
 .vscode
+.history
 ###< IDE ###
 
 ###> liip/imagine-bundle ###
-/public/media/cache/
+/public/media
 ###< liip/imagine-bundle ###

@@ -11,9 +11,19 @@
     "doctrine/doctrine-bundle": "^2.8",
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.14",
+    "intervention/image": "^2.7",
+    "knplabs/knp-menu-bundle": "^3.2",
+    "knplabs/knp-paginator-bundle": "^6.1",
+    "kornrunner/blurhash": "^1.2",
     "liip/imagine-bundle": "^2.10",
+    "meilisearch/search-bundle": "^0.10.1",
+    "nelmio/cors-bundle": "^2.3",
+    "nelmio/security-bundle": "^3.0",
+    "nyholm/psr7": "^1.5",
     "phpdocumentor/reflection-docblock": "^5.3",
     "phpstan/phpdoc-parser": "^1.15",
+    "sensio/framework-extra-bundle": "^6.2",
+    "sentry/sentry-symfony": "^4.6",
     "stof/doctrine-extensions-bundle": "^1.7",
     "symfony/amqp-messenger": "6.2.*",
     "symfony/asset": "6.2.*",
@@ -43,8 +53,12 @@
     "symfony/translation": "6.2.*",
     "symfony/twig-bundle": "6.2.*",
     "symfony/uid": "6.2.*",
+    "symfony/ux-autocomplete": "^2.7",
+    "symfony/ux-dropzone": "^2.7",
     "symfony/ux-lazy-image": "^2.7",
+    "symfony/ux-live-component": "^2.7",
     "symfony/ux-turbo": "^2.7",
+    "symfony/ux-twig-component": "^2.7",
     "symfony/validator": "6.2.*",
     "symfony/web-link": "6.2.*",
     "symfony/webpack-encore-bundle": "^1.16",
@@ -52,6 +66,7 @@
     "symfonycasts/reset-password-bundle": "^1.16",
     "symfonycasts/verify-email-bundle": "^1.13",
     "twig/extra-bundle": "^2.12|^3.0",
+    "twig/intl-extra": "^3.5",
     "twig/string-extra": "^3.5",
     "twig/twig": "^2.12|^3.0",
     "vich/uploader-bundle": "^2.0"
@@ -59,7 +74,8 @@
   "config": {
     "allow-plugins": {
       "symfony/flex": true,
-      "symfony/runtime": true
+      "symfony/runtime": true,
+      "php-http/discovery": true
     },
     "sort-packages": true
   },

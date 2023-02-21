@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Enum\ColorTypeEnum;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +38,10 @@ class ResetPasswordController extends AbstractController
         SecurityEmailManager $securityEmailManager,
         UserRepository $userRepository
     ): Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         $form = $this->createForm(ResetPasswordRequestFormType::class)->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -65,7 +69,7 @@ class ResetPasswordController extends AbstractController
                 return $this->redirectToRoute('app_check_email');
             }
 
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
         }
 
         return $this->render('reset_password/request.html.twig', [
@@ -79,6 +83,10 @@ class ResetPasswordController extends AbstractController
     #[Route('/check-email', name: 'app_check_email')]
     public function checkEmail(): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         // Generate a fake token if the user does not exist or someone hit this page directly.
         // This prevents exposing whether or not a user was found with the given email address or not
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
@@ -97,9 +105,13 @@ class ResetPasswordController extends AbstractController
     public function reset(
         Request $request,
         TranslatorInterface $translator,
-        EntityManagerInterface $em,
+        UserRepository $userRepository,
         string $token = null
     ): Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_homepage');
+        }
+
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
             // loaded in a browser and potentially leaking the token to 3rd party JavaScript.
@@ -118,7 +130,7 @@ class ResetPasswordController extends AbstractController
             /** @var User */
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, sprintf(
+            $this->flashManager->flash(ColorTypeEnum::Error->value, sprintf(
                 '%s - %s',
                 $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_VALIDATE, domain: 'ResetPasswordBundle'),
                 $translator->trans($e->getReason(), domain: 'ResetPasswordBundle')
@@ -136,15 +148,17 @@ class ResetPasswordController extends AbstractController
                 $this->resetPasswordHelper->removeResetRequest($token);
 
                 $user->setPlainPassword($form->get('plainPassword')->getData());
-                $em->flush();
+                $userRepository->save($user, true);
 
                 // The session is cleaned up after the password has been changed.
                 $this->cleanSessionAfterReset();
 
+                $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.reset_password.updated');
+
                 return $this->redirectToRoute('security_login');
             }
 
-            $this->flashManager->flash(FlashManager::FLASH_ERROR, 'flash.common.invalid_form');
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_form');
         }
 
         return $this->render('reset_password/reset.html.twig', [

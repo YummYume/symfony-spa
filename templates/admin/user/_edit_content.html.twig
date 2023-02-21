@@ -1,0 +1,11 @@
+{% trans_default_domain "admin" %}
+
+{% include "admin/user/_form.html.twig" with { form, button_label: "common.edit"|trans, validationEmailDisabled: user.verified } only %}
+{% include "admin/user/_send_validation_email.html.twig" with { user } only %}
+
+<div class="flex w-full items-center justify-center gap-6">
+    {{ component("button", { content: "common.back_to_list"|trans, class: "btn-outline", variant: "info", centered: false, ghost: true, href: path("admin_user") }) }}
+    {% if is_granted(constant("App\\Security\\Voter\\UserVoter::DELETE"), user) %}
+        {% include "admin/user/_delete_form.html.twig" with { user } only %}
+    {% endif %}
+</div>
