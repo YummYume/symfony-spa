@@ -15,11 +15,9 @@
 {% endblock %}
 
 {% block main_body %}
-    <div id="user-admin-form" class="flex flex-col gap-4 max-w-xs mx-auto">
-        {{ include("admin/user/_form.html.twig", { button_label: "Update" }) }}
-        {% include "admin/user/_send_validation_email.html.twig" with { user } only %}
-        {% include "admin/user/_delete_form.html.twig" with { user } only %}
+    <div id="user-admin-form" class="mx-auto flex max-w-4xl flex-col gap-4">
+        {% include "admin/user/_edit_content.html.twig" %}
     </div>
 
-    {{ component('button', { button: false, content: 'back to list', href: path("admin_user") }) }}
+    {% include "admin/user/_send_validation_email.html.twig" with { user } only %}
 {% endblock %}

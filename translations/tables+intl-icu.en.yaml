@@ -6,3 +6,10 @@ common.actions: Actions
 user.email: Email
 user.username: Username
 user.verified: Verified
+user.roles: Roles
+user.description: Description
+user.picture: Picture
+user.role.role_super_admin: Super admin
+user.role.role_admin: Admin
+user.role.role_allowed_to_switch: Allowed to switch
+user.role.role_user: User

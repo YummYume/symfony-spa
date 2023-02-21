@@ -7,6 +7,9 @@
     {% else %}
         href="{{ href }}"
     {% endif %}
+    {% if id %}id="{{ id }}"{% endif %}
+    {% if form %}form="{{ form }}"{% endif %}
+    {% if disabled %}disabled{% endif %}
     {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
 >
     {% if icon or content %}

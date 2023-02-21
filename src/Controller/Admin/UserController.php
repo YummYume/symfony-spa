@@ -5,14 +5,17 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Enum\ColorTypeEnum;
 use App\Form\Admin\UserType;
+use App\Manager\Email\SecurityEmailManager;
 use App\Manager\FlashManager;
 use App\Repository\UserRepository;
+use App\Security\Voter\UserVoter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Turbo\TurboBundle;
 
 final class UserController extends AbstractController
@@ -78,9 +81,11 @@ final class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'admin_user_edit', methods: ['GET', 'POST'])]
+    #[IsGranted(UserVoter::EDIT, subject: 'user', statusCode: 403)]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
-        $form = $this->createForm(UserType::class, $user)->handleRequest($request);
+        $canEditRoles = $this->isGranted(UserVoter::EDIT_ROLES, $user);
+        $form = $this->createForm(UserType::class, $user, ['can_edit_roles' => $canEditRoles])->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
@@ -96,10 +101,12 @@ final class UserController extends AbstractController
 
                 return $this->render('admin/user/stream/edit.stream.html.twig', [
                     'user' => $user,
-                    'form' => $form->isValid() ? $this->createForm(UserType::class, $user) : $form,
+                    'form' => $form->isValid() ? $this->createForm(UserType::class, $user, ['can_edit_roles' => $canEditRoles]) : $form,
                 ]);
             } elseif ($form->isValid()) {
-                return $this->redirectToRoute('admin_user_edit', ['id' => $user->getId()->toBase32()], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('admin_user_edit', [
+                    'id' => $user->getId()->toBase32(),
+                ], Response::HTTP_SEE_OTHER);
             }
         }
 
@@ -110,10 +117,15 @@ final class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'admin_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    #[IsGranted(UserVoter::DELETE, subject: 'user', statusCode: 403)]
+    public function delete(Request $request, User $user, UserRepository $userRepository, SecurityEmailManager $securityEmailManager): Response
     {
         if ($this->isCsrfTokenValid('delete-'.$user->getId()->toBase32(), $request->request->get('_token'))) {
+            $email = $user->getEmail();
+            $username = $user->getProfile()->getUsername();
             $userRepository->remove($user, true);
+
+            $securityEmailManager->sendAccountDeletionConfirmationEmail($email, $username);
 
             $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.common.deleted', translationDomain: 'admin');
         } else {
@@ -123,6 +135,33 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('admin_user', status: Response::HTTP_SEE_OTHER);
     }
 
+    #[Route('/{id}/send-validation', name: 'admin_user_send_validation', methods: ['POST'])]
+    #[IsGranted(UserVoter::EDIT, subject: 'user', statusCode: 403)]
+    public function sendValidationEmail(Request $request, User $user, SecurityEmailManager $securityEmailManager): Response
+    {
+        if ($this->isCsrfTokenValid('verify-'.$user->getId()->toBase32(), $request->request->get('_token'))) {
+            if (!$user->isVerified()) {
+                $securityEmailManager->sendRegisterEmailConfirmation($user);
+
+                $this->flashManager->flash(ColorTypeEnum::Success->value, 'flash.user.validation_email_sent', translationDomain: 'admin');
+            } else {
+                $this->flashManager->flash(ColorTypeEnum::Warning->value, 'flash.user.already_verified', translationDomain: 'admin');
+            }
+        } else {
+            $this->flashManager->flash(ColorTypeEnum::Error->value, 'flash.common.invalid_csrf');
+        }
+
+        if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+            return $this->render('admin/user/stream/validation_email.stream.html.twig', [
+                'user' => $user,
+            ]);
+        }
+
+        return $this->redirectToRoute('admin_user_edit', ['id' => $user->getId()->toBase32()], Response::HTTP_SEE_OTHER);
+    }
+
     // TODO use sprintf for condition when php-cs-fixer supports PHP 8.2
     #[Route(
         '/users/{id}/verify',
@@ -130,6 +169,7 @@ final class UserController extends AbstractController
         methods: ['POST'],
         condition: ('"'.TurboBundle::STREAM_FORMAT.'" === request.getPreferredFormat()')
     )]
+    #[IsGranted(UserVoter::EDIT, subject: 'user', statusCode: 403)]
     public function setUserVerified(User $user, Request $request): Response
     {
         $request->setRequestFormat(TurboBundle::STREAM_FORMAT);

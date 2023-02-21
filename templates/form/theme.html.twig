@@ -57,7 +57,7 @@
 
 {# Choice #}
 
-{%- block choice_widget -%}
+{# {%- block choice_widget -%}
     {%- set widget_class = widget_class|default('select select-bordered w-full max-w-xs') -%}
     {% if expanded %}
         {{- block('choice_widget_expanded') -}}
@@ -76,9 +76,9 @@
             </div>
         {% endfor -%}
     </div>
-{%- endblock choice_widget_expanded -%}
+{%- endblock choice_widget_expanded -%} #}
 
-{% block choice_widget_collapsed %}
+{# {% block choice_widget_collapsed %}
     {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
     {% set required = false %}
     {%- endif -%}
@@ -98,7 +98,7 @@
     {%- set render_preferred_choices = false -%}
     {{- block('choice_widget_options') -}}
     </select>
-{% endblock %}
+{% endblock %} #}
 
 {# File #}
 

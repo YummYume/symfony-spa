@@ -3,79 +3,125 @@
 {% trans_default_domain "admin" %}
 
 {% block title %}
-    {{ "page.user_show.title"|trans }}
+    {{ "page.user_show.title"|trans({ username: user.profile.username }) }}
 {% endblock %}
 
 {% block description %}
-    {{ "page.user_show.description"|trans }}
+    {{ "page.user_show.description"|trans({ username: user.profile.username }) }}
 {% endblock %}
 
 {% block main_title %}
-    {{ "page.user_show.title"|trans }}
+    {{ "page.user_show.title"|trans({ username: user.profile.username }) }}
 {% endblock %}
 
 {% block main_body %}
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <td>
-                    {{ user.id }}
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Email
-                </th>
-                <td>
-                    {{ user.email }}
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Roles
-                </th>
-                <td>
-                    {{ user.roles ? user.roles|json_encode : "" }}
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Password
-                </th>
-                <td>
-                    {{ user.password }}
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Verified
-                </th>
-                <td>
-                    {{ user.verified ? "Yes" : "No" }}
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    CreatedAt
-                </th>
-                <td>
-                    {{ user.createdAt ? user.createdAt|date("Y-m-d H:i:s") : "" }}
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    UpdatedAt
-                </th>
-                <td>
-                    {{ user.updatedAt ? user.updatedAt|date("Y-m-d H:i:s") : "" }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="w-full overflow-x-auto">
+        <table class="table-zebra table w-full">
+            <tbody>
+                <tr>
+                    <th>
+                        {{ "common.id"|trans }}
+                    </th>
+                    <td>
+                        {{ user.id }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "user.email"|trans({}, "tables") }}
+                    </th>
+                    <td>
+                        {{ user.email }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "user.roles"|trans({}, "tables") }}
+                    </th>
+                    <td>
+                        {{ user.roles ? user.roles|map(role => "user.role.#{role|lower}"|trans({}, "tables"))|join(", ") }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "user.verified"|trans({}, "tables") }}
+                    </th>
+                    <td>
+                        {{ ("common." ~ (user.verified ? "yes" : "no"))|trans }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "user.username"|trans({}, "tables") }}
+                    </th>
+                    <td>
+                        {{ user.profile.username }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "user.description"|trans({}, "tables") }}
+                    </th>
+                    <td>
+                        {{ user.profile.description }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "user.picture"|trans({}, "tables") }}
+                    </th>
+                    <td>
+                        {{ component("avatar", { user, small: false }) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "common.created_at"|trans }}
+                    </th>
+                    <td>
+                        {{ user.createdAt ? user.createdAt|format_datetime : "" }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "common.updated_at"|trans }}
+                    </th>
+                    <td>
+                        {% set updatedAt = [user.updatedAt ?? null, user.profile.updatedAt ?? null, user.profile.picture.updatedAt ?? null]|sort|last %}
+                        {{ updatedAt ? updatedAt|format_datetime : "" }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "common.created_by"|trans }}
+                    </th>
+                    <td>
+                        {% if user.createdBy %}
+                            <a class="link link-primary link-hover" href="{{ path("admin_user_show", { id: user.createdBy.id.toBase32 }) }}">
+                                {{ user.createdBy.profile.username }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ "common.updated_by"|trans }}
+                    </th>
+                    <td>
+                        {% set updatedBy = user.updatedAt ? (user.updatedBy ?? user.profile.updatedBy) : (user.profile.updatedAt ? user.profile.updatedBy : null) %}
+                        {% if updatedBy %}
+                            <a class="link link-primary link-hover" href="{{ path("admin_user_show", { id: updatedBy.id.toBase32 }) }}">
+                                {{ updatedBy.profile.username }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    {{ component("button", { button: false, content: "edit", href: path("admin_user_edit", { id: user.id.toBase32 }) }) }}
-    {{ component("button", { button: false, content: "back to list", href: path("admin_user") }) }}
+    <div class="btn-group items-center justify-center">
+        {{ component("button", { button: false, content: "common.back_to_list"|trans, class: "btn-outline", variant: "info", centered: false, ghost: true, href: path("admin_user") }) }}
+        {{ component("button", { button: false, content: "common.edit"|trans, class: "btn-outline", variant: "success", centered: false, ghost: true, href: path("admin_user_edit", { id: user.id.toBase32 }) }) }}
+    </div>
 {% endblock %}

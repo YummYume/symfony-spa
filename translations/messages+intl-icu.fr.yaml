@@ -26,6 +26,7 @@ common.next_page: Page suivante ({ number })
 common.last_page: Dernière page ({ number })
 common.show_password: Afficher/masquer le mot de passe
 common.menu: Menu
+common.no_script_message: Il semble que Javascript ne soit pas activé dans votre navigateur. Vous pourriez rencontrer des problèmes lors de la navigation.
 
 # Icons
 icon.eye: Afficher
@@ -145,6 +146,8 @@ user.current_password: Mot de passe actuel
 user.current_password.help: Pour des mesures de sécurité, vous devez fournir votre mot de passe actuel pour modifier votre mot de passe.
 user.new_password: Nouveau mot de passe
 user.repeat_new_password: Répéter le nouveau mot de passe
+user.roles: Rôles
+user.verified: Vérifié
 user.profile.picture: Image de profil de { username }
 
 # Profile

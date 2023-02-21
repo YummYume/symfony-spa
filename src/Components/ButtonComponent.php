@@ -13,6 +13,8 @@ final class ButtonComponent
     public const LEFT = 'left';
     public const RIGHT = 'right';
 
+    public ?string $id = null;
+
     public bool $centered = true;
 
     public bool $circle = false;
@@ -24,6 +26,10 @@ final class ButtonComponent
     public bool $submit = false;
 
     public ?string $href = null;
+
+    public ?string $form = null;
+
+    public bool $disabled = false;
 
     public string $class = '';
 

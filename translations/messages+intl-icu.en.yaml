@@ -26,6 +26,7 @@ common.next_page: Next page ({ number })
 common.last_page: Last page ({ number })
 common.show_password: Show/hide password
 common.menu: Menu
+common.no_script_message: It looks like JavaScript is not enabled in your browser. You might experience some issues while browsing.
 
 # Icons
 icon.eye: Show
@@ -145,6 +146,8 @@ user.current_password: Current password
 user.current_password.help: For security measures, you must provide your current password to modify your password.
 user.new_password: New password
 user.repeat_new_password: Repeat new password
+user.roles: Roles
+user.verified: Verified
 user.profile.picture: Profile picture of { username }
 
 # Profile
