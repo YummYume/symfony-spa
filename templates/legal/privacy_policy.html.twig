@@ -4,10 +4,13 @@
     {{ "page.privacy_policy.title"|trans }}
 {% endblock %}
 
-{% block description %}
-    {{ "page.privacy_policy.description"|trans }}
-{% endblock %}
-
-{% block main_title %}
-    {{ "page.terms_of_use.title"|trans }}
+{% block main_body %}
+    <div class="flex flex-col justify-end mt-6">
+        <h1 class="text-center text-3xl mt-6">
+            {{ "page.privacy_policy.title"|trans }}
+        </h1>
+        <p class="text-justify text-2xl mt-6">
+            {{ "page.privacy_policy.text"|trans }}
+        </p>
+    </div>
 {% endblock %}
