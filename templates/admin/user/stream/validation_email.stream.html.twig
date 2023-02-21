@@ -1,0 +1,15 @@
+{% include "common/stream/alert.stream.html.twig" only %}
+
+<turbo-stream action="replace" target="user-send-validation-email-form">
+    <template>
+        {% include "admin/user/_send_validation_email.html.twig" with { user } only %}
+    </template>
+</turbo-stream>
+
+{% if user == app.user %}
+    <turbo-stream action="update" target="navbar-user-dropdown">
+        <template>
+            {% include "common/_user_dropdown.html.twig" with { permanent: false } only %}
+        </template>
+    </turbo-stream>
+{% endif %}

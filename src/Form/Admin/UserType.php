@@ -18,25 +18,36 @@ final class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'required' => true,
-            ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => UserRoleEnum::toArray(),
-                'multiple' => true,
-                'autocomplete' => true,
+                'label' => 'user.email',
                 'required' => true,
             ])
             ->add('verified', CheckboxType::class, [
+                'label' => 'user.verified',
                 'required' => false,
             ])
-            ->add('profile', ProfileType::class)
+            ->add('profile', ProfileType::class, [
+                'label' => false,
+            ])
         ;
+
+        if ($options['can_edit_roles']) {
+            $builder->add('roles', ChoiceType::class, [
+                'label' => 'user.roles',
+                'choices' => UserRoleEnum::toArray(false, [UserRoleEnum::AllowedToSwitch]),
+                'choice_label' => static fn (string $role): string => sprintf('user.role.%s', strtolower($role)),
+                'translation_domain' => 'tables',
+                'multiple' => true,
+                'autocomplete' => true,
+                'required' => true,
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'can_edit_roles' => false,
         ]);
     }
 }

@@ -1,4 +1,37 @@
+{% trans_default_domain "admin" %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="flex flex-col gap-4 md:flex-row">
+    <div class="grow basis-0">
+        <h2 class="mb-4 text-2xl">
+            {{ "page.user_edit.account"|trans }}
+        </h2>
+        {{ form_row(form.email) }}
+        {{
+            component(
+                "button",
+                {
+                    content: "page.user_edit.send_validation_email"|trans,
+                    form: "user-send-validation-email-form",
+                    submit: true,
+                    disabled: validationEmailDisabled,
+                    centered: false,
+                    variant: "info",
+                    class: "mb-4"
+                }
+            )
+        }}
+        {{ form_row(form.verified) }}
+        {% if form.roles is defined %}
+            {{ form_row(form.roles) }}
+        {% endif %}
+    </div>
+    <div class="grow basis-0">
+        <h2 class="mb-4 text-2xl">
+            {{ "page.user_edit.profile"|trans }}
+        </h2>
+        {{ form_row(form.profile) }}
+    </div>
+</div>
+{{ component("button", { content: button_label|default("common.save"|trans), submit: true, class: "btn-outline", variant: "success", centered: true, ghost: true }) }}
 {{ form_end(form) }}

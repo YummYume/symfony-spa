@@ -33,7 +33,7 @@
     <body>
         <div class="drawer">
             <input id="mobile-drawer" type="checkbox" class="drawer-toggle" aria-label="{{ "common.menu"|trans }}" />
-            <div class="drawer-content flex flex-col overflow-hidden">
+            <div class="drawer-content flex flex-col">
                 {% block flashes %}
                     <div id="app-flashes" class="fixed bottom-3 left-2 right-2 z-10 mr-auto flex max-w-lg flex-col gap-2 transition-all">
                         {% for type, messages in app.flashes %}
@@ -122,6 +122,16 @@
                 {% endblock %}
 
                 {% block footer %}
+                    <noscript class="mx-auto my-4 max-w-fit px-2">
+                        <div class="alert alert-warning shadow-lg">
+                            <div>
+                                <div class="min-w-fit">
+                                    {% include "icon/warning.html.twig" only %}
+                                </div>
+                                <span>{{ "common.no_script_message"|trans }}</span>
+                            </div>
+                        </div>
+                    </noscript>
                     <footer class="footer bg-base-300 p-10 text-base-content">
                         <div>
                             <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current">

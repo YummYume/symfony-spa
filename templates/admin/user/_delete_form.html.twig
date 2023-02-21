@@ -1,4 +1,31 @@
-<form method="post" action="{{ path("admin_user_delete", { id: user.id.toBase32 }) }}">
-    <input type="hidden" name="_token" value="{{ csrf_token("delete-" ~ user.id.toBase32) }}" />
-    <button class="btn">Delete</button>
-</form>
+{% trans_default_domain "admin" %}
+
+{% component modal
+    with
+    {
+        title: "page.user_delete.title"|trans,
+        modalId: "delete-user-modal",
+        openButtonText: "common.delete"|trans,
+        openButtonClass: "btn-error btn-ghost btn-outline",
+        closeButtonText: "common.go_back"|trans,
+        closeButtonClass: "btn-primary"
+    }
+%}
+{% trans_default_domain "admin" %}
+
+{% block content %}
+    {{ "page.user_delete.content"|trans }} <strong class="text-error">{{ "common.delete.cannot_be_undone"|trans }}</strong>
+{% endblock %}
+
+{% block modal_action %}
+    {{ parent() }}
+    {{ component("button", { id: "delete-user", content: "common.delete"|trans, submit: true, variant: "error" }) }}
+{% endblock %}
+
+{% block modal_box %}
+    <form method="post" action="{{ path("admin_user_delete", { id: user.id.toBase32 }) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token("delete-" ~ user.id.toBase32) }}" />
+        {{ parent() }}
+    </form>
+{% endblock %}
+{% endcomponent %}

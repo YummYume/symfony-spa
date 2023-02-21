@@ -1,1 +1,3 @@
-<button type="button">Resend validation email</button>
+<form id="user-send-validation-email-form" method="post" action="{{ path("admin_user_send_validation", { id: user.id.toBase32 }) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token("verify-" ~ user.id.toBase32) }}" />
+</form>
