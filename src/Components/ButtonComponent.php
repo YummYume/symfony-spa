@@ -19,12 +19,6 @@ final class ButtonComponent
 
     public bool $centered = true;
 
-    public bool $circle = false;
-
-    public bool $ghost = false;
-
-    public bool $square = false;
-
     public bool $submit = false;
 
     public ?string $href = null;
@@ -62,12 +56,9 @@ final class ButtonComponent
         }
 
         $this->class = sprintf(
-            'btn btn-%s gap-2 %s %s %s %s %s',
+            'btn btn-%s gap-2 %s %s',
             $this->variant,
-            $this->circle ? 'btn-circle' : '',
-            $this->ghost ? 'btn-ghost' : '',
             $this->centered ? 'mx-auto flex' : '',
-            $this->square ? 'btn-square' : '',
             $this->class
         );
     }

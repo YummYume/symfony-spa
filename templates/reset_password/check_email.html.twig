@@ -22,7 +22,7 @@
             <strong class="font-semibold">{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, "ResetPasswordBundle") }}</strong>.
         </p>
         <p>
-            {{ "page.check_email.check_spam"|trans }} <a class="link-secondary link" href="{{ path("app_forgot_password_request") }}">{{ "page.check_email.try_again"|trans }}</a>.
+            {{ "page.check_email.check_spam"|trans }} <a href="{{ path("app_forgot_password_request") }}">{{ "page.check_email.try_again"|trans }}</a>.
         </p>
 
         <a class="btn-primary btn" href="{{ path("security_login") }}">{{ "common.login"|trans }}</a>

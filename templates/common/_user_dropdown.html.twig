@@ -1,11 +1,20 @@
 {% trans_default_domain "messages" %}
 
 {% if app.user %}
-    <button type="button" class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+    <button
+        aria-expanded="false"
+        class="aspect-square h-10 p-1 text-gray-500 rounded-full hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+        data-dropdown-toggle="dropdown"
+        id="user-menu-button"
+        type="button"
+    >
         <span class="sr-only">Open user menu</span>
-        {{ component("avatar", { user: app.user, permanent, id: "user-picture", small: true }) }}
+        {{ component("avatar", { user: app.user, permanent, id: "user-picture" }) }}
     </button>
-    <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown">
+    <div
+        class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+        id="dropdown"
+    >
         <div class="py-3 px-4">
             <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ app.user.profile.username }}</span>
             <span class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">{{ app.user.email }}</span>
@@ -58,18 +67,40 @@
         </ul>
     </div>
 {% else %}
-    {% component dropdown %}
-    {% block button %}
-        {% component button with { circle: true, ariaLabel: "common.account_menu"|trans } %}
-        {% block content %}
-            {{ component("avatar") }}
-        {% endblock %}
-        {% endcomponent %}
-    {% endblock %}
+    <button
+        aria-expanded="false"
+        aria-label={{ 'common.account_menu'|trans }}
+        class="p-2 text-gray-500 rounded-full hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+        data-dropdown-toggle="dropdown"
+        id="user-menu-button"
+        type="button"
+    >
+        <span class="sr-only">Open user menu</span>
 
-    {% block items %}
-        <li><a href="{{ path("security_login") }}">{{ "common.login"|trans }}</a></li>
-        <li><a href="{{ path("app_register") }}">{{ "common.register"|trans }}</a></li>
-    {% endblock %}
-    {% endcomponent %}
+        {{ component("avatar") }}
+    </button>
+
+    <div
+        class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+        id="dropdown"
+    >
+        <ul class="py-1 font-light text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
+            <li>
+                <a
+                    class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    href="{{ path("security_login") }}"
+                >
+                    {{ "common.login"|trans }}
+                </a>
+            </li>
+            <li>
+                <a
+                    class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    href="{{ path("app_register") }}"
+                >
+                    {{ "common.register"|trans }}
+                </a>
+            </li>
+        </ul>
+    </div>
 {% endif %}

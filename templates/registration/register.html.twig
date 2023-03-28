@@ -15,7 +15,7 @@
 {% block main_body %}
     <div class="mx-auto flex max-w-xs grow flex-col">
         {% for flash_error in app.flashes("verify_email_error") %}
-            <div class="alert alert-error" role="alert">
+            <div role="alert">
                 {{ flash_error }}
             </div>
         {% endfor %}

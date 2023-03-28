@@ -12,6 +12,6 @@
     <br />
     <p>
         {{ "registration_confirmation.safety_message"|trans({}, "email", locale) }}
-        <a href="{{ url("app_contact", { _locale: locale|default("en") }) }}" class="link-accent link">{{ "common.contact_us"|trans({}, "email", locale) }}</a>.
+        <a href="{{ url("app_contact", { _locale: locale|default("en") }) }}">{{ "common.contact_us"|trans({}, "email", locale) }}</a>.
     </p>
 {% endblock %}

@@ -1,8 +1,8 @@
-<label for="{{ id }}" class="btn-error btn-outline btn mx-auto flex">{{ deleteLabel }}</label>
+<label for="{{ id }}" class="mx-auto flex">{{ deleteLabel }}</label>
 
-<input type="checkbox" id="{{ id }}" class="modal-toggle" />
-<label class="modal modal-bottom cursor-pointer sm:modal-middle" for="{{ id }}">
-    <label class="modal-box relative" for="">
+<input type="checkbox" id="{{ id }}" />
+<label class="cursor-pointer sm:modal-middle" for="{{ id }}">
+    <label class="relative" for="">
         <form method="post" action="{{ action }}" {{ stimulus_controller("input-prompt") }} data-input-prompt-prompt-value="{{ prompt }}">
             {% block body %}
                 {% block title %}
@@ -14,23 +14,23 @@
                     <p class="py-4">
                         <span>{{ content }}</span>
                         {% if warningMessage %}
-                            <strong class="text-error">{{ warningMessage }}</strong>
+                            <strong>{{ warningMessage }}</strong>
                         {% endif %}
                     </p>
                 {% endblock %}
             {% endblock %}
             {% if prompt %}
-                <div class="form-control">
+                <div>
                     <label for="input-prompt" class="label"><span class="label-text">{{ "component.deletion_prompt_modal.label"|trans({ prompt }) }}</span></label>
-                    <textarea data-action="input->input-prompt#onInput" type="text" name="input" id="input-prompt" class="max-h-24 textarea textarea-accent w-full" required></textarea>
+                    <textarea data-action="input->input-prompt#onInput" type="text" name="input" id="input-prompt" class="max-h-24 w-full" required></textarea>
                 </div>
             {% endif %}
             {% if token %}
                 <input type="hidden" name="_token" value="{{ token }}" />
             {% endif %}
-            <div class="modal-action flex justify-center gap-4">
-                <label for="{{ id }}" class="btn-success btn">{{ closeLabel }}</label>
-                <button data-input-prompt-target="button" id="input-prompt-button" type="submit" class="btn-error btn">{{ deleteLabel }}</button>
+            <div class="flex justify-center gap-4">
+                <label for="{{ id }}">{{ closeLabel }}</label>
+                <button data-input-prompt-target="button" id="input-prompt-button" type="submit" class="">{{ deleteLabel }}</button>
             </div>
         </form>
     </label>

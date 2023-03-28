@@ -10,7 +10,6 @@
     <input
         name=" {{ config.col.extras.name|default('_checkbox') }}"
         type="checkbox"
-        class="toggle-success toggle"
         {{ config.value ? "checked" : "" }}
         value="{{ config.value ? "off" : "on" }}"
         {% if config.col.extras.submitOnChange|default(false) %}data-action="change->submit#submit"{% endif %}
