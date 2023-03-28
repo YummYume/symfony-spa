@@ -1,4 +1,4 @@
-import type { DialInterface } from 'flowbite/dist/flowbite.turbo';
+import type { DialInterface } from 'flowbite';
 
 export interface DialEventDetails {
   dial: DialInterface | null;

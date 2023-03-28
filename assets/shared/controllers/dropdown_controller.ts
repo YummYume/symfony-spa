@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dropdown, type DropdownOptions, type DropdownInterface } from 'flowbite/dist/flowbite.turbo';
+import { Dropdown, type DropdownOptions, type DropdownInterface } from 'flowbite';
 
 import { DROPDOWN_EVENTS } from '$assets/types/constants/dropdown';
 
@@ -9,7 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class DropdownController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
-    eventPrefix: { type: String },
+    eventPrefix: String,
   };
 
   static targets = ['dropdown', 'trigger'];

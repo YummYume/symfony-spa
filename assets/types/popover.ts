@@ -1,4 +1,4 @@
-import type { PopoverInterface } from 'flowbite/dist/flowbite.turbo';
+import type { PopoverInterface } from 'flowbite';
 
 export interface PopoverEventDetails {
   popover: PopoverInterface | null;

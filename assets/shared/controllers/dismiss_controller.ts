@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dismiss, type DismissOptions, type DismissInterface } from 'flowbite/dist/flowbite.turbo';
+import { Dismiss, type DismissOptions, type DismissInterface } from 'flowbite';
 
 import { DISMISS_EVENTS } from '$assets/types/constants/dismiss';
 
@@ -9,7 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class DismissController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
-    eventPrefix: { type: String },
+    eventPrefix: String,
   };
 
   static targets = ['dismiss', 'trigger'];

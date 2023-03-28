@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Modal, type ModalOptions, type ModalInterface } from 'flowbite/dist/flowbite.turbo';
+import { Modal, type ModalOptions, type ModalInterface } from 'flowbite';
 
 import { MODAL_EVENTS } from '$types/constants/modal';
 
@@ -9,7 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class ModalController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
-    eventPrefix: { type: String },
+    eventPrefix: String,
   };
 
   static targets = ['modal'];

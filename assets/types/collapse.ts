@@ -1,4 +1,4 @@
-import type { CollapseInterface } from 'flowbite/dist/flowbite.turbo';
+import type { CollapseInterface } from 'flowbite';
 
 export interface CollapseEventDetails {
   collapse: CollapseInterface | null;

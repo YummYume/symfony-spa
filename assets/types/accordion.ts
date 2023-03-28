@@ -1,4 +1,4 @@
-import type { AccordionInterface } from 'flowbite/dist/flowbite.turbo';
+import type { AccordionInterface } from 'flowbite';
 
 export interface AccordionEventDetails {
   accordion: AccordionInterface | null;

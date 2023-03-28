@@ -1,4 +1,4 @@
-import type { CarouselInterface } from 'flowbite/dist/flowbite.turbo';
+import type { CarouselInterface } from 'flowbite';
 
 export interface CarouselEventDetails {
   carousel: CarouselInterface | null;

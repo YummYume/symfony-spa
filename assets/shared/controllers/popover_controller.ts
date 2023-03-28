@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Popover, type PopoverOptions, type PopoverInterface } from 'flowbite/dist/flowbite.turbo';
+import { Popover, type PopoverOptions, type PopoverInterface } from 'flowbite';
 
 import { POPOVER_EVENTS } from '$assets/types/constants/popover';
 
@@ -9,7 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class PopoverController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
-    eventPrefix: { type: String },
+    eventPrefix: String,
   };
 
   static targets = ['popover', 'trigger'];

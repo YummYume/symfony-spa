@@ -1,4 +1,4 @@
-import type { TooltipInterface } from 'flowbite/dist/flowbite.turbo';
+import type { TooltipInterface } from 'flowbite';
 
 export interface TooltipEventDetails {
   tooltip: TooltipInterface | null;

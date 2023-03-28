@@ -1,4 +1,4 @@
-import type { TabsInterface } from 'flowbite/dist/flowbite.turbo';
+import type { TabsInterface } from 'flowbite';
 
 export interface TabsEventDetails {
   tabs: TabsInterface | null;

@@ -1,4 +1,4 @@
-import type { ModalInterface } from 'flowbite/dist/flowbite.turbo';
+import type { ModalInterface } from 'flowbite';
 
 export interface ModalEventDetails {
   modal: ModalInterface | null;

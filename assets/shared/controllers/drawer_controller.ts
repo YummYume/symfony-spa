@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Drawer, type DrawerOptions, type DrawerInterface } from 'flowbite/dist/flowbite.turbo';
+import { Drawer, type DrawerOptions, type DrawerInterface } from 'flowbite';
 
 import { DRAWER_EVENTS } from '$assets/types/constants/drawer';
 
@@ -9,7 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class DrawerController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
-    eventPrefix: { type: String },
+    eventPrefix: String,
   };
 
   static targets = ['drawer'];

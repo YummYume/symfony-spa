@@ -1,5 +1,5 @@
 import { ActionEvent, Controller } from '@hotwired/stimulus';
-import { Accordion, type AccordionOptions, type AccordionInterface } from 'flowbite/dist/flowbite.turbo';
+import { Accordion, type AccordionOptions, type AccordionInterface } from 'flowbite';
 
 import { ACCORDION_EVENTS } from '$types/constants/accordion';
 
@@ -9,7 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class AccordionController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
-    eventPrefix: { type: String },
+    eventPrefix: String,
   };
 
   static targets = ['item', 'target', 'icon'];

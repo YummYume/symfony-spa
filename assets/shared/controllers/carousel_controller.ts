@@ -1,5 +1,5 @@
 import { ActionEvent, Controller } from '@hotwired/stimulus';
-import { Carousel, type CarouselOptions, type CarouselInterface } from 'flowbite/dist/flowbite.turbo';
+import { Carousel, type CarouselOptions, type CarouselInterface } from 'flowbite';
 
 import { CAROUSEL_EVENTS } from '$assets/types/constants/carousel';
 
@@ -9,7 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class CarouselController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
-    eventPrefix: { type: String },
+    eventPrefix: String,
   };
 
   static targets = ['item'];

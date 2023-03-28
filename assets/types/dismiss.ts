@@ -1,4 +1,4 @@
-import type { DismissInterface } from 'flowbite/dist/flowbite.turbo';
+import type { DismissInterface } from 'flowbite';
 
 export interface DismissEventDetails {
   dismiss: DismissInterface | null;
