@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Tooltip, type TooltipOptions, type TooltipInterface } from 'flowbite';
+import { Tooltip, type TooltipOptions, type TooltipInterface } from 'flowbite/dist/flowbite.turbo';
 
 import { TOOLTIP_EVENTS } from '$assets/types/constants/tooltip';
 

@@ -1,4 +1,4 @@
-import type { DropdownInterface } from 'flowbite';
+import type { DropdownInterface } from 'flowbite/dist/flowbite.turbo';
 
 export interface DropdownEventDetails {
   dropdown: DropdownInterface | null;

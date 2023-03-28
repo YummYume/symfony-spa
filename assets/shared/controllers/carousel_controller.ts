@@ -1,5 +1,5 @@
 import { ActionEvent, Controller } from '@hotwired/stimulus';
-import { Carousel, type CarouselOptions, type CarouselInterface } from 'flowbite';
+import { Carousel, type CarouselOptions, type CarouselInterface } from 'flowbite/dist/flowbite.turbo';
 
 import { CAROUSEL_EVENTS } from '$assets/types/constants/carousel';
 

@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Popover, type PopoverOptions, type PopoverInterface } from 'flowbite';
+import { Popover, type PopoverOptions, type PopoverInterface } from 'flowbite/dist/flowbite.turbo';
 
 import { POPOVER_EVENTS } from '$assets/types/constants/popover';
 

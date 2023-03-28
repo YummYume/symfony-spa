@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Modal, type ModalOptions, type ModalInterface } from 'flowbite';
+import { Modal, type ModalOptions, type ModalInterface } from 'flowbite/dist/flowbite.turbo';
 
 import { MODAL_EVENTS } from '$types/constants/modal';
 

@@ -1,4 +1,4 @@
-import type { DrawerInterface } from 'flowbite';
+import type { DrawerInterface } from 'flowbite/dist/flowbite.turbo';
 
 export interface DrawerEventDetails {
   drawer: DrawerInterface | null;

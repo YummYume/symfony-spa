@@ -1,5 +1,5 @@
 declare module 'stimulus-notification' {
-  import { ControllerConstructor } from '@hotwired/stimulus';
+  import type { ControllerConstructor } from '@hotwired/stimulus';
 
   const content: ControllerConstructor;
 
@@ -7,9 +7,13 @@ declare module 'stimulus-notification' {
 }
 
 declare module '@symfony/stimulus-bridge/lazy-controller-loader?lazy=true!*' {
-  import { ControllerConstructor } from '@hotwired/stimulus';
+  import type { ControllerConstructor } from '@hotwired/stimulus';
 
   const content: ControllerConstructor;
 
   export default content;
+}
+
+declare module 'flowbite/dist/flowbite.turbo' {
+  export * from 'flowbite';
 }

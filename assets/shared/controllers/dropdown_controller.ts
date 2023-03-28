@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dropdown, type DropdownOptions, type DropdownInterface } from 'flowbite';
+import { Dropdown, type DropdownOptions, type DropdownInterface } from 'flowbite/dist/flowbite.turbo';
 
 import { DROPDOWN_EVENTS } from '$assets/types/constants/dropdown';
 

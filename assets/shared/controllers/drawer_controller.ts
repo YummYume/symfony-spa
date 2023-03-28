@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Drawer, type DrawerOptions, type DrawerInterface } from 'flowbite';
+import { Drawer, type DrawerOptions, type DrawerInterface } from 'flowbite/dist/flowbite.turbo';
 
 import { DRAWER_EVENTS } from '$assets/types/constants/drawer';
 

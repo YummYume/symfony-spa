@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dismiss, type DismissOptions, type DismissInterface } from 'flowbite';
+import { Dismiss, type DismissOptions, type DismissInterface } from 'flowbite/dist/flowbite.turbo';
 
 import { DISMISS_EVENTS } from '$assets/types/constants/dismiss';
 
