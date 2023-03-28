@@ -1,5 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
-import { Modal, type ModalOptions } from 'flowbite';
+import { Modal, type ModalOptions, type ModalInterface } from 'flowbite';
+
+import { MODAL_EVENTS } from '$types/constants/modal';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
 
@@ -7,6 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class ModalController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
+    eventPrefix: { type: String },
   };
 
   static targets = ['modal'];
@@ -15,19 +18,29 @@ export default class ModalController extends Controller<HTMLElement> {
 
   declare readonly hasOptionsValue: boolean;
 
+  declare eventPrefixValue: string;
+
+  declare readonly hasEventPrefixValue: boolean;
+
   declare readonly modalTarget: HTMLElement;
 
   declare readonly hasModalTarget: boolean;
 
-  private modal: Modal | null = null;
+  private target = this.element;
+
+  private eventPrefix: string | undefined = undefined;
+
+  private modal: ModalInterface | null = null;
 
   connect() {
-    this.modal = new Modal(this.hasModalTarget ? this.modalTarget : this.element, this.optionsValue);
+    this.target = this.hasModalTarget ? this.modalTarget : this.element;
+    this.eventPrefix = this.hasEventPrefixValue ? this.eventPrefixValue : undefined;
+    this.modal = new Modal(this.target, { ...this.defaultValues, ...this.optionsValue });
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
   }
 
-  disconnect(): void {
+  disconnect() {
     document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
@@ -55,6 +68,26 @@ export default class ModalController extends Controller<HTMLElement> {
     this.modal.toggle();
   }
 
+  isHidden() {
+    if (!this.modal) {
+      return true;
+    }
+
+    return this.modal.isHidden();
+  }
+
+  isVisible() {
+    if (!this.modal) {
+      return false;
+    }
+
+    return this.modal.isVisible();
+  }
+
+  isInitialized() {
+    return !!this.modal;
+  }
+
   private beforeCache = () => {
     if (!this.modal) {
       return;
@@ -62,4 +95,30 @@ export default class ModalController extends Controller<HTMLElement> {
 
     this.modal.hide();
   };
+
+  get defaultValues(): ModalOptions {
+    return {
+      onHide: () => {
+        this.dispatch(MODAL_EVENTS.HIDE, {
+          target: this.target,
+          detail: { modal: this.modal },
+          prefix: this.eventPrefix,
+        });
+      },
+      onShow: () => {
+        this.dispatch(MODAL_EVENTS.SHOW, {
+          target: this.target,
+          detail: { modal: this.modal },
+          prefix: this.eventPrefix,
+        });
+      },
+      onToggle: () => {
+        this.dispatch(MODAL_EVENTS.TOGGLE, {
+          target: this.target,
+          detail: { modal: this.modal },
+          prefix: this.eventPrefix,
+        });
+      },
+    };
+  }
 }

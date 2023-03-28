@@ -3432,13 +3432,6 @@ flowbite@^1.6.4:
     "@popperjs/core" "^2.9.3"
     mini-svg-data-uri "^1.4.3"
 
-focus-trap@^7.2.0:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.3.1.tgz#417c98e5f1ab94e717d31f1bafa2da45dabcd65f"
-  integrity sha512-bX/u4FJ+F0Pp6b/8Q9W8Br/JaLJ7rrhOJAzai9JU8bh4BPdOjEATy4pxHcbBBxFjPN4d1oHy7/KqknEdOetm9w==
-  dependencies:
-    tabbable "^6.1.1"
-
 follow-redirects@^1.0.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
@@ -6449,11 +6442,6 @@ synckit@^0.8.4:
   dependencies:
     "@pkgr/utils" "^2.3.1"
     tslib "^2.5.0"
-
-tabbable@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.1.1.tgz#40cfead5ed11be49043f04436ef924c8890186a0"
-  integrity sha512-4kl5w+nCB44EVRdO0g/UGoOp3vlwgycUVtkk/7DPyeLZUCuNFFKCFG6/t/DgHLrUPHjrZg6s5tNm+56Q2B0xyg==
 
 tailwindcss@^3, tailwindcss@^3.2.4:
   version "3.2.7"

@@ -1,5 +1,7 @@
 import { ActionEvent, Controller } from '@hotwired/stimulus';
-import { Carousel, type CarouselOptions } from 'flowbite';
+import { Carousel, type CarouselOptions, type CarouselInterface } from 'flowbite';
+
+import { CAROUSEL_EVENTS } from '$assets/types/constants/carousel';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
 
@@ -7,17 +9,18 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class CarouselController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
+    eventPrefix: { type: String },
   };
 
-  static targets = ['carousel', 'item'];
+  static targets = ['item'];
 
   declare optionsValue: CarouselOptions;
 
   declare readonly hasOptionsValue: boolean;
 
-  declare readonly carouselTarget: HTMLElement;
+  declare eventPrefixValue: string;
 
-  declare readonly hasCarouselTarget: boolean;
+  declare readonly hasEventPrefixValue: boolean;
 
   declare readonly itemTarget: HTMLElement;
 
@@ -25,15 +28,21 @@ export default class CarouselController extends Controller<HTMLElement> {
 
   declare readonly hasItemTarget: boolean;
 
-  private carousel: Carousel | null = null;
+  private eventPrefix: string | undefined = undefined;
+
+  private carousel: CarouselInterface | null = null;
 
   connect() {
-    this.carousel = new Carousel(this.itemTargets.map((item, position) => ({ el: item, position })), this.optionsValue);
+    this.eventPrefix = this.hasEventPrefixValue ? this.eventPrefixValue : undefined;
+    this.carousel = new Carousel(
+      this.itemTargets.map((item, position) => ({ el: item, position })),
+      { ...this.defaultValues, ...this.optionsValue },
+    );
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
   }
 
-  disconnect(): void {
+  disconnect() {
     document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
@@ -79,6 +88,18 @@ export default class CarouselController extends Controller<HTMLElement> {
     this.carousel.cycle();
   }
 
+  isVisible(position: number) {
+    if (!this.carousel) {
+      return false;
+    }
+
+    return this.carousel.getItem(position);
+  }
+
+  isInitialized() {
+    return !!this.carousel;
+  }
+
   private beforeCache = () => {
     if (!this.carousel) {
       return;
@@ -86,4 +107,30 @@ export default class CarouselController extends Controller<HTMLElement> {
 
     this.carousel.slideTo(0);
   };
+
+  get defaultValues(): CarouselOptions {
+    return {
+      onNext: () => {
+        this.dispatch(CAROUSEL_EVENTS.NEXT, {
+          target: this.element,
+          detail: { carousel: this.carousel },
+          prefix: this.eventPrefix,
+        });
+      },
+      onPrev: () => {
+        this.dispatch(CAROUSEL_EVENTS.PREV, {
+          target: this.element,
+          detail: { carousel: this.carousel },
+          prefix: this.eventPrefix,
+        });
+      },
+      onChange: () => {
+        this.dispatch(CAROUSEL_EVENTS.CHANGE, {
+          target: this.element,
+          detail: { carousel: this.carousel },
+          prefix: this.eventPrefix,
+        });
+      },
+    };
+  }
 }

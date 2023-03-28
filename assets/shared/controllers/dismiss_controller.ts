@@ -1,5 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dismiss, type DismissOptions } from 'flowbite';
+import { Dismiss, type DismissOptions, type DismissInterface } from 'flowbite';
+
+import { DISMISS_EVENTS } from '$assets/types/constants/dismiss';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
 
@@ -7,6 +9,7 @@ import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/valu
 export default class DismissController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
+    eventPrefix: { type: String },
   };
 
   static targets = ['dismiss', 'trigger'];
@@ -14,6 +17,10 @@ export default class DismissController extends Controller<HTMLElement> {
   declare optionsValue: DismissOptions;
 
   declare readonly hasOptionsValue: boolean;
+
+  declare eventPrefixValue: string;
+
+  declare readonly hasEventPrefixValue: boolean;
 
   declare readonly dismissTarget: HTMLElement;
 
@@ -23,19 +30,25 @@ export default class DismissController extends Controller<HTMLElement> {
 
   declare readonly hasTriggerTarget: boolean;
 
-  private dismiss: Dismiss | null = null;
+  private target = this.element;
+
+  private eventPrefix: string | undefined = undefined;
+
+  private dismiss: DismissInterface | null = null;
 
   connect() {
+    this.target = this.hasDismissTarget ? this.dismissTarget : this.element;
+    this.eventPrefix = this.hasEventPrefixValue ? this.eventPrefixValue : undefined;
     this.dismiss = new Dismiss(
-      this.hasDismissTarget ? this.dismissTarget : this.element,
+      this.target,
       this.hasTriggerTarget ? this.triggerTarget : undefined,
-      this.optionsValue,
+      { ...this.defaultValues, ...this.optionsValue },
     );
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
   }
 
-  disconnect(): void {
+  disconnect() {
     document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
@@ -47,6 +60,10 @@ export default class DismissController extends Controller<HTMLElement> {
     this.dismiss.hide();
   }
 
+  isInitialized() {
+    return !!this.dismiss;
+  }
+
   private beforeCache = () => {
     if (!this.dismiss) {
       return;
@@ -54,4 +71,16 @@ export default class DismissController extends Controller<HTMLElement> {
 
     this.dismiss.hide();
   };
+
+  get defaultValues(): DismissOptions {
+    return {
+      onHide: () => {
+        this.dispatch(DISMISS_EVENTS.HIDE, {
+          target: this.target,
+          detail: { dismiss: this.dismiss },
+          prefix: this.eventPrefix,
+        });
+      },
+    };
+  }
 }
