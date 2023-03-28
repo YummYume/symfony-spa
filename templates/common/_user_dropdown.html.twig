@@ -1,33 +1,62 @@
 {% trans_default_domain "messages" %}
 
 {% if app.user %}
-    {% component dropdown with { permanent: permanent ?? true } %}
-    {% block button %}
-        {% component button with { circle: true, ariaLabel: "common.account_menu"|trans } %}
-        {% block content %}
-            {{ component("avatar", { user: app.user, permanent, id: "user-picture" }) }}
-        {% endblock %}
-        {% endcomponent %}
-    {% endblock %}
-
-    {% block items %}
-        <li class="menu-title select-none">
-            <span>{{ "common.my_account"|trans }}</span>
-        </li>
-        <li><a href="{{ path("app_profile_show", { slug: app.user.profile.slug }) }}">{{ "common.my_profile"|trans }}</a></li>
-        <li><a href="{{ path("app_edit_profile") }}">{{ "common.account_settings"|trans }}</a></li>
-        {% if is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
-            <li class="menu-title select-none">
-                <span>{{ "common.admin"|trans }}</span>
+    <button type="button" class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+        <span class="sr-only">Open user menu</span>
+        {{ component("avatar", { user: app.user, permanent, id: "user-picture", small: true }) }}
+    </button>
+    <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown">
+        <div class="py-3 px-4">
+            <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ app.user.profile.username }}</span>
+            <span class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">{{ app.user.email }}</span>
+        </div>
+        <ul class="py-1 font-light text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
+            <li>
+                <a
+                    class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    href="{{ path("app_profile_show", { slug: app.user.profile.slug }) }}"
+                >
+                    {{ component('icon', { class: 'h-5 w-5 mr-2 text-gray-400', icon: 'user-circle' }) }}
+                    {{ "common.my_profile"|trans }}
+                </a>
             </li>
-            <li><a href="{{ path("admin_homepage") }}">{{ "common.admin"|trans }}</a></li>
+            <li>
+                <a
+                    class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    href="{{ path("app_edit_profile") }}"
+                >
+                    {{ component('icon', { class: 'h-5 w-5 mr-2 text-gray-400', icon: 'cog' }) }}
+                    {{ "common.account_settings"|trans }}
+                </a>
+            </li>
+        </ul>
+
+        {% if is_granted(constant("App\\Enum\\UserRoleEnum::Admin").value) %}
+            <ul class="py-1 font-light text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
+                <li>
+                    <a
+                        class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        href="{{ path("admin_homepage") }}"
+                    >
+                        {{ component('icon', { class: 'h-5 w-5 mr-2 text-gray-400', icon: 'wrench' }) }}
+                        {{ "common.admin"|trans }}
+                    </a>
+                </li>
+            </ul>
         {% endif %}
-        <li class="menu-title select-none">
-            <span>{{ "common.logout"|trans }}</span>
-        </li>
-        <li><a href="{{ path("security_logout") }}">{{ "common.logout"|trans }}</a></li>
-    {% endblock %}
-    {% endcomponent %}
+
+        <ul class="py-1 font-light text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
+            <li>
+                <a
+                    class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    href="{{ path("security_logout") }}"
+                >
+                    {{ component('icon', { class: 'h-5 w-5 mr-2 text-gray-400', icon: 'log-out' }) }}
+                    {{ "common.logout"|trans }}
+                </a>
+            </li>
+        </ul>
+    </div>
 {% else %}
     {% component dropdown %}
     {% block button %}

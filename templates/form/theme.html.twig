@@ -37,8 +37,8 @@
             data-action="password-visibility#toggle"
             aria-label="{{ "common.show_password"|trans }}"
         >
-            {% include "icon/eye.html.twig" only %}
-            {% include "icon/eye_slash.html.twig" with { class: "hidden" } only %}
+            {{ component('icon', { icon: 'eye' }) }}
+            {{ component('icon', { icon: 'eye_slash', class: "hidden" }) }}
         </button>
     </div>
 {%- endblock password_widget -%}

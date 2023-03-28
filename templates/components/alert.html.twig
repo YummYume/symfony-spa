@@ -6,7 +6,9 @@
     data-transition-leave-to="opacity-0 translate-x-0"
     class="alert-{{ type }} alert hidden transform flex-row items-center shadow-lg transition duration-1000"
     role="alert">
-    <span>{% include "icon/#{type}.html.twig" %}</span>
+    <span>
+        {{ component('icon', { icon: '#{type}' }) }}
+    </span>
 
     <span>{{ message }}</span>
     <button class="ml-auto" data-action="notification#hide" aria-label="{{ "common.close"|trans }}">

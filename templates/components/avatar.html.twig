@@ -1,10 +1,9 @@
 {% set hasPicture = user.profile.picture.fileName|default(null) %}
 
-<div class="avatar {{ user and not hasPicture ? "placeholder" }} {{ class }}">
+<div class="flex overflow-hidden rounded-full {{ small ? 'h-8 w-8' : 'h-52 w-52' }} {{ user and not hasPicture ? "placeholder" }} {{ class }}">
     {% if user %}
         <div
             {% if id %}id="{{ id }}"{% endif %}
-            class="{{ small ? "w-10 rounded-full" : "h-48 w-48" }} {{ hasPicture ? "bg-neutral-focus text-neutral-content" }}"
             {% if id and permanent %}data-turbo-permanent{% endif %}
         >
             {% if hasPicture %}
@@ -15,8 +14,8 @@
                             src: vich_uploader_asset(user.profile.picture, "file"),
                             filter: small ? "avatar_small" : "avatar",
                             alt: "user.profile.picture"|trans({ username: user.profile.username }),
-                            width: small ? 48 : 200,
-                            height: small ? 48 : 200
+                            width: small ? 32 : 208,
+                            height: small ? 32 : 208
                         }
                     )
                 }}

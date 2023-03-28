@@ -1,7 +1,7 @@
 {% if sortable == 'sortable' %}
-  {% include 'icon/arrow_up_down.html.twig' %}
+  {{ component('icon', { icon: 'arrow_up_down' }) }}
 {% elseif sortable == 'asc' %}
-  {% include 'icon/arrow_down.html.twig' %}
+  {{ component('icon', { icon: 'arrow_down' }) }}
 {% elseif sortable == 'desc' %}
-  {% include 'icon/arrow_up.html.twig' %}
+  {{ component('icon', { icon: 'arrow_up' }) }}
 {% endif %}

@@ -4,8 +4,9 @@
             <a class="btn !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
                 data-turbo-frame="table_crud"
                 href="{{ path(route, query|merge({ (pageParameterName): first })) }}"
-                aria-label="{{ "common.first_page"|trans({ number: first }) }}">
-                {% include "icon/chevron_double_left.html.twig" %}
+                aria-label="{{ "common.first_page"|trans({ number: first }) }}"
+            >
+                {{ component('icon', { icon: 'chevron_double_left' }) }}
             </a>
         {% endif %}
 
@@ -13,8 +14,9 @@
             <a class="btn rounded-none !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
                 data-turbo-frame="table_crud"
                 href="{{ path(route, query|merge({ (pageParameterName): previous })) }}"
-                aria-label="{{ "common.previous_page"|trans({ number: previous }) }}">
-                {% include "icon/chevron_left.html.twig" %}
+                aria-label="{{ "common.previous_page"|trans({ number: previous }) }}"
+            >
+                {{ component('icon', { icon: 'chevron_left' }) }}
             </a>
         {% endif %}
 
@@ -23,7 +25,8 @@
                 <a class="btn rounded-none !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
                     data-turbo-frame="table_crud"
                     href="{{ path(route, query|merge({ (pageParameterName): page })) }}"
-                    aria-label="{{ "common.page_number"|trans({ number: page }) }}">
+                    aria-label="{{ "common.page_number"|trans({ number: page }) }}"
+                >
                     {{ page }}
                 </a>
             {% else %}
@@ -35,8 +38,9 @@
             <a class="btn rounded-none !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
                 data-turbo-frame="table_crud"
                 href="{{ path(route, query|merge({ (pageParameterName): next })) }}"
-                aria-label="{{ "common.next_page"|trans({ number: next }) }}">
-                {% include "icon/chevron_right.html.twig" %}
+                aria-label="{{ "common.next_page"|trans({ number: next }) }}"
+            >
+                {{ component('icon', { icon: 'chevron_right' }) }}
             </a>
         {% endif %}
 
@@ -45,7 +49,7 @@
                 data-turbo-frame="table_crud"
                 href="{{ path(route, query|merge({ (pageParameterName): last })) }}"
                 aria-label="{{ "common.last_page"|trans({ number: last }) }}">
-                {% include "icon/chevron_double_right.html.twig" %}
+                {{ component('icon', { icon: 'chevron_double_right' }) }}
             </a>
         {% endif %}
     </div>

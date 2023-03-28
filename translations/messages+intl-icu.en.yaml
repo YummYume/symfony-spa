@@ -1,7 +1,7 @@
 ## Common
 common.app_name: AppName
 common.description: Welcome to MyApp!
-common.login: Login
+common.login: Sign in
 common.logout: Logout
 common.register: Register
 common.save: Save
@@ -82,11 +82,11 @@ page.register.description: Register an account to access all the functionalities
 page.register.agree_terms: I agree to the terms of use
 
 # Login
-page.login.title: Login
+page.login.title: Sign in
 page.login.description: Log in with your account to MyApp.
-page.login.forgot_password: Forgot your password?
+page.login.forgot_password: Forgot password?
 page.login.remember_me: Remember me
-page.login.no_account: No account yet? Click here to register.
+page.login.no_account: Don’t have an account yet?.
 
 # Edit profile
 page.edit_profile.title: Account settings

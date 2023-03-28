@@ -22,11 +22,11 @@
 >
     {% if icon or content %}
         {% if icon and iconPosition == "left" %}
-            {% include "icon/#{icon}.html.twig" %}
+            {{ component('icon', { icon: '#{icon}' }) }}
         {% endif %}
         {{ content }}
         {% if icon and iconPosition == "right" %}
-            {% include "icon/#{icon}.html.twig" %}
+            {{ component('icon', { icon: '#{icon}' }) }}
         {% endif %}
     {% else %}
         {% block content %}

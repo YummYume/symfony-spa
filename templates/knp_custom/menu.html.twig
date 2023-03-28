@@ -17,7 +17,10 @@
 {% endblock %}
 
 {% block label %}
-    {% if item.extra("icon") %}{% include "icon/" ~ item.extra("icon") ~ ".html.twig" %}{% endif %}
+    {% if item.extra("icon") %}
+        {{ component('icon', { icon: item.extra("icon") }) }}
+    {% endif %}
+
     <span class="{{ item.extra("label_class") ?? "hidden md:block" }}">
         {% if options.allow_safe_labels and item.getExtra("safe_label", false) %}
             {{ label|sanitize_html }}

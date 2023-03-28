@@ -4,10 +4,10 @@
     <div class="btn-group mx-auto">
         {% if page != 1 %}
             <a class="btn" href="{{ path(path.route, path.params|merge({ (path.pageParam): 1 })) }}" aria-label="{{ "common.first_page"|trans({ number: 1 }) }}">
-                {% include "icon/chevron_double_left.html.twig" %}
+                {{ component('icon', { icon: 'chevron_double_left' }) }}
             </a>
             <a class="btn" href="{{ path(path.route, path.params|merge({ (path.pageParam): page - 1 })) }}" aria-label="{{ "common.previous_page"|trans({ number: page - 1 }) }}">
-                {% include "icon/chevron_left.html.twig" %}
+                {{ component('icon', { icon: 'chevron_left' }) }}
             </a>
         {% endif %}
 
@@ -39,10 +39,10 @@
 
         {% if page < pages %}
             <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): page + 1 })) }}" aria-label="{{ "common.next_page"|trans({ number: page + 1 }) }}">
-                {% include "icon/chevron_right.html.twig" %}
+                {{ component('icon', { icon: 'chevron_right' }) }}
             </a>
             <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): pages })) }}" aria-label="{{ "common.last_page"|trans({ number: pages }) }}">
-                {% include "icon/chevron_double_right.html.twig" %}
+                {{ component('icon', { icon: 'chevron_double_right' }) }}
             </a>
         {% endif %}
     </div>
