@@ -23,6 +23,12 @@ export default class ModalController extends Controller<HTMLElement> {
 
   connect() {
     this.modal = new Modal(this.hasModalTarget ? this.modalTarget : this.element, this.optionsValue);
+
+    document.addEventListener('turbo:before-cache', this.beforeCache);
+  }
+
+  disconnect(): void {
+    document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
   show() {
@@ -48,4 +54,12 @@ export default class ModalController extends Controller<HTMLElement> {
 
     this.modal.toggle();
   }
+
+  private beforeCache = () => {
+    if (!this.modal) {
+      return;
+    }
+
+    this.modal.hide();
+  };
 }

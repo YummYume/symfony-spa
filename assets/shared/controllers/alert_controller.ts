@@ -31,6 +31,12 @@ export default class DismissController extends Controller<HTMLElement> {
       this.hasTriggerTarget ? this.triggerTarget : undefined,
       this.optionsValue,
     );
+
+    document.addEventListener('turbo:before-cache', this.beforeCache);
+  }
+
+  disconnect(): void {
+    document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
   hide() {
@@ -40,4 +46,12 @@ export default class DismissController extends Controller<HTMLElement> {
 
     this.dismiss.hide();
   }
+
+  private beforeCache = () => {
+    if (!this.dismiss) {
+      return;
+    }
+
+    this.dismiss.hide();
+  };
 }

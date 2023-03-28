@@ -29,6 +29,12 @@ export default class CarouselController extends Controller<HTMLElement> {
 
   connect() {
     this.carousel = new Carousel(this.itemTargets.map((item, position) => ({ el: item, position })), this.optionsValue);
+
+    document.addEventListener('turbo:before-cache', this.beforeCache);
+  }
+
+  disconnect(): void {
+    document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
   next() {
@@ -72,4 +78,12 @@ export default class CarouselController extends Controller<HTMLElement> {
 
     this.carousel.cycle();
   }
+
+  private beforeCache = () => {
+    if (!this.carousel) {
+      return;
+    }
+
+    this.carousel.slideTo(0);
+  };
 }

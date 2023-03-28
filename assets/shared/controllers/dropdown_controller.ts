@@ -31,6 +31,12 @@ export default class DropdownController extends Controller<HTMLElement> {
       this.hasTriggerTarget ? this.triggerTarget : undefined,
       this.optionsValue,
     );
+
+    document.addEventListener('turbo:before-cache', this.beforeCache);
+  }
+
+  disconnect(): void {
+    document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
   show() {
@@ -56,4 +62,12 @@ export default class DropdownController extends Controller<HTMLElement> {
 
     this.dropdown.toggle();
   }
+
+  private beforeCache = () => {
+    if (!this.dropdown) {
+      return;
+    }
+
+    this.dropdown.hide();
+  };
 }

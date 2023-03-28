@@ -31,6 +31,12 @@ export default class PopoverController extends Controller<HTMLElement> {
       this.hasTriggerTarget ? this.triggerTarget : undefined,
       this.optionsValue,
     );
+
+    document.addEventListener('turbo:before-cache', this.beforeCache);
+  }
+
+  disconnect(): void {
+    document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
   show() {
@@ -56,4 +62,12 @@ export default class PopoverController extends Controller<HTMLElement> {
 
     this.popover.toggle();
   }
+
+  private beforeCache = () => {
+    if (!this.popover) {
+      return;
+    }
+
+    this.popover.hide();
+  };
 }

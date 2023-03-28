@@ -23,6 +23,12 @@ export default class DrawerController extends Controller<HTMLElement> {
 
   connect() {
     this.drawer = new Drawer(this.hasDrawerTarget ? this.drawerTarget : this.element, this.optionsValue);
+
+    document.addEventListener('turbo:before-cache', this.beforeCache);
+  }
+
+  disconnect(): void {
+    document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
   show() {
@@ -48,4 +54,12 @@ export default class DrawerController extends Controller<HTMLElement> {
 
     this.drawer.toggle();
   }
+
+  private beforeCache = () => {
+    if (!this.drawer) {
+      return;
+    }
+
+    this.drawer.hide();
+  };
 }
