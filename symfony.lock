@@ -476,6 +476,9 @@
     "symfonycasts/verify-email-bundle": {
         "version": "v1.13.0"
     },
+    "tales-from-a-dev/flowbite-bundle": {
+        "version": "v0.2.2"
+    },
     "twig/extra-bundle": {
         "version": "v3.5.0"
     },

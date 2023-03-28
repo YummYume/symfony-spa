@@ -50,6 +50,7 @@
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@hotwired/turbo": "^7.3.0",
     "@symfony/stimulus-bridge": "^3.2.1",
+    "flowbite": "^1.6.4",
     "focus-trap": "^7.2.0",
     "stimulus-notification": "^2.2.0",
     "stimulus-password-visibility": "^2.1.1",

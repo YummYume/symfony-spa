@@ -9,26 +9,12 @@ module.exports = {
     './src/Form/**/*Field.php',
     './src/Builder/**/*.php',
     './src/Entity/**/*.php',
+    './node_modules/flowbite/**/*.js',
+    './vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig',
   ],
   darkMode: 'class',
   theme: {
     extend: {},
-  },
-  daisyui: {
-    themes: [
-      {
-        light: {
-          ...require('daisyui/src/colors/themes')['[data-theme=light]'],
-          primary: '#10B981',
-          secondary: '#6366F1',
-        },
-        dark: {
-          ...require('daisyui/src/colors/themes')['[data-theme=dark]'],
-          primary: '#10B981',
-          secondary: '#6366F1',
-        },
-      },
-    ],
   },
   safelist: [
     'alert-error',
@@ -45,5 +31,5 @@ module.exports = {
     'rounded-lg',
     'rounded-3xl',
   ],
-  plugins: [require('daisyui')],
+  plugins: [require('flowbite/plugin')],
 };

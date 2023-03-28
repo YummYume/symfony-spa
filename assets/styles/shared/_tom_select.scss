@@ -1,40 +1,40 @@
-.ts-wrapper {
-    @apply ml-0 w-full;
-}
+// .ts-wrapper {
+//     @apply ml-0 w-full;
+// }
 
-.ts-control {
-    @apply rounded-lg
-    border-gray-300
-    bg-white
-    py-2
-    px-3
-    text-base
-    shadow-sm;
+// .ts-control {
+//     @apply rounded-lg
+//     border-gray-300
+//     bg-white
+//     py-2
+//     px-3
+//     text-base
+//     shadow-sm;
 
-    /* Add caret https://github.com/orchidjs/tom-select/discussions/384 */
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 0.5rem center;
-    background-repeat: no-repeat;
-    background-size: 1.5em 1.5em;
-}
+//     /* Add caret https://github.com/orchidjs/tom-select/discussions/384 */
+//     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+//     background-position: right 0.5rem center;
+//     background-repeat: no-repeat;
+//     background-size: 1.5em 1.5em;
+// }
 
-.ts-dropdown {
-    @apply rounded-md border border-t border-solid border-gray-300 text-base;
-}
+// .ts-dropdown {
+//     @apply rounded-md border border-t border-solid border-gray-300 text-base;
+// }
 
-.ts-dropdown [data-selectable].option:first-child {
-    @apply rounded-t-lg;
-}
+// .ts-dropdown [data-selectable].option:first-child {
+//     @apply rounded-t-lg;
+// }
 
-.ts-dropdown [data-selectable].option:last-child {
-    @apply rounded-b-lg;
-}
+// .ts-dropdown [data-selectable].option:last-child {
+//     @apply rounded-b-lg;
+// }
 
-.ts-dropdown .create:hover,
-.ts-dropdown .option:hover {
-    @apply bg-sky-50 text-sky-900;
-}
+// .ts-dropdown .create:hover,
+// .ts-dropdown .option:hover {
+//     @apply bg-sky-50 text-sky-900;
+// }
 
-.ts-dropdown .active {
-    @apply bg-gray-100 text-gray-900;
-}
+// .ts-dropdown .active {
+//     @apply bg-gray-100 text-gray-900;
+// }
