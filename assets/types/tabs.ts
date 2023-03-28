@@ -1,4 +1,4 @@
-import type { TabsInterface, TabItem } from 'flowbite';
+import type { TabsInterface, TabItem } from 'flowbite/lib/esm';
 
 export interface TabsEventDetails {
   tabs: TabsInterface;

@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
-import { Tooltip, type TooltipOptions, type TooltipInterface } from 'flowbite';
+import Tooltip from 'flowbite/lib/esm/components/tooltip';
 
 import { TOOLTIP_EVENTS } from '$assets/types/constants/tooltip';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { TooltipOptions, TooltipInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class TooltipController extends Controller<HTMLElement> {

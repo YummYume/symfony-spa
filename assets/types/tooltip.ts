@@ -1,4 +1,4 @@
-import type { TooltipInterface } from 'flowbite';
+import type { TooltipInterface } from 'flowbite/lib/esm';
 
 export interface TooltipEventDetails {
   tooltip: TooltipInterface;

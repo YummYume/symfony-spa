@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
-import { Drawer, type DrawerOptions, type DrawerInterface } from 'flowbite';
+import Drawer from 'flowbite/lib/esm/components/drawer';
 
 import { DRAWER_EVENTS } from '$assets/types/constants/drawer';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { DrawerOptions, DrawerInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class DrawerController extends Controller<HTMLElement> {

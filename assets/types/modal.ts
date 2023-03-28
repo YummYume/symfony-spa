@@ -1,4 +1,4 @@
-import type { ModalInterface } from 'flowbite';
+import type { ModalInterface } from 'flowbite/lib/esm';
 
 export interface ModalEventDetails {
   modal: ModalInterface;

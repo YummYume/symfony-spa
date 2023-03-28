@@ -1,4 +1,4 @@
-import type { CarouselInterface } from 'flowbite';
+import type { CarouselInterface } from 'flowbite/lib/esm';
 
 export interface CarouselEventDetails {
   carousel: CarouselInterface;

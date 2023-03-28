@@ -1,4 +1,4 @@
-import type { DrawerInterface } from 'flowbite';
+import type { DrawerInterface } from 'flowbite/lib/esm';
 
 export interface DrawerEventDetails {
   drawer: DrawerInterface;

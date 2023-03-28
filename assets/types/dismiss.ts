@@ -1,4 +1,4 @@
-import type { DismissInterface } from 'flowbite';
+import type { DismissInterface } from 'flowbite/lib/esm';
 
 export interface DismissEventDetails {
   dismiss: DismissInterface;

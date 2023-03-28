@@ -1,4 +1,4 @@
-import type { PopoverInterface } from 'flowbite';
+import type { PopoverInterface } from 'flowbite/lib/esm';
 
 export interface PopoverEventDetails {
   popover: PopoverInterface;

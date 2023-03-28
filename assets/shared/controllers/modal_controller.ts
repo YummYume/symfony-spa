@@ -1,18 +1,19 @@
 import { Controller } from '@hotwired/stimulus';
-import { Modal, type ModalOptions, type ModalInterface } from 'flowbite';
+import Modal from 'flowbite/lib/esm/components/modal';
 
 import { MODAL_EVENTS } from '$types/constants/modal';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { ModalOptions, ModalInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
-export default class ModalController extends Controller<HTMLElement> {
+export default class ModalPopupController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
     eventPrefix: String,
   };
 
-  static targets = ['modal'];
+  static targets = ['modal', 'focus'];
 
   declare optionsValue: ModalOptions;
 
@@ -25,6 +26,10 @@ export default class ModalController extends Controller<HTMLElement> {
   declare readonly modalTarget: HTMLElement;
 
   declare readonly hasModalTarget: boolean;
+
+  declare readonly focusTarget: HTMLElement;
+
+  declare readonly hasFocusTarget: boolean;
 
   private target = this.element;
 
@@ -50,6 +55,12 @@ export default class ModalController extends Controller<HTMLElement> {
     }
 
     this.modal.show();
+
+    if (!this.hasFocusTarget) {
+      return;
+    }
+
+    this.focusTarget.focus();
   }
 
   hide() {

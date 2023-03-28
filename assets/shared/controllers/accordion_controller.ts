@@ -1,9 +1,10 @@
 import { ActionEvent, Controller } from '@hotwired/stimulus';
-import { Accordion, type AccordionOptions, type AccordionInterface } from 'flowbite';
+import Accordion from 'flowbite/lib/esm/components/accordion';
 
 import { ACCORDION_EVENTS } from '$types/constants/accordion';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { AccordionOptions, AccordionInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class AccordionController extends Controller<HTMLElement> {

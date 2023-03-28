@@ -1,4 +1,4 @@
-import type { AccordionInterface, AccordionItem } from 'flowbite';
+import type { AccordionInterface, AccordionItem } from 'flowbite/lib/esm';
 
 export interface AccordionEventDetails {
   accordion: AccordionInterface;

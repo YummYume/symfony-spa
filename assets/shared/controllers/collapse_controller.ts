@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
-import { Collapse, type CollapseOptions, type CollapseInterface } from 'flowbite';
+import Collapse from 'flowbite/lib/esm/components/collapse';
 
 import { COLLAPSE_EVENTS } from '$assets/types/constants/collapse';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { CollapseOptions, CollapseInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class CollapseController extends Controller<HTMLElement> {

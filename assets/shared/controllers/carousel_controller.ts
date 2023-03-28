@@ -1,9 +1,10 @@
 import { ActionEvent, Controller } from '@hotwired/stimulus';
-import { Carousel, type CarouselOptions, type CarouselInterface } from 'flowbite';
+import Carousel from 'flowbite/lib/esm/components/carousel';
 
 import { CAROUSEL_EVENTS } from '$assets/types/constants/carousel';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { CarouselOptions, CarouselInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class CarouselController extends Controller<HTMLElement> {

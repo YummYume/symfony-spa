@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dial, type DialOptions, type DialInterface } from 'flowbite';
+import Dial from 'flowbite/lib/esm/components/dial';
 
 import { DIAL_EVENTS } from '$assets/types/constants/dial';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { DialOptions, DialInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class DialController extends Controller<HTMLElement> {

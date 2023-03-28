@@ -1,4 +1,4 @@
-import type { CollapseInterface } from 'flowbite';
+import type { CollapseInterface } from 'flowbite/lib/esm';
 
 export interface CollapseEventDetails {
   collapse: CollapseInterface;

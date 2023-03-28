@@ -1,9 +1,10 @@
 import { ActionEvent, Controller } from '@hotwired/stimulus';
-import { Tabs, type TabsOptions, type TabsInterface } from 'flowbite';
+import Tabs from 'flowbite/lib/esm/components/tabs';
 
 import { TABS_EVENTS } from '$assets/types/constants/tabs';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { TabsOptions, TabsInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class TabsController extends Controller<HTMLElement> {

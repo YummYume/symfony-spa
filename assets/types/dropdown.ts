@@ -1,4 +1,4 @@
-import type { DropdownInterface } from 'flowbite';
+import type { DropdownInterface } from 'flowbite/lib/esm';
 
 export interface DropdownEventDetails {
   dropdown: DropdownInterface;

@@ -1,4 +1,4 @@
-import type { DialInterface } from 'flowbite';
+import type { DialInterface } from 'flowbite/lib/esm';
 
 export interface DialEventDetails {
   dial: DialInterface;

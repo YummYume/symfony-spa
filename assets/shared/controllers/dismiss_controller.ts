@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dismiss, type DismissOptions, type DismissInterface } from 'flowbite';
+import Dismiss from 'flowbite/lib/esm/components/dismiss';
 
 import { DISMISS_EVENTS } from '$assets/types/constants/dismiss';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { DismissOptions, DismissInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class DismissController extends Controller<HTMLElement> {

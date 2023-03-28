@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
-import { Dropdown, type DropdownOptions, type DropdownInterface } from 'flowbite';
+import Dropdown from 'flowbite/lib/esm/components/dropdown';
 
 import { DROPDOWN_EVENTS } from '$assets/types/constants/dropdown';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { DropdownOptions, DropdownInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class DropdownController extends Controller<HTMLElement> {

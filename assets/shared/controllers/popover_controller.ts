@@ -1,9 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
-import { Popover, type PopoverOptions, type PopoverInterface } from 'flowbite';
+import Popover from 'flowbite/lib/esm/components/popover';
 
 import { POPOVER_EVENTS } from '$assets/types/constants/popover';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
+import type { PopoverOptions, PopoverInterface } from 'flowbite/lib/esm';
 
 /* stimulusFetch: 'lazy' */
 export default class PopoverController extends Controller<HTMLElement> {
