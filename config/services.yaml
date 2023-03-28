@@ -12,6 +12,7 @@ parameters:
     app.locales: en|fr
     app.public_dir: '%kernel.project_dir%/public'
     app.blur_default_fallback: '%env(BLUR_DEFAULT_FALLBACK)%'
+    app.no_picture_fallback: '%env(NO_PICTURE_FALLBACK)%'
     knp_menu.renderer.twig.options:
         currentClass: bg-primary rounded-lg text-white
 
@@ -61,6 +62,7 @@ services:
         bind:
             $publicDir: '%app.public_dir%'
             $fallback: '%app.blur_default_fallback%'
+            $redis: '@Redis'
 
     # Vich Uploader
     App\EventListener\UploadListener:

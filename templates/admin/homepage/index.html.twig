@@ -10,12 +10,20 @@
     {{ "page.homepage.description"|trans }}
 {% endblock %}
 
-{% block main_title %}
-    {{ "page.homepage.title"|trans }}
-{% endblock %}
-
 {% block main_body %}
-    <div class="flex">
-        {{ knp_menu_render("back_office", { template: knp_custom_menu }) }}
-    </div>
+    <turbo-frame id="table_crud" class="flex flex-col gap-4" data-turbo-action="advance">
+        <h1 class="text-center text-4xl">
+            {{ "page.homepage.title"|trans }}
+        </h1>
+
+        <div class="flex min-h-[28.5rem] flex-col gap-2 md:flex-row">
+            {{ knp_menu_render("back_office", { template: knp_custom_menu }) }}
+
+            <div class="flex-grow p-4">
+                <h3 class="text-center text-2xl">
+                    {{ "page.homepage.welcome"|trans }}
+                </h3>
+            </div>
+        </div>
+    </turbo-frame>
 {% endblock %}

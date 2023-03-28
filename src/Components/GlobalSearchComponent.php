@@ -38,7 +38,14 @@ final class GlobalSearchComponent
         ]);
 
         if (!empty($profiles['hits'])) {
-            $results['profiles'] = $profiles;
+            $results['profiles'] = [
+                'results' => $profiles,
+                'nameProperty' => 'username',
+                'descProperty' => 'description',
+                'slugProperty' => ['slug' => 'slug'],
+                'route' => 'app_profile_show',
+                'routeParam' => ['slug'],
+            ];
         }
 
         return $results;

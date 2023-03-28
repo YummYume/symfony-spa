@@ -2,7 +2,6 @@
 
 namespace App\Components;
 
-use App\Enum\ColorTypeEnum;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 use Symfony\UX\TwigComponent\Attribute\PostMount;
@@ -12,6 +11,9 @@ final class ButtonComponent
 {
     public const LEFT = 'left';
     public const RIGHT = 'right';
+
+    public const TARGET_SELF = '_self';
+    public const TARGET_BLANK = '_blank';
 
     public ?string $id = null;
 
@@ -31,6 +33,10 @@ final class ButtonComponent
 
     public bool $disabled = false;
 
+    public ?string $target = null;
+
+    public bool $externalLink = false;
+
     public string $class = '';
 
     public string $content = '';
@@ -41,7 +47,9 @@ final class ButtonComponent
 
     public string $iconPosition = self::RIGHT;
 
-    public string $variant = ColorTypeEnum::Primary->value;
+    public string $variant = 'primary';
+
+    public array $additionalProps = [];
 
     #[ExposeInTemplate]
     private bool $button = true;

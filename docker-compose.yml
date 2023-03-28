@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.9'
 
 services:
   nginx:
@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
+      - 3000:3000
     volumes:
       - ./public:/app/public
       - ./docker/dev/nginx/logs:/var/log/nginx
@@ -31,9 +32,11 @@ services:
       db:
         condition: service_healthy
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
       redis:
-        condition: service_started
+        condition: service_healthy
+      meilisearch:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD", "php", "-v" ]
       timeout: 30s
@@ -53,16 +56,15 @@ services:
       - 9090:9090
     depends_on:
       php:
-        condition: service_started
+        condition: service_healthy
     container_name: encore
 
   db:
     image: mariadb:10.10.2
     restart: unless-stopped
     container_name: db
-    # TODO look into it, seems to not work properly
-    # volumes:
-    #   - ./data/mysql:/var/lib/mysql/data
+    volumes:
+      - ./data/mysql:/var/lib/mysql
     environment:
       MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD:?err}"
     healthcheck:
@@ -95,14 +97,24 @@ services:
     image: rabbitmq:3-management
     restart: unless-stopped
     container_name: rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      timeout: 30s
+      interval: 2s
+      retries: 30
     ports:
       - 15672:15672
 
   redis:
     image: redis:7.0-alpine
     restart: unless-stopped
-    command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_AUTH:?err}"
+    command: "redis-server --save 20 1 --loglevel warning --maxmemory 100mb --maxmemory-policy allkeys-lru --requirepass ${REDIS_AUTH:?err}"
     container_name: redis
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      timeout: 30s
+      interval: 2s
+      retries: 30
     volumes:
       - ./data/cache/redis:/data
 
@@ -115,7 +127,7 @@ services:
       REDIS_HOSTS: "local:redis:6379:0:${REDIS_AUTH:?err}"
     depends_on:
       redis:
-        condition: service_started
+        condition: service_healthy
     ports:
       - "8081:8081"
 
@@ -123,16 +135,15 @@ services:
     image: dunglas/mercure
     restart: unless-stopped
     environment:
-      # Uncomment the following line to disable HTTPS
-      SERVER_NAME: ":80"
+      SERVER_NAME: ":3000"
       MERCURE_PUBLISHER_JWT_KEY: "${MERCURE_JWT_SECRET:?err}"
       MERCURE_SUBSCRIBER_JWT_KEY: "${MERCURE_JWT_SECRET:?err}"
+      MERCURE_EXTRA_DIRECTIVES: |
+        cors_origins http://localhost
+        use_forwarded_headers "1"
     # Uncomment the following line to enable the development mode
     command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev
     container_name: mercure
-    ports:
-      - 3000:80
-      # - 443:443
     volumes:
       - ./data/mercure/data:/data
       - ./data/mercure/config:/config
@@ -145,5 +156,10 @@ services:
       - 7700:7700
     volumes:
       - ./data/meilisearch:/meili_data
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:7700/health || exit 1
+      timeout: 30s
+      interval: 2s
+      retries: 30
     environment:
       MEILI_MASTER_KEY: "${MEILISEARCH_MASTER_KEY:?err}"

@@ -19,12 +19,27 @@ final class SearchController extends AbstractController
         $query = trim($request->get('q', ''));
         $page = (int) $request->get('p', 1);
         $type = SearchTypeEnum::tryFrom($request->get('t', SearchTypeEnum::Profiles->value)) ?? SearchTypeEnum::Profiles;
-        $searchClass = match ($type) {
-            SearchTypeEnum::Profiles => Profile::class,
-            default => Profile::class,
+
+        $searchAttributes = match ($type) {
+            SearchTypeEnum::Profiles => [
+                'class' => Profile::class,
+                'nameProperty' => 'username',
+                'descProperty' => 'description',
+                'slugProperty' => ['slug' => 'slug'],
+                'route' => 'app_profile_show',
+                'routeParam' => ['slug'],
+            ],
+            default => [
+                'class' => Profile::class,
+                'nameProperty' => 'username',
+                'descProperty' => 'description',
+                'slugProperty' => ['slug' => 'slug'],
+                'route' => 'app_profile_show',
+                'routeParam' => ['slug'],
+            ],
         };
 
-        $search = !empty($query) ? $searchService->rawSearch($searchClass, $query, [
+        $search = !empty($query) ? $searchService->rawSearch($searchAttributes['class'], $query, [
             ...SearchTypeEnum::getSearchOptions($type),
             'hitsPerPage' => 10,
             'page' => $page,
@@ -34,6 +49,7 @@ final class SearchController extends AbstractController
         return $this->render('search/index.html.twig', [
             'search' => $search,
             'type' => $type->value,
+            'attributes' => $searchAttributes,
         ]);
     }
 }

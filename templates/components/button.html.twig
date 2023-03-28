@@ -4,13 +4,21 @@
     class="{{ class }}"
     {% if button %}
         type="{{ submit ? "submit" : "button" }}"
+        {% if form %}form="{{ form }}"{% endif %}
     {% else %}
         href="{{ href }}"
+        {% if target %}target="{{ target }}"{% endif %}
+        {% if externalLink %}
+            rel="external noopener noreferrer"
+        {% endif %}
     {% endif %}
     {% if id %}id="{{ id }}"{% endif %}
-    {% if form %}form="{{ form }}"{% endif %}
     {% if disabled %}disabled{% endif %}
     {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+    {% for key, prop in additionalProps %}
+        {{ key }}="{{ prop }}"
+    {% endfor %}
+    {{ attributes }}
 >
     {% if icon or content %}
         {% if icon and iconPosition == "left" %}

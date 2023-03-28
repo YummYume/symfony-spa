@@ -1,6 +1,7 @@
 PWD=$(shell pwd)
 COMPOSE=docker compose
 COMPOSECI=$(COMPOSE) -f docker-compose.ci.yml
+COMPOSEPROD=$(COMPOSE) -f docker-compose.prod.yml --env-file .env.prod
 EXECPHP=$(COMPOSE) exec php
 EXECENCORE=$(COMPOSE) exec encore
 EXECREDIS=$(COMPOSE) exec redis
@@ -86,7 +87,7 @@ migration:
 	$(EXECPHP) php bin/console d:m:m -n --allow-no-migration --all-or-nothing
 
 migration-diff:
-	$(EXECPHP) php bin/console d:m:diff
+	$(EXECPHP) php bin/console make:migration
 
 fixtures:
 	$(EXECPHP) php bin/console d:f:l -n
@@ -215,3 +216,50 @@ dahl-component:
 		--to="./templates/components/$(if $(l),$(l),"")" \
 		-n="$(call lowercase, $(n))" \
 		--props '{"twigLocation":"$(l)","twigName":"$(n)"}'
+
+# n for name
+dahl-admin:
+	$(DAHL) run a-controller \
+		-n="$(call capitalize, $(n))" \
+		--props '{"name":"$(n)"}' \
+
+	$(DAHL) run a-template \
+		--to="./templates/admin/$(n)" \
+		--props '{"name":"$(n)"}' \
+
+	make perm
+
+dahl-admin-form:
+	$(DAHL) run a-form-edit \
+		--to="./templates/admin/$(n)" \
+		--props '{"name":"$(n)"}' \
+
+	$(DAHL) run a-form-content \
+		--to="./templates/admin/$(n)" \
+		--props '{"name":"$(n)"}' \
+
+	$(DAHL) run a-form-delete \
+		--to="./templates/admin/$(n)" \
+		--props '{"name":"$(n)"}' \
+
+	$(DAHL) run a-form \
+		--to="./templates/admin/$(n)" \
+		--props '{"name":"$(n)"}' \
+
+	make perm
+
+# Deploy
+deploy:
+	git fetch origin master
+	git reset --hard origin/master
+	$(COMPOSEPROD) build --no-cache --force-rm
+	$(COMPOSEPROD) up -d --remove-orphans --force-recreate
+	$(COMPOSEPROD) exec -e APP_ENV=prod -e APP_DEBUG=0 php php bin/console d:m:m -n --allow-no-migration --all-or-nothing
+	$(COMPOSEPROD) exec php yarn build
+	$(COMPOSEPROD) exec php yarn cache clean
+	$(COMPOSEPROD) exec -e APP_ENV=prod -e APP_DEBUG=0 php php bin/console cache:clear
+	$(COMPOSEPROD) exec -e APP_ENV=prod -e APP_DEBUG=0 php php bin/console cache:warmup
+	$(COMPOSEPROD) exec -e APP_ENV=prod -e APP_DEBUG=0 php composer dump-env prod
+	$(COMPOSEPROD) exec php chown -R www-data:www-data ./var/ ./public/media/
+	$(COMPOSEPROD) exec -e APP_ENV=prod -e APP_DEBUG=0 php php bin/console meili:create
+	$(COMPOSEPROD) exec -e APP_ENV=prod -e APP_DEBUG=0 php php bin/console meili:import

@@ -9,7 +9,7 @@ use Symfony\UX\TwigComponent\Attribute\PreMount;
 #[AsTwigComponent('image')]
 final class ImageComponent
 {
-    public string $src;
+    public ?string $src = null;
 
     public string $alt;
 
@@ -56,7 +56,7 @@ final class ImageComponent
         ;
 
         $resolver
-            ->setAllowedTypes('src', 'string')
+            ->setAllowedTypes('src', ['string', 'null'])
             ->setAllowedTypes('alt', 'string')
             ->setAllowedTypes('class', 'string')
             ->setAllowedTypes('filter', ['string', 'null'])

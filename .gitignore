@@ -1,4 +1,5 @@
 ###> symfony/framework-bundle ###
+/.env.prod
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -53,5 +54,11 @@ data/*
 ###< IDE ###
 
 ###> liip/imagine-bundle ###
-/public/media
+/public/media/*
 ###< liip/imagine-bundle ###
+
+###> Fixtures ###
+/src/DataFixtures/tmp
+###< Fixtures ###
+
+.idea

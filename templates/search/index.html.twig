@@ -26,51 +26,59 @@
             {{ component("button", { icon: "search", square: true, submit: true, ariaLabel: "common.global_search"|trans }) }}
         </div>
 
-        <turbo-frame data-turbo-action="advance" id="search-results">
+        <turbo-frame data-turbo-action="advance" id="search-results" class="relative">
             {% if search %}
-                <span class="label-text-alt">{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
+                <span class="label-text-alt absolute top-1 left-1">{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
             {% endif %}
 
-            <nav class="my-3">
-                {% set menuItem = knp_menu_get("global_search", [], { query: search.query ?? "" }) %}
-                {{ knp_menu_render(menuItem, { currentAsLink: false, template: knp_custom_menu }) }}
-            </nav>
+            <div class="mt-8 flex flex-col-reverse gap-5 md:flex-row">
+                <div class="grow">
+                    {% if search %}
+                        <div class="flex flex-col gap-6">
+                            {% for hit in search.hits %}
+                                {% set formatted = hit._formatted %}
+                                <a
+                                    href="{{ path(attributes.route, {}|merge(attributes.routeParam|reduce((acc, curr) => acc|merge({ (curr): formatted[attributes.slugProperty[curr]] }), {}))) }}"
+                                    data-turbo-frame="_top"
+                                >
+                                    <div class="card bg-base-200 shadow-lg transition-all hover:-translate-y-1 hover:bg-base-300 hover:shadow-xl">
+                                        <div class="card-body">
+                                            <h2 class="card-title gap-0">
+                                                {{ formatted[attributes.nameProperty]|sanitize_html("app.highlight_sanitizer") }}
+                                            </h2>
+                                            <p>
+                                                {{ (formatted[attributes.descProperty] ?? "")|sanitize_html("app.highlight_sanitizer") }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% else %}
+                                <p>
+                                    {{ "page.search.no_result"|trans }}
+                                </p>
+                            {% endfor %}
 
-            {% if search %}
-                <div class="flex flex-col gap-6">
-                    {% for hit in search.hits %}
-                        {% set profile = hit._formatted %}
-
-                        <a href="{{ path("app_profile_show", { slug: profile.slug }) }}">
-                            <div class="card bg-base-200 shadow-lg transition-all hover:-translate-y-1 hover:bg-base-300 hover:shadow-xl">
-                                <div class="card-body">
-                                    <h2 class="card-title gap-0">
-                                        {{ profile.username|sanitize_html("app.highlight_sanitizer") }}
-                                    </h2>
-                                    <p>
-                                        {{ (profile.description ?? "")|sanitize_html("app.highlight_sanitizer") }}
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
+                            {{ component("pagination", { path: { pageParam: "p", params: { q: search.query, t: type }, route: "app_search" }, page: search.page, pages: search.totalPages }) }}
+                        </div>
                     {% else %}
                         <p>
-                            {{ "page.search.no_result"|trans }}
+                            {{ "page.search.type_to_search"|trans }}
                         </p>
-                    {% endfor %}
-
-                    {{ component("pagination", { path: { pageParam: "p", params: { q: search.query, t: type }, route: "app_search" }, page: search.page, pages: search.totalPages }) }}
+                        {% if app.user %}
+                            <p>
+                                {{ "page.search.search_username"|trans({ username: app.user.profile.username }) }}
+                            </p>
+                        {% endif %}
+                    {% endif %}
                 </div>
-            {% else %}
-                <p>
-                    {{ "page.search.type_to_search"|trans }}
-                </p>
-                {% if app.user %}
-                    <p>
-                        {{ "page.search.search_username"|trans({ username: app.user.profile.username }) }}
-                    </p>
-                {% endif %}
-            {% endif %}
+
+                <nav class="my-3 flex items-start justify-end">
+                    {% set menuItem = knp_menu_get("global_search", [], { query: search.query ?? "" }) %}
+                    {{ knp_menu_render(menuItem, { currentAsLink: false, template: knp_custom_menu }) }}
+                </nav>
+            </div>
+
+            <input type="hidden" name="t" value="{{ type }}" />
         </turbo-frame>
     </form>
 {% endblock %}

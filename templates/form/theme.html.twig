@@ -57,8 +57,8 @@
 
 {# Choice #}
 
-{# {%- block choice_widget -%}
-    {%- set widget_class = widget_class|default('select select-bordered w-full max-w-xs') -%}
+{%- block choice_widget -%}
+    {%- set widget_class = widget_class|default('') -%}
     {% if expanded %}
         {{- block('choice_widget_expanded') -}}
     {% else %}
@@ -76,34 +76,12 @@
             </div>
         {% endfor -%}
     </div>
-{%- endblock choice_widget_expanded -%} #}
-
-{# {% block choice_widget_collapsed %}
-    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
-    {% set required = false %}
-    {%- endif -%}
-    <select class="select select-bordered w-full max-w-xs" {% if multiple %} multiple="multiple"{% endif %}>
-    {%- if placeholder is not none -%}
-        <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
-    {%- endif -%}
-    {%- if preferred_choices|length > 0 -%}
-        {% set options = preferred_choices %}
-        {% set render_preferred_choices = true %}
-        {{- block('choice_widget_options') -}}
-        {%- if choices|length > 0 and separator is not none -%}
-            <option disabled="disabled">{{ separator }}</option>
-        {%- endif -%}
-    {%- endif -%}
-    {%- set options = choices -%}
-    {%- set render_preferred_choices = false -%}
-    {{- block('choice_widget_options') -}}
-    </select>
-{% endblock %} #}
+{%- endblock choice_widget_expanded -%}
 
 {# File #}
 
 {% block file_widget %}
-    {%- set widget_class = widget_class|default('file-input file-input-bordered file-input-primary w-full max-w-xs') -%}
+    {%- set widget_class = widget_class|default('file-input file-input-bordered file-input-primary w-full') -%}
     {{- block('form_widget') -}}
 {% endblock %}
 
@@ -117,12 +95,12 @@
 {# Text #}
 
 {%- block email_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
     {{- parent() -}}
 {%- endblock email_widget -%}
 
 {%- block password_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
     {%- set type = type|default('password') -%}
     {%- set attr = attr|merge({ "data-password-visibility-target": "input", spellcheck: "false" }) -%}
     <div class="input-group" {{ stimulus_controller("password-visibility") }}>
@@ -135,9 +113,14 @@
 {%- endblock password_widget -%}
 
 {%- block text_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full max-w-xs') -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
     {{ block('form_widget') }}
 {%- endblock text_widget -%}
+
+{%- block url_widget -%}
+    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
+    {{ block('form_widget') }}
+{%- endblock url_widget -%}
 
 {%- block textarea_widget -%}
     {%- set widget_class = widget_class|default('textarea textarea-bordered w-full') -%}
