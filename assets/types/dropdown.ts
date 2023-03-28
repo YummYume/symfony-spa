@@ -1,7 +1,7 @@
 import type { DropdownInterface } from 'flowbite';
 
 export interface DropdownEventDetails {
-  dropdown: DropdownInterface | null;
+  dropdown: DropdownInterface;
 }
 
 export type DropdownHideEvent = CustomEvent<DropdownEventDetails>;

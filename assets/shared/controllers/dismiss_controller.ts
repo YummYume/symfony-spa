@@ -42,7 +42,7 @@ export default class DismissController extends Controller<HTMLElement> {
     this.dismiss = new Dismiss(
       this.target,
       this.hasTriggerTarget ? this.triggerTarget : undefined,
-      { ...this.defaultValues, ...this.optionsValue },
+      { ...this.defaultOptions, ...this.optionsValue },
     );
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
@@ -72,7 +72,7 @@ export default class DismissController extends Controller<HTMLElement> {
     this.dismiss.hide();
   };
 
-  get defaultValues(): DismissOptions {
+  get defaultOptions(): DismissOptions {
     return {
       onHide: () => {
         this.dispatch(DISMISS_EVENTS.HIDE, {

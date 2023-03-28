@@ -1,7 +1,8 @@
-import type { AccordionInterface } from 'flowbite';
+import type { AccordionInterface, AccordionItem } from 'flowbite';
 
 export interface AccordionEventDetails {
-  accordion: AccordionInterface | null;
+  accordion: AccordionInterface;
+  item: AccordionItem;
 }
 
 export type AccordionOpenEvent = CustomEvent<AccordionEventDetails>;

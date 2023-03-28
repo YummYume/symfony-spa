@@ -1,7 +1,7 @@
 import type { DialInterface } from 'flowbite';
 
 export interface DialEventDetails {
-  dial: DialInterface | null;
+  dial: DialInterface;
 }
 
 export type DialHideEvent = CustomEvent<DialEventDetails>;

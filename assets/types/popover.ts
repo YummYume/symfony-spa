@@ -1,7 +1,7 @@
 import type { PopoverInterface } from 'flowbite';
 
 export interface PopoverEventDetails {
-  popover: PopoverInterface | null;
+  popover: PopoverInterface;
 }
 
 export type PopoverHideEvent = CustomEvent<PopoverEventDetails>;

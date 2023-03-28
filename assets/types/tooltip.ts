@@ -1,7 +1,7 @@
 import type { TooltipInterface } from 'flowbite';
 
 export interface TooltipEventDetails {
-  tooltip: TooltipInterface | null;
+  tooltip: TooltipInterface;
 }
 
 export type TooltipHideEvent = CustomEvent<TooltipEventDetails>;

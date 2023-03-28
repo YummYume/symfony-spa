@@ -62,7 +62,7 @@ export default class AccordionController extends Controller<HTMLElement> {
           iconEl: this.iconTargets.at(id),
         });
       }),
-      { ...this.defaultValues, ...this.optionsValue },
+      { ...this.defaultOptions, ...this.optionsValue },
     );
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
@@ -118,26 +118,26 @@ export default class AccordionController extends Controller<HTMLElement> {
     });
   };
 
-  get defaultValues(): AccordionOptions {
+  get defaultOptions(): AccordionOptions {
     return {
-      onOpen: () => {
+      onOpen: (accordion, accordionItem) => {
         this.dispatch(ACCORDION_EVENTS.OPEN, {
           target: this.element,
-          detail: { accordion: this.accordion },
+          detail: { accordion: this.accordion, item: accordionItem },
           prefix: this.eventPrefix,
         });
       },
-      onClose: () => {
+      onClose: (accordion, accordionItem) => {
         this.dispatch(ACCORDION_EVENTS.CLOSE, {
           target: this.element,
-          detail: { accordion: this.accordion },
+          detail: { accordion: this.accordion, item: accordionItem },
           prefix: this.eventPrefix,
         });
       },
-      onToggle: () => {
+      onToggle: (accordion, accordionItem) => {
         this.dispatch(ACCORDION_EVENTS.TOGGLE, {
           target: this.element,
-          detail: { accordion: this.accordion },
+          detail: { accordion: this.accordion, item: accordionItem },
           prefix: this.eventPrefix,
         });
       },

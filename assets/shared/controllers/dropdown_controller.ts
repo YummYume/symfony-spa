@@ -42,7 +42,7 @@ export default class DropdownController extends Controller<HTMLElement> {
     this.dropdown = new Dropdown(
       this.target,
       this.hasTriggerTarget ? this.triggerTarget : undefined,
-      { ...this.defaultValues, ...this.optionsValue },
+      { ...this.defaultOptions, ...this.optionsValue },
     );
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
@@ -96,7 +96,7 @@ export default class DropdownController extends Controller<HTMLElement> {
     this.dropdown.hide();
   };
 
-  get defaultValues(): DropdownOptions {
+  get defaultOptions(): DropdownOptions {
     return {
       onHide: () => {
         this.dispatch(DROPDOWN_EVENTS.HIDE, {

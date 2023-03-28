@@ -1,7 +1,7 @@
 import type { DrawerInterface } from 'flowbite';
 
 export interface DrawerEventDetails {
-  drawer: DrawerInterface | null;
+  drawer: DrawerInterface;
 }
 
 export type DrawerHideEvent = CustomEvent<DrawerEventDetails>;

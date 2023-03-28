@@ -1,20 +1,20 @@
 import { Controller } from '@hotwired/stimulus';
-import { Popover, type PopoverOptions, type PopoverInterface } from 'flowbite';
+import { Collapse, type CollapseOptions, type CollapseInterface } from 'flowbite';
 
-import { POPOVER_EVENTS } from '$assets/types/constants/popover';
+import { COLLAPSE_EVENTS } from '$assets/types/constants/collapse';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
 
 /* stimulusFetch: 'lazy' */
-export default class PopoverController extends Controller<HTMLElement> {
+export default class CollapseController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
     eventPrefix: String,
   };
 
-  static targets = ['popover', 'trigger'];
+  static targets = ['parent', 'trigger'];
 
-  declare optionsValue: PopoverOptions;
+  declare optionsValue: CollapseOptions;
 
   declare readonly hasOptionsValue: boolean;
 
@@ -22,9 +22,9 @@ export default class PopoverController extends Controller<HTMLElement> {
 
   declare readonly hasEventPrefixValue: boolean;
 
-  declare readonly popoverTarget: HTMLElement;
+  declare readonly parentTarget: HTMLElement;
 
-  declare readonly hasPopoverTarget: boolean;
+  declare readonly hasParentTarget: boolean;
 
   declare readonly triggerTarget: HTMLElement;
 
@@ -34,12 +34,12 @@ export default class PopoverController extends Controller<HTMLElement> {
 
   private eventPrefix: string | undefined = undefined;
 
-  private popover: PopoverInterface | null = null;
+  private collapseInstance: CollapseInterface | null = null;
 
   connect() {
-    this.target = this.hasPopoverTarget ? this.popoverTarget : this.element;
+    this.target = this.hasParentTarget ? this.parentTarget : this.element;
     this.eventPrefix = this.hasEventPrefixValue ? this.eventPrefixValue : undefined;
-    this.popover = new Popover(
+    this.collapseInstance = new Collapse(
       this.target,
       this.hasTriggerTarget ? this.triggerTarget : undefined,
       { ...this.defaultOptions, ...this.optionsValue },
@@ -52,70 +52,62 @@ export default class PopoverController extends Controller<HTMLElement> {
     document.removeEventListener('turbo:before-cache', this.beforeCache);
   }
 
-  show() {
-    if (!this.popover) {
+  collapse() {
+    if (!this.collapseInstance) {
       return;
     }
 
-    this.popover.show();
+    this.collapseInstance.collapse();
   }
 
-  hide() {
-    if (!this.popover) {
+  expand() {
+    if (!this.collapseInstance) {
       return;
     }
 
-    this.popover.hide();
+    this.collapseInstance.expand();
   }
 
   toggle() {
-    if (!this.popover) {
+    if (!this.collapseInstance) {
       return;
     }
 
-    this.popover.toggle();
-  }
-
-  isVisible() {
-    if (!this.popover) {
-      return false;
-    }
-
-    return this.popover.isVisible();
+    this.collapseInstance.toggle();
   }
 
   isInitialized() {
-    return !!this.popover;
+    return !!this.collapseInstance;
   }
 
   private beforeCache = () => {
-    if (!this.popover) {
+    if (!this.collapseInstance) {
       return;
     }
 
-    this.popover.hide();
+    this.collapseInstance.collapse();
   };
 
-  get defaultOptions(): PopoverOptions {
+  get defaultOptions(): CollapseOptions {
     return {
-      onHide: () => {
-        this.dispatch(POPOVER_EVENTS.HIDE, {
+      onCollapse: () => {
+        this.dispatch(COLLAPSE_EVENTS.COLLAPSE, {
           target: this.target,
-          detail: { popover: this.popover },
+          detail: { collapse: this.collapseInstance },
           prefix: this.eventPrefix,
         });
       },
-      onShow: () => {
-        this.dispatch(POPOVER_EVENTS.SHOW, {
+      onExpand: () => {
+        this.dispatch(COLLAPSE_EVENTS.EXPAND, {
           target: this.target,
-          detail: { popover: this.popover },
+          detail: { collapse: this.collapseInstance },
           prefix: this.eventPrefix,
         });
       },
       onToggle: () => {
-        this.dispatch(POPOVER_EVENTS.TOGGLE, {
+        this.dispatch(COLLAPSE_EVENTS.TOGGLE, {
           target: this.target,
-          detail: { popover: this.popover },
+          detail: { collapse: this.collapseInstance },
           prefix: this.eventPrefix,
         });
       },

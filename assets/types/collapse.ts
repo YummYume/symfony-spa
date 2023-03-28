@@ -1,7 +1,7 @@
 import type { CollapseInterface } from 'flowbite';
 
 export interface CollapseEventDetails {
-  collapse: CollapseInterface | null;
+  collapse: CollapseInterface;
 }
 
 export type CollapseCollapseEvent = CustomEvent<CollapseEventDetails>;

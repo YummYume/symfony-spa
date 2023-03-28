@@ -6,7 +6,7 @@ import { TOOLTIP_EVENTS } from '$assets/types/constants/tooltip';
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
 
 /* stimulusFetch: 'lazy' */
-export default class PopoverController extends Controller<HTMLElement> {
+export default class TooltipController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
     eventPrefix: String,
@@ -42,7 +42,7 @@ export default class PopoverController extends Controller<HTMLElement> {
     this.tooltip = new Tooltip(
       this.target,
       this.hasTriggerTarget ? this.triggerTarget : undefined,
-      { ...this.defaultValues, ...this.optionsValue },
+      { ...this.defaultOptions, ...this.optionsValue },
     );
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
@@ -96,7 +96,7 @@ export default class PopoverController extends Controller<HTMLElement> {
     this.tooltip.hide();
   };
 
-  get defaultValues(): TooltipOptions {
+  get defaultOptions(): TooltipOptions {
     return {
       onHide: () => {
         this.dispatch(TOOLTIP_EVENTS.HIDE, {

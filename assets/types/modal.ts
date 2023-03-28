@@ -1,7 +1,7 @@
 import type { ModalInterface } from 'flowbite';
 
 export interface ModalEventDetails {
-  modal: ModalInterface | null;
+  modal: ModalInterface;
 }
 
 export type ModalHideEvent = CustomEvent<ModalEventDetails>;

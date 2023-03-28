@@ -1,20 +1,20 @@
 import { Controller } from '@hotwired/stimulus';
-import { Popover, type PopoverOptions, type PopoverInterface } from 'flowbite';
+import { Dial, type DialOptions, type DialInterface } from 'flowbite';
 
-import { POPOVER_EVENTS } from '$assets/types/constants/popover';
+import { DIAL_EVENTS } from '$assets/types/constants/dial';
 
 import type { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
 
 /* stimulusFetch: 'lazy' */
-export default class PopoverController extends Controller<HTMLElement> {
+export default class DialController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {
     options: { type: Object, default: {} },
     eventPrefix: String,
   };
 
-  static targets = ['popover', 'trigger'];
+  static targets = ['parent', 'trigger', 'target'];
 
-  declare optionsValue: PopoverOptions;
+  declare optionsValue: DialOptions;
 
   declare readonly hasOptionsValue: boolean;
 
@@ -22,26 +22,31 @@ export default class PopoverController extends Controller<HTMLElement> {
 
   declare readonly hasEventPrefixValue: boolean;
 
-  declare readonly popoverTarget: HTMLElement;
+  declare readonly parentTarget: HTMLElement;
 
-  declare readonly hasPopoverTarget: boolean;
+  declare readonly hasParentTarget: boolean;
 
   declare readonly triggerTarget: HTMLElement;
 
   declare readonly hasTriggerTarget: boolean;
 
+  declare readonly targetTarget: HTMLElement;
+
+  declare readonly hasTargetTarget: boolean;
+
   private target = this.element;
 
   private eventPrefix: string | undefined = undefined;
 
-  private popover: PopoverInterface | null = null;
+  private dial: DialInterface | null = null;
 
   connect() {
-    this.target = this.hasPopoverTarget ? this.popoverTarget : this.element;
+    this.target = this.hasParentTarget ? this.parentTarget : this.element;
     this.eventPrefix = this.hasEventPrefixValue ? this.eventPrefixValue : undefined;
-    this.popover = new Popover(
+    this.dial = new Dial(
       this.target,
       this.hasTriggerTarget ? this.triggerTarget : undefined,
+      this.hasTargetTarget ? this.targetTarget : undefined,
       { ...this.defaultOptions, ...this.optionsValue },
     );
 
@@ -53,69 +58,77 @@ export default class PopoverController extends Controller<HTMLElement> {
   }
 
   show() {
-    if (!this.popover) {
+    if (!this.dial) {
       return;
     }
 
-    this.popover.show();
+    this.dial.show();
   }
 
   hide() {
-    if (!this.popover) {
+    if (!this.dial) {
       return;
     }
 
-    this.popover.hide();
+    this.dial.hide();
   }
 
   toggle() {
-    if (!this.popover) {
+    if (!this.dial) {
       return;
     }
 
-    this.popover.toggle();
+    this.dial.toggle();
   }
 
   isVisible() {
-    if (!this.popover) {
+    if (!this.dial) {
       return false;
     }
 
-    return this.popover.isVisible();
+    return this.dial.isVisible();
+  }
+
+  isHidden() {
+    if (!this.dial) {
+      return true;
+    }
+
+    return this.dial.isHidden();
   }
 
   isInitialized() {
-    return !!this.popover;
+    return !!this.dial;
   }
 
   private beforeCache = () => {
-    if (!this.popover) {
+    if (!this.dial) {
       return;
     }
 
-    this.popover.hide();
+    this.dial.hide();
   };
 
-  get defaultOptions(): PopoverOptions {
+  get defaultOptions(): DialOptions {
     return {
       onHide: () => {
-        this.dispatch(POPOVER_EVENTS.HIDE, {
+        this.dispatch(DIAL_EVENTS.HIDE, {
           target: this.target,
-          detail: { popover: this.popover },
+          detail: { dial: this.dial },
           prefix: this.eventPrefix,
         });
       },
       onShow: () => {
-        this.dispatch(POPOVER_EVENTS.SHOW, {
+        this.dispatch(DIAL_EVENTS.SHOW, {
           target: this.target,
-          detail: { popover: this.popover },
+          detail: { dial: this.dial },
           prefix: this.eventPrefix,
         });
       },
       onToggle: () => {
-        this.dispatch(POPOVER_EVENTS.TOGGLE, {
+        this.dispatch(DIAL_EVENTS.TOGGLE, {
           target: this.target,
-          detail: { popover: this.popover },
+          detail: { dial: this.dial },
           prefix: this.eventPrefix,
         });
       },

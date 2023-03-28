@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
-export default class extends Controller {
+export default class InputPromptController extends Controller {
   static values = {
     prompt: String,
     disabledOnConnect: { type: Boolean, default: true },

@@ -35,7 +35,7 @@ export default class DrawerController extends Controller<HTMLElement> {
   connect() {
     this.target = this.hasDrawerTarget ? this.drawerTarget : this.element;
     this.eventPrefix = this.hasEventPrefixValue ? this.eventPrefixValue : undefined;
-    this.drawer = new Drawer(this.target, { ...this.defaultValues, ...this.optionsValue });
+    this.drawer = new Drawer(this.target, { ...this.defaultOptions, ...this.optionsValue });
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
   }
@@ -96,7 +96,7 @@ export default class DrawerController extends Controller<HTMLElement> {
     this.drawer.hide();
   };
 
-  get defaultValues(): DrawerOptions {
+  get defaultOptions(): DrawerOptions {
     return {
       onHide: () => {
         this.dispatch(DRAWER_EVENTS.HIDE, {

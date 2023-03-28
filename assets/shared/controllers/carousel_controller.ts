@@ -36,7 +36,7 @@ export default class CarouselController extends Controller<HTMLElement> {
     this.eventPrefix = this.hasEventPrefixValue ? this.eventPrefixValue : undefined;
     this.carousel = new Carousel(
       this.itemTargets.map((item, position) => ({ el: item, position })),
-      { ...this.defaultValues, ...this.optionsValue },
+      { ...this.defaultOptions, ...this.optionsValue },
     );
 
     document.addEventListener('turbo:before-cache', this.beforeCache);
@@ -108,7 +108,7 @@ export default class CarouselController extends Controller<HTMLElement> {
     this.carousel.slideTo(0);
   };
 
-  get defaultValues(): CarouselOptions {
+  get defaultOptions(): CarouselOptions {
     return {
       onNext: () => {
         this.dispatch(CAROUSEL_EVENTS.NEXT, {

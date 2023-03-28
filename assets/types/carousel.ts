@@ -1,7 +1,7 @@
 import type { CarouselInterface } from 'flowbite';
 
 export interface CarouselEventDetails {
-  carousel: CarouselInterface | null;
+  carousel: CarouselInterface;
 }
 
 export type CarouselNextEvent = CustomEvent<CarouselEventDetails>;
