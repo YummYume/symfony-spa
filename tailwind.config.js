@@ -16,20 +16,6 @@ module.exports = {
   theme: {
     extend: {},
   },
-  safelist: [
-    'alert-error',
-    'alert-info',
-    'alert-success',
-    'alert-warning',
-    'btn-error',
-    'btn-info',
-    'btn-success',
-    'btn-warning',
-    'bg-primary',
-    'bg-warning',
-    'dark:bg-secondary',
-    'rounded-lg',
-    'rounded-3xl',
-  ],
+  safelist: [],
   plugins: [require('flowbite/plugin')],
 };

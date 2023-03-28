@@ -1,59 +1,4 @@
-{% use 'form_div_layout.html.twig' %}
-
-{# General #}
-
-{%- block form_row -%}
-    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('mb-6')) }) -%}
-    {{- parent() -}}
-{%- endblock form_row -%}
-
-{%- block widget_attributes -%}
-    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-1 w-full')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-red-700')) }) -%}
-    {{- parent() -}}
-{%- endblock widget_attributes -%}
-
-{%- block form_label -%}
-    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block label label-text')) }) -%}
-    {{- parent() -}}
-{%- endblock form_label -%}
-
-{%- block form_help -%}
-    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 label-text')) }) -%}
-    {{- parent() -}}
-{%- endblock form_help -%}
-
-{%- block form_errors -%}
-    {%- if errors|length > 0 -%}
-        <ul>
-            {%- for error in errors -%}
-                <li class="{{ error_item_class|default('text-red-700') }}">{{ error.message }}</li>
-            {%- endfor -%}
-        </ul>
-    {%- endif -%}
-{%- endblock form_errors -%}
-
-{# Checkbox #}
-
-{%- block checkbox_row -%}
-    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('form-control')) }) -%}
-    {%- set widget_attr = {} -%}
-    {%- if help is not empty -%}
-        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
-    {%- endif -%}
-    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
-        {{- form_errors(form) -}}
-        <div class="label cursor-pointer gap-2 w-fit">
-            {{- form_widget(form, widget_attr) -}}
-            {{- form_label(form) -}}
-        </div>
-        {{- form_help(form) -}}
-    </div>
-{%- endblock checkbox_row -%}
-
-{%- block checkbox_widget -%}
-    {%- set widget_class = widget_class|default('checkbox checkbox-primary') -%}
-    {{- parent() -}}
-{%- endblock checkbox_widget -%}
+{% use '@Flowbite/form/default.html.twig' %}
 
 {# Choice #}
 
@@ -78,54 +23,25 @@
     </div>
 {%- endblock choice_widget_expanded -%}
 
-{# File #}
-
-{% block file_widget %}
-    {%- set widget_class = widget_class|default('file-input file-input-bordered file-input-primary w-full') -%}
-    {{- block('form_widget') -}}
-{% endblock %}
-
-{# Radio #}
-
-{%- block radio_widget -%}
-    {%- set widget_class = widget_class|default('mr-2') -%}
-    {{- parent() -}}
-{%- endblock radio_widget -%}
-
 {# Text #}
 
-{%- block email_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
-    {{- parent() -}}
-{%- endblock email_widget -%}
-
 {%- block password_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
+    {%- set widget_class = widget_class|default('pr-10 w-full') -%}
     {%- set type = type|default('password') -%}
     {%- set attr = attr|merge({ "data-password-visibility-target": "input", spellcheck: "false" }) -%}
-    <div class="input-group" {{ stimulus_controller("password-visibility") }}>
+    <div class="relative mb-6" {{ stimulus_controller("password-visibility") }}>
         {{ block('form_widget_simple') }}
-        <button class="btn btn-square rounded-r-lg" type="button" data-action="password-visibility#toggle" aria-label="{{ "common.show_password"|trans }}">
+        <button
+            class="absolute inset-y-0 right-0 flex items-center pr-3"
+            type="button"
+            data-action="password-visibility#toggle"
+            aria-label="{{ "common.show_password"|trans }}"
+        >
             {% include "icon/eye.html.twig" only %}
             {% include "icon/eye_slash.html.twig" with { class: "hidden" } only %}
         </button>
     </div>
 {%- endblock password_widget -%}
-
-{%- block text_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
-    {{ block('form_widget') }}
-{%- endblock text_widget -%}
-
-{%- block url_widget -%}
-    {%- set widget_class = widget_class|default('input input-bordered w-full') -%}
-    {{ block('form_widget') }}
-{%- endblock url_widget -%}
-
-{%- block textarea_widget -%}
-    {%- set widget_class = widget_class|default('textarea textarea-bordered w-full') -%}
-    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-{%- endblock textarea_widget -%}
 
 {%- block vich_file_row -%}
     {%- set force_error = true -%}
