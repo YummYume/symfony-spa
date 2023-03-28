@@ -7,12 +7,14 @@ use Psr\Log\LogLevel;
 
 final class LogManager
 {
-    public function __construct(
-        private readonly LoggerInterface $logger
-    ) {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
+
+    public function __construct(private readonly LoggerInterface $logger)
+    {
     }
 
-    public function logException(\Exception $exception, string $level = LogLevel::CRITICAL): void
+    public function logException(\Exception $exception, string $level = LogLevel::CRITICAL): int
     {
         $exceptionTrace = $exception->getTrace();
 
@@ -21,6 +23,8 @@ final class LogManager
                 'exception' => $exception->getMessage(),
                 'trace' => $exceptionTrace,
             ]);
+
+            return self::SUCCESS;
         } catch (\Exception $e) {
             $this->logger->critical(sprintf('Log using App\Manager\LogUtilsTrait::log with level "%s" failed', $level), [
                 'exception' => $e->getMessage(),
@@ -28,6 +32,8 @@ final class LogManager
                 'originalException' => $exception->getMessage(),
                 'originalTrace' => $exceptionTrace,
             ]);
+
+            return self::FAILURE;
         }
     }
 }

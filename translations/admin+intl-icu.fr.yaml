@@ -21,6 +21,10 @@ common.delete.cannot_be_undone: Cette action est irréversible.
 flash.common.updated: Mis à jour avec succés.
 flash.common.deleted: Supprimé avec succès.
 
+## Admin
+page.admin.title: Administration
+page.admin.description: L'administration pour MyApp
+
 ## User
 flash.user.validation_email_sent: E-mail de validation envoyé.
 flash.user.already_verified: Cet utilisateur est déjà vérifié.
@@ -29,6 +33,7 @@ flash.user.already_verified: Cet utilisateur est déjà vérifié.
 ## Page d'accueil
 page.homepage.title: Page d'accueil de l'administration
 page.homepage.description: La page d'accueil de l'administration pour MyApp.
+page.homepage.welcome: Bienvenue dans le tableau de bord d'administration.
 
 ## User
 ### List

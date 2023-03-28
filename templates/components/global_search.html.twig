@@ -12,31 +12,34 @@
             data-class-modal-target="initialFocus" />
         {% if computed.searchResult is not null %}
             {% if computed.searchResult is not empty %}
-                {% for name, results in computed.searchResult %}
+                {% for name, config in computed.searchResult %}
                     <section class="my-2">
                         <h2 class="text-4xl">
                             {{ ("global_search.#{name}")|trans }}
                         </h2>
 
                         <div class="m-2">
-                            {% for hit in results.hits %}
-                                {% set profile = hit._formatted %}
-
+                            {% for hit in config.results.hits %}
+                                {% set formatted = hit._formatted %}
                                 <div class="mb-2 flex flex-col">
-                                    <a href="{{ path("app_profile_show", { slug: profile.slug }) }}" class="link-primary link-hover link text-lg transition-all max-w-fit">{{ profile.username|sanitize_html("app.highlight_sanitizer") }}</a>
-
+                                    <a
+                                        href="{{ path(config.route, {}|merge(config.routeParam|reduce((acc, curr) => acc|merge({ (curr): formatted[config.slugProperty[curr]] }), {}))) }}"
+                                        class="link-primary link-hover link text-lg transition-all max-w-fit"
+                                    >
+                                        {{ formatted[config.nameProperty]|sanitize_html("app.highlight_sanitizer") }}
+                                    </a>
                                     <p>
-                                        {{ (profile.description ?? "")|sanitize_html("app.highlight_sanitizer") }}
+                                        {{ (formatted[config.descProperty] ?? "")|sanitize_html("app.highlight_sanitizer") }}
                                     </p>
                                 </div>
                             {% endfor %}
 
-                            <a class="link" href="{{ path("app_search", { q: results.query, t: name }) }}">{{ "global_search.profiles.more"|trans }}</a>
+                            <a class="link" href="{{ path("app_search", { q: config.results.query, t: name }) }}">{{ "global_search.#{name}.more"|trans }}</a>
                         </div>
                     </section>
                 {% endfor %}
 
-                {% set totalSearchTime = computed.searchResult|reduce((prev, current) => prev + current.processingTimeMs, 0) %}
+                {% set totalSearchTime = computed.searchResult|reduce((prev, current) => prev + current.results.processingTimeMs, 0) %}
 
                 <small>{{ "global_search.total_search_time"|trans({ time: totalSearchTime }) }}</small>
             {% else %}

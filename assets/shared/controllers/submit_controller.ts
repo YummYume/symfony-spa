@@ -1,9 +1,10 @@
 import { type ActionEvent, Controller } from '@hotwired/stimulus';
 import { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_properties';
-import { TurboSubmitEndEvent, TurboSubmitStartEvent } from '@hotwired/turbo';
 import { useThrottle } from 'stimulus-use';
 
-import { findSubmitButtonsForForm } from '../../utils/nodes';
+import { findSubmitButtonsForForm } from '$utils/nodes';
+
+import type { TurboSubmitEndEvent, TurboSubmitStartEvent } from '@hotwired/turbo';
 
 export default class SubmitController extends Controller<HTMLElement> {
   static values: ValueDefinitionMap = {

@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.9'
 
 services:
   nginx:
@@ -75,15 +75,15 @@ services:
     restart: unless-stopped
     environment:
       # Uncomment the following line to disable HTTPS
-      SERVER_NAME: ':80'
+      SERVER_NAME: ":3000"
       MERCURE_PUBLISHER_JWT_KEY: "${MERCURE_JWT_SECRET:?err}"
-      MERCURE_SUBSCRIBER_JWT_KEY: '${MERCURE_JWT_SECRET:?err}'
+      MERCURE_SUBSCRIBER_JWT_KEY: "${MERCURE_JWT_SECRET:?err}"
+      MERCURE_EXTRA_DIRECTIVES: |
+        cors_origins http://localhost
+        use_forwarded_headers "1"
     # Uncomment the following line to enable the development mode
     command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev
-    container_name: mercure
-    ports:
-      - "3000:80"
-      # - "443:443"
+    container_name: su-mercure
 
   meilisearch:
     image: getmeili/meilisearch:v1.0

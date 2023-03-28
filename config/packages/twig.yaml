@@ -4,6 +4,7 @@ twig:
     globals:
         enabled_locales: '%kernel.enabled_locales%'
         knp_custom_menu: 'knp_custom/menu.html.twig'
+        no_picture_fallback: '%app.no_picture_fallback%'
 
 when@dev:
     twig:

@@ -3,7 +3,7 @@
 {% if app.user %}
     {% component dropdown with { permanent: permanent ?? true } %}
     {% block button %}
-        {% component button with { circle: true, ghost: true, ariaLabel: "common.account_menu"|trans } %}
+        {% component button with { circle: true, ariaLabel: "common.account_menu"|trans } %}
         {% block content %}
             {{ component("avatar", { user: app.user, permanent, id: "user-picture" }) }}
         {% endblock %}
@@ -31,7 +31,7 @@
 {% else %}
     {% component dropdown %}
     {% block button %}
-        {% component button with { circle: true, ghost: true, ariaLabel: "common.account_menu"|trans } %}
+        {% component button with { circle: true, ariaLabel: "common.account_menu"|trans } %}
         {% block content %}
             {{ component("avatar") }}
         {% endblock %}

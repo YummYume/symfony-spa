@@ -12,7 +12,7 @@ COPY ./docker/ci/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN apk add --no-cache --update \
     icu-dev supervisor yarn && \
     chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions amqp intl pdo_mysql redis gmagick && \
+    install-php-extensions amqp intl pdo_mysql redis gmagick gd && \
     composer install && \
     yarn install
 

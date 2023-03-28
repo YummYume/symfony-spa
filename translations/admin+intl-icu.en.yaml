@@ -22,6 +22,10 @@ flash.common.created: Created successfully.
 flash.common.updated: Updated successfully.
 flash.common.deleted: Deleted successfully.
 
+## Admin
+page.admin.title: Administration
+page.admin.description: The administration for MyApp
+
 ## User
 flash.user.validation_email_sent: Validation email sent.
 flash.user.already_verified: This user is already verified.
@@ -30,6 +34,7 @@ flash.user.already_verified: This user is already verified.
 ## Homepage
 page.homepage.title: Administration homepage
 page.homepage.description: The homepage of the administration for MyApp.
+page.homepage.welcome: Welcome to the administration dashboard.
 
 ## User
 ### List

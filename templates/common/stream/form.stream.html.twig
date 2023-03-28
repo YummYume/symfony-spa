@@ -1,0 +1,7 @@
+{% include "common/stream/alert.stream.html.twig" with { toast_container_id: toast_container_id|default('app-flashes') } only %}
+
+<turbo-stream action="replace" target="{{ target|default('form') }}">
+    <template>
+        {% include form_view with { form }|merge(form_parameters|default([])) only %}
+    </template>
+</turbo-stream>

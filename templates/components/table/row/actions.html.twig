@@ -11,7 +11,8 @@
                     variant: key,
                     href: path(action.route, table_parse_options(action.routeParams|default([]), config.value)),
                     ariaLabel: ("icon.#{action.icon}")|trans({}, "messages"),
-                    centered: false
+                    centered: false,
+                    "data-turbo-frame": "_top"
                 }
             )
         }}

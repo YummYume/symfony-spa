@@ -1,8 +1,10 @@
+{% set path = src ?? asset(no_picture_fallback) %}
+
 <img
     class="{{ class }}"
-    src="{{ data_uri_thumbnail(local_asset(src), 25, 25) }}"
+    src="{{ data_uri_thumbnail_cached(local_asset(path), 25, 25) }}"
     {{ stimulus_controller('symfony/ux-lazy-image/lazy-image', {
-        src: filter ? src|imagine_filter(filter) : src,
+        src: filter ? path|imagine_filter(filter) : path,
         srcset: dimensionSrcset is empty ? '{}' : dimensionSrcset|json_encode()
     }) }}
     alt="{{ alt }}"

@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'user.email.unique', errorPath: 'email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use BlameableTrait;
     use TimestampableTrait;
@@ -66,24 +66,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[Assert\Valid]
     private ?Profile $profile = null;
 
-    public function serialize()
+    public function __serialize()
     {
-        return serialize([
+        return [
             'id' => $this->id,
             'email' => $this->email,
             'password' => $this->password,
             'verified' => $this->verified,
-        ]);
+        ];
     }
 
-    public function unserialize(string $data)
+    public function __unserialize(array $data)
     {
-        $fields = unserialize($data);
-
-        $this->id = $fields['id'] ?? null;
-        $this->email = $fields['email'] ?? null;
-        $this->password = $fields['password'] ?? null;
-        $this->verified = $fields['verified'] ?? false;
+        $this->id = $data['id'] ?? null;
+        $this->email = $data['email'] ?? null;
+        $this->password = $data['password'] ?? null;
+        $this->verified = $data['verified'] ?? false;
     }
 
     public function getId(): ?Uuid
