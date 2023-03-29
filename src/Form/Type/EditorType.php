@@ -37,7 +37,7 @@ final class EditorType extends AbstractType
             'autofocus' => $options['autofocus'],
             'inlineToolbar' => $options['inline_toolbar'],
             'readonly' => $options['required'],
-            'placeholder' => $options['placeholder'],
+            'placeholder' => $options['attr']['placeholder'] ?? null,
         ];
         $view->vars['tools'] = $options['tools'];
     }

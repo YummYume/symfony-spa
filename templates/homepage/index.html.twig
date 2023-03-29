@@ -24,4 +24,10 @@
             <a href="{{ path("app_register") }}">{{ component("button", { content: "common.register"|trans }) }}</a>
         {% endif %}
     </section>
+   
+   {{ form_start(form) }}
+        {{ form_row(form.editor) }}
+        <button type="submit">Submit</button>
+   {{ form_end(form) }}
+   
 {% endblock %}

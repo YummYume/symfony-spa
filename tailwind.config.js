@@ -69,5 +69,5 @@ module.exports = {
     },
   },
   safelist: [],
-  plugins: [require('flowbite/plugin')],
+  plugins: [require('flowbite/plugin'), require('@tailwindcss/typography')],
 };
