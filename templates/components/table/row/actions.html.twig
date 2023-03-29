@@ -1,6 +1,6 @@
 {% trans_default_domain "tables" %}
 
-<td class="flex gap-2">
+<td class="px-6 py-4">
     {% for key, action in config.actions %}
         {{
             component(
@@ -12,7 +12,9 @@
                     href: path(action.route, table_parse_options(action.routeParams|default([]), config.value)),
                     ariaLabel: ("icon.#{action.icon}")|trans({}, "messages"),
                     centered: false,
-                    "data-turbo-frame": "_top"
+                    "data-turbo-frame": "_top",
+                    small: true,
+                    class: "!py-2 !px-4"
                 }
             )
         }}
