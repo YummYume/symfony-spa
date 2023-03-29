@@ -12,12 +12,13 @@
         <ul class="py-1" role="none">
             {% for locale in enabled_locales %}
                 <li>
-                    <a class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    <a data-turbo="false"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         href="{{ path(app.current_route ?? "app_homepage", (app.current_route_parameters ?? [])|merge({ _locale: locale })) }}"
                         role="menuitem">
                         <div class="inline-flex items-center">
                             {{ component("icon", { icon: "flags/" ~ locale, class: "h-3.5 w-3.5 mr-2" }) }}
-                            {{ locale|locale_name(app.request.locale) }}
+                            {{ locale|locale_name(app.request.locale)|title }}
                         </div>
                     </a>
                 </li>

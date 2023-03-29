@@ -22,6 +22,9 @@ final class ProfileType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'profile.description',
                 'required' => false,
+                'attr' => [
+                    'rows' => 4,
+                ],
             ])
             ->add('picture', ProfilePictureType::class, [
                 'label' => false,

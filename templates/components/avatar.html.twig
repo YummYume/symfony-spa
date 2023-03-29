@@ -3,7 +3,7 @@
 {% if user %}
     <div
         {% if id %}id="{{ id }}"{% endif %}
-        class="overflow-hidden rounded-full"
+        class="overflow-hidden rounded-full w-fit"
         {% if id and permanent %}data-turbo-permanent{% endif %}
     >
         {% if hasPicture %}

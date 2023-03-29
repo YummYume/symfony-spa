@@ -15,87 +15,87 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="w-full overflow-x-auto">
-        <table class="table-zebra table w-full">
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <tbody>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "common.id"|trans }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ user.id }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "user.email"|trans({}, "tables") }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ user.email }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "user.roles"|trans({}, "tables") }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ user.roles ? user.roles|map(role => "user.role.#{role|lower}"|trans({}, "tables"))|join(", ") }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "user.verified"|trans({}, "tables") }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ ("common." ~ (user.verified ? "yes" : "no"))|trans }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "user.username"|trans({}, "tables") }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ user.profile.username }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "user.description"|trans({}, "tables") }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ user.profile.description }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "user.picture"|trans({}, "tables") }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ component("avatar", { user, small: false }) }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "common.created_at"|trans }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {{ user.createdAt ? user.createdAt|format_datetime : "" }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "common.updated_at"|trans }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {% set updatedAt = [user.updatedAt ?? null, user.profile.updatedAt ?? null, user.profile.picture.updatedAt ?? null]|sort|last %}
                         {{ updatedAt ? updatedAt|format_datetime : "" }}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "common.created_by"|trans }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {% if user.createdBy %}
                             <a class="link link-primary link-hover" href="{{ path("admin_user_show", { id: user.createdBy.id.toBase32 }) }}">
                                 {{ user.createdBy.profile.username }}
@@ -103,11 +103,11 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
-                    <th>
+                <tr class="bg-white dark:bg-gray-800">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ "common.updated_by"|trans }}
                     </th>
-                    <td>
+                    <td class="px-6 py-4">
                         {% set updatedBy = user.updatedAt ? (user.updatedBy ?? user.profile.updatedBy) : (user.profile.updatedAt ? user.profile.updatedBy : null) %}
                         {% if updatedBy %}
                             <a class="link link-primary link-hover" href="{{ path("admin_user_show", { id: updatedBy.id.toBase32 }) }}">
