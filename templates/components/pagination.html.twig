@@ -1,49 +1,75 @@
 {% set padding = 2 %}
 
 {% if pages > 1 %}
-    <div class="btn-group mx-auto">
-        {% if page != 1 %}
-            <a class="btn" href="{{ path(path.route, path.params|merge({ (path.pageParam): 1 })) }}" aria-label="{{ "common.first_page"|trans({ number: 1 }) }}">
-                {{ component('icon', { icon: 'chevron_double_left' }) }}
-            </a>
-            <a class="btn" href="{{ path(path.route, path.params|merge({ (path.pageParam): page - 1 })) }}" aria-label="{{ "common.previous_page"|trans({ number: page - 1 }) }}">
-                {{ component('icon', { icon: 'chevron_left' }) }}
-            </a>
-        {% endif %}
-
-        {% for p in page - padding..page - 1 %}
-            {% if p > 0 and pages - page <= 2 %}
-                <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): p })) }}" aria-label="{{ "common.page_number"|trans({ number: p }) }}">{{ p }}</a>
+    <nav class="inline-flex items-center -space-x-px mx-auto">
+        <ul class="inline-flex items-center -space-x-px">
+            {% if page != 1 %}
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="{{ path(path.route, path.params|merge({ (path.pageParam): 1 })) }}" aria-label="{{ "common.first_page"|trans({ number: 1 }) }}">
+                        <span class="sr-only">First</span>
+                        {{ component('icon', { icon: 'chevron_double_left', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="{{ path(path.route, path.params|merge({ (path.pageParam): page - 1 })) }}" aria-label="{{ "common.previous_page"|trans({ number: page - 1 }) }}">
+                        <span class="sr-only">Previous</span>
+                        {{ component('icon', { icon: 'chevron_left', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
             {% endif %}
-        {% endfor %}
 
-        {% for p in page..page + padding %}
-            {% if p < pages %}
-                {% if p != page %}
-                    <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): p })) }}" aria-label="{{ "common.page_number"|trans({ number: p }) }}">{{ p }}</a>
-                {% else %}
-                    <span class="btn-active btn pointer-events-none rounded-none" aria-label="{{ "common.current_page"|trans({ number: p }) }}">{{ p }}</span>
+            {% for p in page - padding..page - 1 %}
+                {% if p > 0 and pages - page <= 2 %}
+                    <li>
+                        <a class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="{{ path(path.route, path.params|merge({ (path.pageParam): p })) }}" aria-label="{{ "common.page_number"|trans({ number: p }) }}">{{ p }}</a>
+                    </li>
                 {% endif %}
+            {% endfor %}
+
+            {% for p in page..page + padding %}
+                {% if p < pages %}
+                    {% if p != page %}
+                        <li>
+                            <a class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="{{ path(path.route, path.params|merge({ (path.pageParam): p })) }}" aria-label="{{ "common.page_number"|trans({ number: p }) }}">{{ p }}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <span class="px-3 py-2 leading-tight border border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" aria-label="{{ "common.current_page"|trans({ number: p }) }}">{{ p }}</span>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if pages - page > 2 %}
+                <li>
+                    <span class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</span>
+                </li>
             {% endif %}
-        {% endfor %}
 
-        {% if pages - page > 2 %}
-            <span class="btn pointer-events-none rounded-none">...</span>
-        {% endif %}
+            {% if page != pages %}
+                <li>
+                    <a class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="{{ path(path.route, path.params|merge({ (path.pageParam): pages })) }}" aria-label="{{ "common.page_number"|trans({ number: pages }) }}">{{ pages }}</a>
+                </li>
+            {% else %}
+                <li>
+                    <span class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="{{ "common.current_page"|trans({ number: page }) }}">{{ page }}</span>
+                </li>
+            {% endif %}
 
-        {% if page != pages %}
-            <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): pages })) }}" aria-label="{{ "common.page_number"|trans({ number: pages }) }}">{{ pages }}</a>
-        {% else %}
-            <span class="btn-active btn pointer-events-none rounded-none" aria-label="{{ "common.current_page"|trans({ number: page }) }}">{{ page }}</span>
-        {% endif %}
-
-        {% if page < pages %}
-            <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): page + 1 })) }}" aria-label="{{ "common.next_page"|trans({ number: page + 1 }) }}">
-                {{ component('icon', { icon: 'chevron_right' }) }}
-            </a>
-            <a class="btn rounded-none" href="{{ path(path.route, path.params|merge({ (path.pageParam): pages })) }}" aria-label="{{ "common.last_page"|trans({ number: pages }) }}">
-                {{ component('icon', { icon: 'chevron_double_right' }) }}
-            </a>
-        {% endif %}
-    </div>
+            {% if page < pages %}
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="{{ path(path.route, path.params|merge({ (path.pageParam): page + 1 })) }}" aria-label="{{ "common.next_page"|trans({ number: page + 1 }) }}">
+                        <span class="sr-only">Next</span>
+                        {{ component('icon', { icon: 'chevron_right', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="{{ path(path.route, path.params|merge({ (path.pageParam): pages })) }}" aria-label="{{ "common.last_page"|trans({ number: pages }) }}">
+                        <span class="sr-only">Last</span>
+                        {{ component('icon', { icon: 'chevron_double_right', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endif %}
