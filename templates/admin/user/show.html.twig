@@ -97,7 +97,7 @@
                     </th>
                     <td class="px-6 py-4">
                         {% if user.createdBy %}
-                            <a class="link link-primary link-hover" href="{{ path("admin_user_show", { id: user.createdBy.id.toBase32 }) }}">
+                            <a href="{{ path("admin_user_show", { id: user.createdBy.id.toBase32 }) }}">
                                 {{ user.createdBy.profile.username }}
                             </a>
                         {% endif %}
@@ -110,7 +110,7 @@
                     <td class="px-6 py-4">
                         {% set updatedBy = user.updatedAt ? (user.updatedBy ?? user.profile.updatedBy) : (user.profile.updatedAt ? user.profile.updatedBy : null) %}
                         {% if updatedBy %}
-                            <a class="link link-primary link-hover" href="{{ path("admin_user_show", { id: updatedBy.id.toBase32 }) }}">
+                            <a href="{{ path("admin_user_show", { id: updatedBy.id.toBase32 }) }}">
                                 {{ updatedBy.profile.username }}
                             </a>
                         {% endif %}

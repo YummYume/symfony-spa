@@ -11,6 +11,7 @@ module.exports = {
     './src/Entity/**/*.php',
     './node_modules/flowbite/**/*.js',
     './vendor/tales-from-a-dev/flowbite-bundle/templates/**/*.html.twig',
+    'config/services.yaml',
   ],
   darkMode: 'class',
   theme: {

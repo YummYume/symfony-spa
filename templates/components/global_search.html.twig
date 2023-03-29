@@ -29,7 +29,7 @@
 
                                 <div class="mb-2 flex flex-col">
                                     <a
-                                        class="link-primary link-hover link text-lg transition-all max-w-fit"
+                                        class="text-lg transition-all max-w-fit"
                                         href="{{ path(config.route, {}|merge(config.routeParam|reduce((acc, curr) => acc|merge({ (curr): formatted[config.slugProperty[curr]] }), {}))) }}"
                                     >
                                         {{ formatted[config.nameProperty]|sanitize_html("app.highlight_sanitizer") }}

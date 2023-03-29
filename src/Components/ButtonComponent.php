@@ -41,8 +41,6 @@ final class ButtonComponent
 
     public string $iconPosition = self::RIGHT;
 
-    public string $variant = 'primary';
-
     public array $additionalProps = [];
 
     #[ExposeInTemplate]
@@ -57,7 +55,6 @@ final class ButtonComponent
 
         $this->class = sprintf(
             'inline-block gap-2 %s %s %s',
-            $this->variant,
             $this->centered ? 'mx-auto flex' : '',
             $this->class
         );

@@ -4,7 +4,7 @@
     {% import "knp_menu.html.twig" as knp_menu %}
     {% set label = item.label|trans(item.extra("translation_params") ?? {}, item.extra("translation_domain") ?? "menu") %}
 
-    <p {{ knp_menu.attributes(item.labelAttributes|merge({ "aria-label": label })) }} tabindex="0">
+    <p {{ knp_menu.attributes(item.labelAttributes|merge({ "aria-label": label, class: 'flex gap-2 items-center' })) }} tabindex="0">
         {{ block("label") }}
     </p>
 {% endblock %}
@@ -13,7 +13,9 @@
     {% import "knp_menu.html.twig" as knp_menu %}
     {% set label = item.label|trans(item.extra("translation_params") ?? {}, item.extra("translation_domain") ?? "menu") %}
 
-    <a href="{{ item.uri }}" {{ knp_menu.attributes(item.linkAttributes|merge({ "aria-label": label })) }}>{{ block("label") }}</a>
+    <a href="{{ item.uri }}" {{ knp_menu.attributes(item.linkAttributes|merge({ "aria-label": label, class: 'flex gap-2 items-center' })) }}>
+        {{ block("label") }}
+    </a>
 {% endblock %}
 
 {% block label %}
