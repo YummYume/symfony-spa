@@ -29,7 +29,7 @@
     {%- set widget_class = widget_class|default('pr-10 w-full') -%}
     {%- set type = type|default('password') -%}
     {%- set attr = attr|merge({ "data-password-visibility-target": "input", spellcheck: "false" }) -%}
-    <div class="relative mb-6" {{ stimulus_controller("password-visibility") }}>
+    <div class="relative" {{ stimulus_controller("password-visibility") }}>
         {{ block('form_widget_simple') }}
         <button
             class="absolute inset-y-0 right-0 flex items-center pr-3"
