@@ -27,6 +27,7 @@ common.last_page: Dernière page ({ number })
 common.show_password: Afficher/masquer le mot de passe
 common.menu: Menu
 common.no_script_message: Il semble que Javascript ne soit pas activé dans votre navigateur. Vous pourriez rencontrer des problèmes lors de la navigation.
+common.switch_language: Changer de langue
 
 # Icons
 icon.eye: Afficher
@@ -86,7 +87,7 @@ page.login.title: Connexion
 page.login.description: Connectez-vous avec votre compte à MyApp.
 page.login.forgot_password: Mot de passe oublié ?
 page.login.remember_me: Se souvenir de moi
-page.login.no_account: Pas encore de compte ? Cliquez ici pour vous enregistrer.
+page.login.no_account: Pas encore de compte ?
 
 # Edit profile
 page.edit_profile.title: Paramètres du compte

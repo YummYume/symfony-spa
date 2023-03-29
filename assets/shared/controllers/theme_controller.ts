@@ -9,7 +9,7 @@ import type { TurboBeforeVisitEvent } from '@hotwired/turbo';
 export default class ThemeController extends Controller {
   static targets = ['light', 'dark'];
 
-  static classes = ['darkMode', 'lightMode'];
+  static classes = ['darkMode', 'lightMode', 'hidden'];
 
   static values = { uri: String };
 
@@ -32,6 +32,12 @@ export default class ThemeController extends Controller {
   declare readonly lightModeClasses: string[];
 
   declare readonly hasLightModeClass: boolean;
+
+  declare readonly hiddenClass: string;
+
+  declare readonly hiddenClasses: string[];
+
+  declare readonly hasHiddenClass: boolean;
 
   declare uriValue: string;
 
@@ -72,17 +78,13 @@ export default class ThemeController extends Controller {
       }
     }
 
-    if (this.hasLightTarget && this.hasDarkTarget) {
+    if (this.hasLightTarget && this.hasDarkTarget && this.hasHiddenClass) {
       if (targetMode === 'dark') {
-        if (this.lightTarget.classList.contains('swap-on')) this.lightTarget.classList.replace('swap-on', 'swap-off');
-
-        if (this.darkTarget.classList.contains('swap-off')) this.darkTarget.classList.replace('swap-off', 'swap-on');
+        this.darkTarget.classList.remove(...this.hiddenClasses);
+        this.lightTarget.classList.add(...this.hiddenClasses);
       } else {
-        if (this.lightTarget.classList.contains('swap-off')) {
-          this.lightTarget.classList.replace('swap-off', 'swap-on');
-        }
-
-        if (this.darkTarget.classList.contains('swap-on')) this.darkTarget.classList.replace('swap-on', 'swap-off');
+        this.lightTarget.classList.remove(...this.hiddenClasses);
+        this.darkTarget.classList.add(...this.hiddenClasses);
       }
     }
   }

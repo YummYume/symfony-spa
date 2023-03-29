@@ -27,6 +27,7 @@ common.last_page: Last page ({ number })
 common.show_password: Show/hide password
 common.menu: Menu
 common.no_script_message: It looks like JavaScript is not enabled in your browser. You might experience some issues while browsing.
+common.switch_language: Switch language
 
 # Icons
 icon.eye: Show
@@ -86,7 +87,7 @@ page.login.title: Sign in
 page.login.description: Log in with your account to MyApp.
 page.login.forgot_password: Forgot password?
 page.login.remember_me: Remember me
-page.login.no_account: Don’t have an account yet?.
+page.login.no_account: Don't have an account yet?
 
 # Edit profile
 page.edit_profile.title: Account settings
