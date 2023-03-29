@@ -54,7 +54,7 @@ final class ButtonComponent
         }
 
         $this->class = sprintf(
-            'inline-block gap-2 %s %s %s',
+            'inline-block gap-2 %s %s',
             $this->centered ? 'mx-auto flex' : '',
             $this->class
         );
