@@ -9,7 +9,7 @@
     {{ stimulus_controller('theme') }}
     data-theme-dark-mode-class="dark"
     data-theme-light-mode-class="light"
-    data-theme-hidden-class="opacity-0 h-0 pointer-events-none"
+    data-theme-hidden-class="opacity-0 !h-0 pointer-events-none"
     data-theme-uri-value="{{ url("app_change_theme") }}"
 >
     <head>
@@ -145,7 +145,7 @@
                                 >
                                     <svg
                                         data-theme-target="light"
-                                        class="{{ isLight ? '' : 'opacity-0 pointer-events-none h-0' }} w-6 h-6 transition-all"
+                                        class="{{ isLight ? '' : 'opacity-0 pointer-events-none !h-0' }} w-6 h-6 transition-all"
                                         fill="currentColor"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
@@ -154,7 +154,7 @@
                                     </svg>
                                     <svg
                                         data-theme-target="dark"
-                                        class="{{ not isLight ? '' : 'opacity-0 pointer-events-none h-0' }} w-6 h-6 transition-all"
+                                        class="{{ not isLight ? '' : 'opacity-0 pointer-events-none !h-0' }} w-6 h-6 transition-all"
                                         fill="currentColor"
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
