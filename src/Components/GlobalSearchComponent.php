@@ -33,7 +33,7 @@ final class GlobalSearchComponent
 
         $profiles = $this->searchService->rawSearch(Profile::class, $this->query, [
             ...SearchTypeEnum::getSearchOptions(SearchTypeEnum::Profiles),
-            'highlightPreTag' => '<em class="">',
+            'highlightPreTag' => '<em class="bg-primary-200 dark:bg-primary-800">',
             'limit' => 5,
         ]);
 

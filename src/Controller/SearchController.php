@@ -43,7 +43,7 @@ final class SearchController extends AbstractController
             ...SearchTypeEnum::getSearchOptions($type),
             'hitsPerPage' => 10,
             'page' => $page,
-            'highlightPreTag' => '<em class="">',
+            'highlightPreTag' => '<em class="bg-primary-200 dark:bg-primary-800">',
         ]) : null;
 
         return $this->render('search/index.html.twig', [
