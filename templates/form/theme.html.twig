@@ -127,8 +127,13 @@
 {% block class_input_error %}!border-red-500{% endblock %}
 
 {% block editor_widget %}
-    <div {{ stimulus_controller('editor') }} data-action="editor:editor:change->editor#save">
-        <div id="editor" class="prose"></div>
-        <input name="{{ form.vars.id }}" data-editor-target="input" type="hidden" />
+    <div
+        {{ stimulus_controller('editor') }}
+        data-action="editor:editor:change->editor#save"
+        data-editor-options-value="{{ options|json_encode() }}"
+
+    >
+        <div data-editor-target="editor"></div>
+        <input id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="{{ form.vars.value }}" data-editor-target="input" type="hidden" />
     </div>
 {% endblock %}

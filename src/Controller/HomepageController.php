@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Form\BlockType;
-use App\Form\Type\EditorType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +12,11 @@ final class HomepageController extends AbstractController
 {
     #[Route('/', name: 'app_homepage', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
-    {   
-        $form = $this->createForm(BlockType::class, [])->handleRequest($request);
+    {
+        $form = $this->createForm(BlockType::class)->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            dd($form->getData());
+            dd($form->get('editor')->getData());
         }
 
         return $this->render('homepage/index.html.twig', [

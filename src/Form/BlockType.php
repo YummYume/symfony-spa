@@ -4,11 +4,8 @@ namespace App\Form;
 
 use App\Form\Type\EditorType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class BlockType extends AbstractType
 {
@@ -16,7 +13,8 @@ final class BlockType extends AbstractType
     {
         $builder
             ->add('editor', EditorType::class, [
-                'mapped' => false
+                'mapped' => false,
+                'data' => json_decode('{"time":1680125078509,"blocks":[{"id":"4O4EkNTkqy","type":"paragraph","data":{"text":"Hello world!"},"tunes":{"textVariant":""}}],"version":"2.26.5"}', true),
             ])
         ;
     }

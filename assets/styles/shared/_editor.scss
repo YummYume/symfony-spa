@@ -1,0 +1,35 @@
+.cdx-block {
+    @apply dark:text-white;
+}
+
+.cdx-input {
+    @apply dark:border-white dark:text-white;
+}
+
+.ce-block {
+    &--selected &__content {
+        @apply dark:bg-gray-700;
+    }
+}
+
+.ce-toolbar {
+    &__plus:not(:hover) {
+        @apply dark:text-white;
+    }
+
+    &__settings-btn:not(:hover) {
+        @apply dark:text-white;
+    }
+}
+
+.ce-popover__items {
+    @apply dark:text-black;
+}
+
+.ce-inline-toolbar {
+    @apply dark:text-black;
+}
+
+::selection {
+    @apply dark:bg-gray-700;
+}
