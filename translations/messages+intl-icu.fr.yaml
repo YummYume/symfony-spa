@@ -177,7 +177,7 @@ component.deletion_prompt_modal.label: Pour continuer, tapez "{ prompt }".
 form.editor.ui.block_tunes.text_variant.call_out: Appel
 form.editor.ui.block_tunes.text_variant.citation: Citation
 form.editor.ui.block_tunes.text_variant.details: Détails
-form.editor.ui.block_tunes.toggler.click_to_tune: Cliquer pour customiser ou deplacer
+form.editor.ui.block_tunes.toggler.click_to_tune: Cliquer pour customiser ou déplacer
 form.editor.ui.inline_toolbar.converter.convert_to: Convertir vers
 form.editor.ui.toolbar.toolbox.add: Ajouter
 
