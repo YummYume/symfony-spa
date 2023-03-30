@@ -6,6 +6,10 @@
     }
 }
 
+.prose {
+    @apply dark:text-white;
+}
+
 .codex-editor__redactor {
     @apply min-h-[300px] pb-0 #{!important};
 }
@@ -22,6 +26,8 @@
 
 .ce {
     &-block {
+        @apply pl-[50px];
+
         &--selected &__content {
             @apply dark:bg-gray-700;
         }
