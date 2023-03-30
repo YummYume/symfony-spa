@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Delimiter from '@editorjs/delimiter';
-import EditorJS, { type EditorConfig, type OutputData } from '@editorjs/editorjs';
+import EditorJS, { type EditorConfig } from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import NestedList from '@editorjs/nested-list';
 import Paragraph from '@editorjs/paragraph';
@@ -13,7 +13,6 @@ import { ValueDefinitionMap } from '@hotwired/stimulus/dist/types/core/value_pro
 import merge from 'deepmerge';
 import ChangeCase from 'editorjs-change-case';
 import DragDrop from 'editorjs-drag-drop';
-import edjsHTML from 'editorjs-html';
 import FontSize from 'editorjs-inline-font-size-tool';
 import ColorPlugin from 'editorjs-text-color-plugin';
 import Undo from 'editorjs-undo';
@@ -88,10 +87,6 @@ export default class EditorController extends Controller<HTMLElement> {
     const savedData = await this.editor.save();
 
     this.inputTarget.value = JSON.stringify(savedData);
-  }
-
-  jsonToHtml(value: OutputData): string {
-    return edjsHTML().parse(value).reduce((acc, curr) => acc + curr, '');
   }
 
   get defaultOptions(): EditorConfig {

@@ -144,7 +144,7 @@ final class EditorType extends AbstractType
         $view->vars['options'] = [
             'autofocus' => $options['autofocus'],
             'hideToolbar' => $options['hide_toolbar'],
-            'readonly' => $options['required'],
+            'readOnly' => $options['disabled'],
             'placeholder' => $this->translator->trans($options['placeholder'], $options['placeholder_params'], $options['translation_domain']),
             'i18n' => [
                 'direction' => $options['direction'],

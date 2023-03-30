@@ -14,13 +14,14 @@ final class HomepageController extends AbstractController
     public function index(Request $request): Response
     {
         $form = $this->createForm(BlockType::class)->handleRequest($request);
+        $data = null;
 
         if ($form->isSubmitted()) {
-            dd($form->get('editor')->getData());
+            $data = 'hi';
         }
 
         return $this->render('homepage/index.html.twig', [
             'form' => $form,
-        ]);
+        ], new Response(status: $data ? 401 : 200));
     }
 }
