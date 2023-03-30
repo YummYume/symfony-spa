@@ -133,7 +133,7 @@
         data-editor-options-value="{{ options|json_encode() }}"
 
     >
-        <div data-editor-target="editor"></div>
+        <div class="editor" data-editor-target="editor"></div>
         <input id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="{{ form.vars.value }}" data-editor-target="input" type="hidden" />
     </div>
 {% endblock %}

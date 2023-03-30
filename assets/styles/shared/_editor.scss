@@ -1,35 +1,39 @@
-.cdx-block {
-    @apply dark:text-white;
-}
+.editor {
+    @apply p-4 prose rounded shadow-lg dark:bg-gray-800;
 
-.cdx-input {
-    @apply dark:border-white dark:text-white;
-}
-
-.ce-block {
-    &--selected &__content {
-        @apply dark:bg-gray-700;
+    ::selection {
+        @apply bg-primary-400;
     }
 }
 
-.ce-toolbar {
-    &__plus:not(:hover) {
+.cdx {
+    &-block {
         @apply dark:text-white;
     }
 
-    &__settings-btn:not(:hover) {
-        @apply dark:text-white;
+    &-input {
+        @apply dark:border-white dark:text-white;
     }
 }
 
-.ce-popover__items {
-    @apply dark:text-black;
-}
+.ce {
+    &-block {
+        &--selected &__content {
+            @apply dark:bg-gray-700;
+        }
+    }
 
-.ce-inline-toolbar {
-    @apply dark:text-black;
-}
+    &-header {
+        @apply dark:text-white;
+    }
 
-::selection {
-    @apply dark:bg-gray-700;
+    &-toolbar {
+        &__plus:not(:hover), &__settings-btn:not(:hover) {
+            @apply dark:text-white;
+        }
+    }
+
+    &-popover__items, &-inline-toolbar {
+        @apply dark:text-black;
+    }
 }
