@@ -1,40 +1,99 @@
-// .ts-wrapper {
-//     @apply ml-0 w-full;
-// }
+.dropdown-active .ts-control {
+    @apply rounded-lg #{!important};
+}
 
-// .ts-control {
-//     @apply rounded-lg
-//     border-gray-300
-//     bg-white
-//     py-2
-//     px-3
-//     text-base
-//     shadow-sm;
+.full .ts-control {
+    background-color: unset !important;
+}
 
-//     /* Add caret https://github.com/orchidjs/tom-select/discussions/384 */
-//     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-//     background-position: right 0.5rem center;
-//     background-repeat: no-repeat;
-//     background-size: 1.5em 1.5em;
-// }
+.ts {
+    &-wrapper {
+        @apply text-gray-900 bg-gray-50 rounded-lg text-sm block w-full p-2.5 border border-gray-300 focus:z-10 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 #{!important};
 
-// .ts-dropdown {
-//     @apply rounded-md border border-t border-solid border-gray-300 text-base;
-// }
+        &.single {
+            .ts {
+                &-control {
+                    @apply shadow-none dark:border-white dark:border-opacity-20 #{!important};
+                    border: 1px solid #d0d0d0 !important;
 
-// .ts-dropdown [data-selectable].option:first-child {
-//     @apply rounded-t-lg;
-// }
+                    // background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+                    background-position: right 0.5rem center !important;
+                    background-repeat: no-repeat !important;
+                    background-size: 1.5em !important;
+                }
 
-// .ts-dropdown [data-selectable].option:last-child {
-//     @apply rounded-b-lg;
-// }
+                &-dropdown {
+                    @apply border-none #{!important};
+                }
 
-// .ts-dropdown .create:hover,
-// .ts-dropdown .option:hover {
-//     @apply bg-sky-50 text-sky-900;
-// }
+                &-dropdown-content {
+                    [data-selectable].option {
+                        &.active {
+                            @apply #{!important};
+                        }
 
-// .ts-dropdown .active {
-//     @apply bg-gray-100 text-gray-900;
-// }
+                        &:first-child {
+                            @apply rounded-t-lg #{!important};
+                        }
+
+                        &:last-child {
+                            @apply rounded-b-lg #{!important};
+                        }
+                    }
+                }
+            }
+        }
+
+        &.multi .ts-control [data-value] {
+            @apply bg-primary-500 rounded-full border-none pl-3 pr-1 #{!important};
+            background-image: none !important;
+        }
+
+        &.plugin-remove_button {
+            &:not(.rtl) .item .remove {
+                @apply border-l-0 #{!important};
+            }
+
+            .item .remove:hover {
+                @apply bg-transparent #{!important};
+            }
+        }
+    }
+
+    &-control {
+        @apply bg-transparent border-none shadow-none text-base #{!important};
+
+        // background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+        background-position: right 0.5rem center !important;
+        background-repeat: no-repeat !important;
+        background-size: 1.5em !important;
+
+        input {
+            @apply dark:text-white;
+        }
+    }
+
+    &-dropdown {
+    @apply bg-transparent rounded-md border-none text-base #{!important};
+
+        [data-selectable].option {
+            @apply dark:bg-gray-700 dark:text-white;
+
+            &:first-child {
+                @apply rounded-t-lg #{!important};
+            }
+
+            &:last-child {
+                @apply rounded-b-lg #{!important};
+            }
+        }
+
+        .active {
+            @apply dark:bg-gray-600 #{!important};
+        }
+
+        .no-results {
+            @apply dark:text-white;
+        }
+    }
+}
