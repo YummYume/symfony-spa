@@ -13,12 +13,12 @@
 {% endblock %}
 
 {% block main_body %}
-    <div class="shadow-xl">
-        <figure class="min-w-[12.5rem]">
+    <div class="flex h-40 rounded-xl shadow-xl">
+        <figure class="flex items-center min-w-[12.5rem]">
             {{ component("avatar", { user: profile.user, small: false }) }}
         </figure>
-        <div class="card-body">
-            <h2 class="card-title">
+        <div class="p-8">
+            <h2 class="">
                 {{ profile.username }}
             </h2>
             <p>

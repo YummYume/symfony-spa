@@ -24,7 +24,7 @@ final class MenuBuilder
     public function createBackOffice(array $options): ItemInterface
     {
         $menu = $this->factory->createItem('back_office', [
-            'childrenAttributes' => ['class' => 'flex gap-3 mx-auto p-2 rounded-lg shadow-md w-fit md:flex-col md:mx-0'],
+            'childrenAttributes' => ['class' => 'flex gap-3 mx-auto p-2 rounded-lg w-fit md:flex-col md:mx-0'],
         ]);
 
         $menu->addChild('back_office.home', [
