@@ -26,8 +26,6 @@
 
 .ce {
     &-block {
-        @apply pl-[50px];
-
         &--selected &__content {
             @apply dark:bg-gray-700;
         }
@@ -38,12 +36,20 @@
     }
 
     &-toolbar {
-        &__plus:not(:hover), &__settings-btn:not(:hover) {
-            @apply dark:text-white;
+        &__plus, &__settings-btn {
+            @apply dark:text-black;
         }
     }
 
     &-popover__items, &-inline-toolbar {
         @apply dark:text-black;
+    }
+
+    @media (min-width: 651px) {
+        &-toolbar {
+            &__plus, &__settings-btn {
+                @apply dark:text-white dark:hover:text-black;
+            }
+        }
     }
 }
