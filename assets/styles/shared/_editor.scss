@@ -6,6 +6,10 @@
     }
 }
 
+.codex-editor__redactor {
+    @apply min-h-[300px] pb-0 #{!important};
+}
+
 .cdx {
     &-block {
         @apply dark:text-white;
