@@ -24,4 +24,14 @@
             <a href="{{ path("app_register") }}">{{ component("button", { content: "common.register"|trans }) }}</a>
         {% endif %}
     </section>
+
+    {{ form_start(form) }}
+    {{ form_row(form.editor) }}
+    <button type="submit">Submit</button>
+    {{ form_end(form) }}
+
+    <div {{ stimulus_controller("editor-parser") }} data-editor-parser-data-value="{{ form.editor.vars.data }}" class="prose my-4">
+        <div class="cdx-loader min-h-[300px]" data-editor-parser-target="loading"></div>
+        <div class="prose" data-editor-parser-target="content"></div>
+    </div>
 {% endblock %}

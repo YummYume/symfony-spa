@@ -1,52 +1,70 @@
 {% if pageCount > 1 %}
-    <div class="btn-group mx-auto">
-        {% if first is defined and current != first %}
-            <a class="btn !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
-                data-turbo-frame="table_crud"
-                href="{{ path(route, query|merge({ (pageParameterName): first })) }}"
-                aria-label="{{ "common.first_page"|trans({ number: first }) }}">
-                {% include "icon/chevron_double_left.html.twig" %}
-            </a>
-        {% endif %}
-
-        {% if previous is defined %}
-            <a class="btn rounded-none !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
-                data-turbo-frame="table_crud"
-                href="{{ path(route, query|merge({ (pageParameterName): previous })) }}"
-                aria-label="{{ "common.previous_page"|trans({ number: previous }) }}">
-                {% include "icon/chevron_left.html.twig" %}
-            </a>
-        {% endif %}
-
-        {% for page in pagesInRange %}
-            {% if page != current %}
-                <a class="btn rounded-none !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
-                    data-turbo-frame="table_crud"
-                    href="{{ path(route, query|merge({ (pageParameterName): page })) }}"
-                    aria-label="{{ "common.page_number"|trans({ number: page }) }}">
-                    {{ page }}
-                </a>
-            {% else %}
-                <span class="btn btn-active rounded-none" aria-label="{{ "common.current_page"|trans({ number: page }) }}">{{ page }}</span>
+    <nav class="inline-flex items-center -space-x-px mx-auto">
+        <ul class="inline-flex items-center -space-x-px">
+            {% if first is defined and current != first %}
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        data-turbo-frame="table_crud"
+                        href="{{ path(route, query|merge({ (pageParameterName): first })) }}"
+                        aria-label="{{ "common.first_page"|trans({ number: first }) }}"
+                    >
+                        {{ component('icon', { icon: 'chevron_double_left', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
             {% endif %}
-        {% endfor %}
 
-        {% if next is defined %}
-            <a class="btn rounded-none !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
-                data-turbo-frame="table_crud"
-                href="{{ path(route, query|merge({ (pageParameterName): next })) }}"
-                aria-label="{{ "common.next_page"|trans({ number: next }) }}">
-                {% include "icon/chevron_right.html.twig" %}
-            </a>
-        {% endif %}
+            {% if previous is defined %}
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        data-turbo-frame="table_crud"
+                        href="{{ path(route, query|merge({ (pageParameterName): previous })) }}"
+                        aria-label="{{ "common.previous_page"|trans({ number: previous }) }}"
+                    >
+                        {{ component('icon', { icon: 'chevron_left', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
+            {% endif %}
 
-        {% if last is defined and current != last %}
-            <a class="btn !border-base-300 !bg-base-300 text-base-content hover:opacity-25"
-                data-turbo-frame="table_crud"
-                href="{{ path(route, query|merge({ (pageParameterName): last })) }}"
-                aria-label="{{ "common.last_page"|trans({ number: last }) }}">
-                {% include "icon/chevron_double_right.html.twig" %}
-            </a>
-        {% endif %}
-    </div>
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <li>
+                        <a class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            data-turbo-frame="table_crud"
+                            href="{{ path(route, query|merge({ (pageParameterName): page })) }}"
+                            aria-label="{{ "common.page_number"|trans({ number: page }) }}"
+                        >
+                            {{ page }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <span class="px-3 py-2 leading-tight border border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" aria-label="{{ "common.current_page"|trans({ number: page }) }}">{{ page }}</span>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if next is defined %}
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        data-turbo-frame="table_crud"
+                        href="{{ path(route, query|merge({ (pageParameterName): next })) }}"
+                        aria-label="{{ "common.next_page"|trans({ number: next }) }}"
+                    >
+                        {{ component('icon', { icon: 'chevron_right', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if last is defined and current != last %}
+                <li>
+                    <a class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        data-turbo-frame="table_crud"
+                        href="{{ path(route, query|merge({ (pageParameterName): last })) }}"
+                        aria-label="{{ "common.last_page"|trans({ number: last }) }}">
+                        {{ component('icon', { icon: 'chevron_double_right', class: 'h-5 w-5' }) }}
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endif %}

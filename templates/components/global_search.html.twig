@@ -1,30 +1,36 @@
 {% trans_default_domain "components" %}
 
 <div {{ attributes }}>
-    <div class="flex flex-col gap-2">
-        <input type="search"
-            name="q"
-            placeholder="{{ "global_search.search"|trans }}..."
-            class="input-bordered input w-full"
-            aria-label="{{ "global_search.search"|trans }}"
-            data-model="debounce(200)|query"
-            value="{{ query }}"
-            data-class-modal-target="initialFocus" />
+    <div class="flex flex-col gap-2 dark:text-gray-300">
+        <div class="relative">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+            </div>
+            <input
+                aria-label="{{ "global_search.search"|trans }}"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                data-model="debounce(200)|query"
+                name="q"
+                placeholder="{{ "global_search.search"|trans }}..."
+                value="{{ query }}"
+                type="search"
+                data-modal-target="focus"
+            />
+        </div>
+
         {% if computed.searchResult is not null %}
             {% if computed.searchResult is not empty %}
                 {% for name, config in computed.searchResult %}
-                    <section class="my-2">
-                        <h2 class="text-4xl">
-                            {{ ("global_search.#{name}")|trans }}
-                        </h2>
-
-                        <div class="m-2">
+                    <section>
+                        <h2 class="text-4xl">{{ "global_search.#{name}"|trans }}</h2>
+                        <div>
                             {% for hit in config.results.hits %}
                                 {% set formatted = hit._formatted %}
+
                                 <div class="mb-2 flex flex-col">
                                     <a
+                                        class="text-lg transition-all max-w-fit"
                                         href="{{ path(config.route, {}|merge(config.routeParam|reduce((acc, curr) => acc|merge({ (curr): formatted[config.slugProperty[curr]] }), {}))) }}"
-                                        class="link-primary link-hover link text-lg transition-all max-w-fit"
                                     >
                                         {{ formatted[config.nameProperty]|sanitize_html("app.highlight_sanitizer") }}
                                     </a>
@@ -34,7 +40,9 @@
                                 </div>
                             {% endfor %}
 
-                            <a class="link" href="{{ path("app_search", { q: config.results.query, t: name }) }}">{{ "global_search.#{name}.more"|trans }}</a>
+                            <a href="{{ path("app_search", { q: config.results.query, t: name }) }}">
+                                {{ "global_search.#{name}.more"|trans }}
+                            </a>
                         </div>
                     </section>
                 {% endfor %}
@@ -43,18 +51,13 @@
 
                 <small>{{ "global_search.total_search_time"|trans({ time: totalSearchTime }) }}</small>
             {% else %}
-                <p class="my-2">
-                    {{ "global_search.no_result"|trans }}
-                </p>
+                <p>{{ "global_search.no_result"|trans }}</p>
             {% endif %}
         {% else %}
-            <p class="mt-2">
-                {{ "global_search.type_to_search"|trans }}
-            </p>
+            <p>{{ "global_search.type_to_search"|trans }}</p>
+
             {% if app.user %}
-                <p>
-                    {{ "global_search.search_username"|trans({ username: app.user.profile.username }) }}
-                </p>
+                <p>{{ "global_search.search_username"|trans({ username: app.user.profile.username }) }}</p>
             {% endif %}
         {% endif %}
     </div>

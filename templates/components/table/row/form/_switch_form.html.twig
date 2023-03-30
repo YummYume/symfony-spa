@@ -7,14 +7,17 @@
     {{ stimulus_controller("submit") }}
     {% if config.col.extras.id|default(false) %}id="{{ table_parse_option(config.col.extras.id, config.item) }}"{% endif %}
 >
-    <input
-        name=" {{ config.col.extras.name|default('_checkbox') }}"
-        type="checkbox"
-        class="toggle-success toggle"
-        {{ config.value ? "checked" : "" }}
-        value="{{ config.value ? "off" : "on" }}"
-        {% if config.col.extras.submitOnChange|default(false) %}data-action="change->submit#submit"{% endif %}
-    />
+    <label class="relative inline-flex items-center cursor-pointer" aria-label="Yes">
+        <input
+            name=" {{ config.col.extras.name|default('_checkbox') }}"
+            type="checkbox"
+            {{ config.value ? "checked" : "" }}
+            value="{{ config.value ? "off" : "on" }}"
+            class="sr-only peer"
+            {% if config.col.extras.submitOnChange|default(false) %}data-action="change->submit#submit"{% endif %}
+        />
+        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+    </label>
     {% if config.col.extras.csrfToken|default(false) %}
         <input type="hidden" name="_token" value="{{ table_parse_option(config.col.extras.csrfToken, config.item) }}" />
     {% endif %}

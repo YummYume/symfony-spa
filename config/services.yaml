@@ -14,7 +14,7 @@ parameters:
     app.blur_default_fallback: '%env(BLUR_DEFAULT_FALLBACK)%'
     app.no_picture_fallback: '%env(NO_PICTURE_FALLBACK)%'
     knp_menu.renderer.twig.options:
-        currentClass: bg-primary rounded-lg text-white
+        currentClass: bg-primary-700 flex font-medium rounded-lg text-sm text-white px-5 py-2.5
 
 services:
     # default configuration for services in *this* file

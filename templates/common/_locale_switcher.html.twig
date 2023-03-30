@@ -1,11 +1,28 @@
-{% component dropdown %}
-{% block button %}
-    {{ component("button", { content: app.request.locale|locale_name(app.request.locale)|title }) }}
-{% endblock %}
+<div data-controller="dropdown tooltip">
+    <button class="inline-flex cursor-pointer justify-center rounded p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+        data-dropdown-target="trigger"
+        data-tooltip-target="trigger"
+        type="button">
+        {{ component("icon", { icon: "flags/" ~ app.request.locale, class: "h-5 w-5 mt-0.5" }) }}
+    </button>
 
-{% block items %}
-    {% for locale in enabled_locales %}
-        <li><a href="{{ path(app.current_route ?? "app_homepage", (app.current_route_parameters ?? [])|merge({ _locale: locale })) }}">{{ locale|locale_name(app.request.locale)|title }}</a></li>
-    {% endfor %}
-{% endblock %}
-{% endcomponent %}
+    {{ component("tooltip", { text: "common.switch_language"|trans }) }}
+
+    <div class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded bg-white text-base shadow dark:bg-gray-700" data-dropdown-target="dropdown">
+        <ul class="py-1" role="none">
+            {% for locale in enabled_locales %}
+                <li>
+                    <a data-turbo="false"
+                        class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                        href="{{ path(app.current_route ?? "app_homepage", (app.current_route_parameters ?? [])|merge({ _locale: locale })) }}"
+                        role="menuitem">
+                        <div class="inline-flex items-center">
+                            {{ component("icon", { icon: "flags/" ~ locale, class: "h-3.5 w-3.5 mr-2" }) }}
+                            {{ locale|locale_name(app.request.locale)|title }}
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -4,56 +4,82 @@
     {{ "page.login.title"|trans }}
 {% endblock %}
 
-{% block main_title %}
-    {{ "page.login.title"|trans }}
-{% endblock %}
-
 {% block main_body %}
-    <form method="post" class="mx-auto flex max-w-xs grow flex-col justify-center">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />
-        <div class="flex flex-col">
-            {% if error %}
-                <div class="alert alert-error mt-8 max-w-xs" role="alert">
-                    {{ error.messageKey|trans(error.messageData, "security") }}
-                </div>
-            {% endif %}
+    <section>
+        <div class="mx-auto flex flex-col items-center px-6 py-8 lg:py-0">
+            <a href="#" class="mb-6 flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="mr-2 h-8 w-8" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+                Flowbite
+            </a>
+            <div class="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
+                <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
+                        Sign in to your account
+                    </h1>
+                    <form method="post" class="space-y-4 md:space-y-6">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />
 
-            <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-6">
-                    <div class="form-control">
-                        <label for="inputEmail" class="label"><span class="label-text">{{ "user.email"|trans }}</span></label>
-                        <input type="email" value="{{ last_username }}" name="_email" id="inputEmail" class="input-bordered input w-80 max-w-xs" autocomplete="email" required autofocus />
-                    </div>
-                    <div class="form-control">
-                        <label for="inputPassword" class="label"><span class="label-text">{{ "user.password"|trans }}</span></label>
-                        <div class="input-group" {{ stimulus_controller("password-visibility") }}>
-                            <input type="password"
-                                name="_password"
-                                id="inputPassword"
-                                class="input-bordered input w-80 max-w-xs"
-                                autocomplete="current-password"
+                        {% if error %}
+                            <div class="mt-8 max-w-xs" role="alert">
+                                {{ error.messageKey|trans(error.messageData, "security") }}
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            <label for="inputEmail" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">{{ "user.email"|trans }}</label>
+                            <input type="email"
+                                value="{{ last_username }}"
+                                name="_email"
+                                id="inputEmail"
+                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                                autocomplete="email"
                                 required
-                                data-password-visibility-target="input"
-                                spellcheck="false" />
-                            <button class="btn-square btn rounded-r-lg" type="button" data-action="password-visibility#toggle" aria-label="{{ "common.show_password"|trans }}">
-                                {% include "icon/eye.html.twig" only %}
-                                {% include "icon/eye_slash.html.twig" with { class: "hidden" } only %}
-                            </button>
+                                autofocus />
                         </div>
-                    </div>
-                    <a class="link-secondary link" href="{{ path("app_forgot_password_request") }}">{{ "page.login.forgot_password"|trans }}</a>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="form-control">
-                        <label class="label w-fit cursor-pointer gap-2">
-                            <input type="checkbox" name="_remember_me" class="checkbox-primary checkbox" />
-                            <span class="label-text">{{ "page.login.remember_me"|trans }}</span>
-                        </label>
-                    </div>
-                    {{ component("button", { content: "common.login"|trans, submit: true }) }}
+                        <div>
+                            <label for="inputPassword" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"><span class="label-text">{{ "user.password"|trans }}</span></label>
+                            <div class="input-group relative" {{ stimulus_controller("password-visibility") }}>
+                                <input type="password"
+                                    autocomplete="current-password"
+                                    data-password-visibility-target="input"
+                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                                    id="inputPassword"
+                                    name="_password"
+                                    placeholder="••••••••"
+                                    required
+                                    spellcheck="false" />
+                                <button aria-label="{{ "common.show_password"|trans }}"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
+                                    data-action="password-visibility#toggle"
+                                    type="button">
+                                    {{ component("icon", { icon: "eye", class: "h-5 w-5" }) }}
+                                    {{ component("icon", { icon: "eye_slash", class: "h-5 w-5 hidden" }) }}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-start">
+                                <label class="flex h-5 cursor-pointer items-center">
+                                    <input type="checkbox"
+                                        name="_remember_me"
+                                        class="focus:ring-3 h-4 w-4 cursor-pointer rounded border border-gray-300 bg-gray-50 focus:ring-primary-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
+                                    <span class="ml-3 text-sm text-gray-500 dark:text-gray-300">{{ "page.login.remember_me"|trans }}</span>
+                                </label>
+                            </div>
+                            <a href="{{ path("app_forgot_password_request") }}" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                                {{ "page.login.forgot_password"|trans }}
+                            </a>
+                        </div>
+
+                        {{ component("button", { content: "page.login.title"|trans, submit: true }) }}
+
+                        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            {{ "page.login.no_account"|trans }}
+                            <a href="{{ path("app_register") }}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">{{ "common.register"|trans }}</a>
+                        </p>
+                    </form>
                 </div>
             </div>
         </div>
-        <a class="link-secondary link mt-5 block text-center" href="{{ path("app_register") }}">{{ "page.login.no_account"|trans }}</a>
-    </form>
+    </section>
 {% endblock %}

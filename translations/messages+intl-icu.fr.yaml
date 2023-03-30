@@ -27,6 +27,7 @@ common.last_page: Dernière page ({ number })
 common.show_password: Afficher/masquer le mot de passe
 common.menu: Menu
 common.no_script_message: Il semble que Javascript ne soit pas activé dans votre navigateur. Vous pourriez rencontrer des problèmes lors de la navigation.
+common.switch_language: Changer de langue
 
 # Icons
 icon.eye: Afficher
@@ -86,7 +87,7 @@ page.login.title: Connexion
 page.login.description: Connectez-vous avec votre compte à MyApp.
 page.login.forgot_password: Mot de passe oublié ?
 page.login.remember_me: Se souvenir de moi
-page.login.no_account: Pas encore de compte ? Cliquez ici pour vous enregistrer.
+page.login.no_account: Pas encore de compte ?
 
 # Edit profile
 page.edit_profile.title: Paramètres du compte
@@ -169,3 +170,37 @@ reset_password_request.repeat_password: Répétez votre mot de passe
 ## Components
 # Deletion prompt modal
 component.deletion_prompt_modal.label: Pour continuer, tapez "{ prompt }".
+
+# Forms
+## Editor
+### Ui
+form.editor.ui.block_tunes.text_variant.call_out: Appel
+form.editor.ui.block_tunes.text_variant.citation: Citation
+form.editor.ui.block_tunes.text_variant.details: Détails
+form.editor.ui.block_tunes.toggler.click_to_tune: Cliquer pour customiser ou déplacer
+form.editor.ui.inline_toolbar.converter.convert_to: Convertir vers
+form.editor.ui.toolbar.toolbox.add: Ajouter
+
+### Tool names
+form.editor.tool_names.text: Texte
+form.editor.tool_names.warning: Avertissement
+form.editor.tool_names.quote: Citation
+form.editor.tool_names.list: Liste
+form.editor.tool_names.simple_image: Image
+form.editor.tool_names.color: Couleur
+form.editor.tool_names.underline: Souligner
+form.editor.tool_names.heading: En-tête
+form.editor.tool_names.delimiter: Délimiteur
+form.editor.tool_names.bold: Gras
+form.editor.tool_names.italic: Italique
+form.editor.tool_names.link: Lien
+form.editor.tool_names.change_case: Changer la casse
+form.editor.tool_names.font_size: Taille de la police
+
+### Tools
+form.editor.tools.link.add_a_link: Ajouter un lien
+form.editor.tools.quote.config.quote_placeholder: Entrez une citation
+form.editor.tools.quote.config.caption_placeholder: Auteur de la citation
+
+### Other
+form.editor.placeholder: Racontez-nous vos meilleures histoires...

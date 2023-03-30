@@ -6,20 +6,20 @@
         title: "page.user_delete.title"|trans,
         modalId: "delete-user-modal",
         openButtonText: "common.delete"|trans,
-        openButtonClass: "btn-error btn-ghost btn-outline",
+        openButtonClass: "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
         closeButtonText: "common.go_back"|trans,
-        closeButtonClass: "btn-primary"
+        closeButtonClass: "focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
     }
 %}
 {% trans_default_domain "admin" %}
 
 {% block content %}
-    {{ "page.user_delete.content"|trans }} <strong class="text-error">{{ "common.delete.cannot_be_undone"|trans }}</strong>
+    {{ "page.user_delete.content"|trans }} <strong class="text-red-600">{{ "common.delete.cannot_be_undone"|trans }}</strong>
 {% endblock %}
 
 {% block modal_action %}
     {{ parent() }}
-    {{ component("button", { id: "delete-user", content: "common.delete"|trans, submit: true, variant: "error" }) }}
+    {{ component("button", { id: "delete-user", content: "common.delete"|trans, submit: true, class: "bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" }) }}
 {% endblock %}
 
 {% block modal_box %}

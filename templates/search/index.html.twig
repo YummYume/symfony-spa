@@ -15,20 +15,24 @@
 {% block main_body %}
     <form action="{{ path("app_search") }}" method="get" class="form-control" data-turbo-frame="search-results" {{ stimulus_controller("search") }}>
         <div class="input-group">
-            <input value="{{ search.query ?? "" }}"
-                type="text"
-                name="q"
-                placeholder="{{ "common.search"|trans }}..."
-                class="input-bordered input w-full"
-                aria-label="{{ "common.search"|trans }}"
-                data-action="input->search#submit" />
-
-            {{ component("button", { icon: "search", square: true, submit: true, ariaLabel: "common.global_search"|trans }) }}
+            <div class="relative">
+                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </div>
+                <input
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    data-action="input->search#submit"
+                    name="q"
+                    placeholder="{{ "global_search.search"|trans }}..."
+                    value="{{ search.query ?? "" }}"
+                    type="search"
+                />
+            </div>
         </div>
 
         <turbo-frame data-turbo-action="advance" id="search-results" class="relative">
             {% if search %}
-                <span class="label-text-alt absolute top-1 left-1">{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
+                <span>{{ "page.search.result_time"|trans({ hits: search.totalHits, time: search.processingTimeMs }) }}</span>
             {% endif %}
 
             <div class="mt-8 flex flex-col-reverse gap-5 md:flex-row">
@@ -41,33 +45,26 @@
                                     href="{{ path(attributes.route, {}|merge(attributes.routeParam|reduce((acc, curr) => acc|merge({ (curr): formatted[attributes.slugProperty[curr]] }), {}))) }}"
                                     data-turbo-frame="_top"
                                 >
-                                    <div class="card bg-base-200 shadow-lg transition-all hover:-translate-y-1 hover:bg-base-300 hover:shadow-xl">
-                                        <div class="card-body">
-                                            <h2 class="card-title gap-0">
-                                                {{ formatted[attributes.nameProperty]|sanitize_html("app.highlight_sanitizer") }}
-                                            </h2>
-                                            <p>
-                                                {{ (formatted[attributes.descProperty] ?? "")|sanitize_html("app.highlight_sanitizer") }}
-                                            </p>
-                                        </div>
+                                    <div class="shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl">
+                                        <h2>
+                                            {{ formatted[attributes.nameProperty]|sanitize_html("app.highlight_sanitizer") }}
+                                        </h2>
+                                        <p>
+                                            {{ (formatted[attributes.descProperty] ?? "")|sanitize_html("app.highlight_sanitizer") }}
+                                        </p>
                                     </div>
                                 </a>
                             {% else %}
-                                <p>
-                                    {{ "page.search.no_result"|trans }}
-                                </p>
+                                <p>{{ "page.search.no_result"|trans }}</p>
                             {% endfor %}
 
                             {{ component("pagination", { path: { pageParam: "p", params: { q: search.query, t: type }, route: "app_search" }, page: search.page, pages: search.totalPages }) }}
                         </div>
                     {% else %}
-                        <p>
-                            {{ "page.search.type_to_search"|trans }}
-                        </p>
+                        <p>{{ "page.search.type_to_search"|trans }}</p>
+
                         {% if app.user %}
-                            <p>
-                                {{ "page.search.search_username"|trans({ username: app.user.profile.username }) }}
-                            </p>
+                            <p>{{ "page.search.search_username"|trans({ username: app.user.profile.username }) }}</p>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -77,7 +74,6 @@
                     {{ knp_menu_render(menuItem, { currentAsLink: false, template: knp_custom_menu }) }}
                 </nav>
             </div>
-
             <input type="hidden" name="t" value="{{ type }}" />
         </turbo-frame>
     </form>

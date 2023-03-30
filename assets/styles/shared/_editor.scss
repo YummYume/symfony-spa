@@ -1,0 +1,55 @@
+.editor {
+    @apply p-4 prose rounded shadow-lg dark:bg-gray-800;
+
+    ::selection {
+        @apply bg-primary-400;
+    }
+}
+
+.prose {
+    @apply dark:text-white;
+}
+
+.codex-editor__redactor {
+    @apply min-h-[300px] pb-0 #{!important};
+}
+
+.cdx {
+    &-block {
+        @apply dark:text-white;
+    }
+
+    &-input {
+        @apply dark:border-white dark:text-white;
+    }
+}
+
+.ce {
+    &-block {
+        &--selected &__content {
+            @apply dark:bg-gray-700;
+        }
+    }
+
+    &-header {
+        @apply dark:text-white;
+    }
+
+    &-toolbar {
+        &__plus, &__settings-btn {
+            @apply dark:text-black;
+        }
+    }
+
+    &-popover__items, &-inline-toolbar {
+        @apply dark:text-black;
+    }
+
+    @media (min-width: 651px) {
+        &-toolbar {
+            &__plus, &__settings-btn {
+                @apply dark:text-white dark:hover:text-black;
+            }
+        }
+    }
+}

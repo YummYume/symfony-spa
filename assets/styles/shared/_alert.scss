@@ -1,0 +1,17 @@
+.alert {
+    &--error {
+        @apply bg-red-300 dark:bg-red-500;
+    }
+
+    &--info {
+        @apply bg-blue-300 dark:bg-blue-500;
+    }
+
+    &--success {
+        @apply bg-green-300 dark:bg-green-500;
+    }
+
+    &--warning {
+        @apply bg-yellow-300 dark:bg-yellow-500;
+    }
+}
